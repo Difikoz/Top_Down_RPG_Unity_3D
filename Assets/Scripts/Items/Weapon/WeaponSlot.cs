@@ -1,3 +1,4 @@
+using Lean.Pool;
 using UnityEngine;
 
 namespace WinterUniverse
@@ -7,8 +8,10 @@ namespace WinterUniverse
         private PawnController _pawn;
         private WeaponItemConfig _config;
         private GameObject _model;
+        private DamageCollider _damageCollider;
 
         public WeaponItemConfig Config => _config;
+        public DamageCollider DamageCollider => _damageCollider;
 
         public void Initialize()
         {
@@ -20,14 +23,15 @@ namespace WinterUniverse
             if (_config != null)
             {
                 _pawn.Status.RemoveStatModifiers(_config.Modifiers);
-                Destroy(_model);
+                LeanPool.Despawn(_model);
             }
             _config = config;
             if (_config != null)
             {
                 _pawn.Status.AddStatModifiers(_config.Modifiers);
                 // spawn model
-                // initialize Damage Collider
+                _damageCollider = GetComponentInChildren<DamageCollider>();
+                _damageCollider.Initialize(_pawn, _config.DamageTypes);
             }
         }
     }

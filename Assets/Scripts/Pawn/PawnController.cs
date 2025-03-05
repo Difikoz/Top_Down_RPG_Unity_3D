@@ -1,41 +1,30 @@
+using Lean.Pool;
 using UnityEngine;
 
 namespace WinterUniverse
 {
     public class PawnController : MonoBehaviour
     {
-        [SerializeField] private bool _autoWork;
-
+        private bool _created;
+        private PawnConfig _config;
         private PawnAnimator _animator;
         private PawnEquipment _equipment;
         private PawnInventory _inventory;
         private PawnLocomotion _locomotion;
         private PawnStatus _status;
 
+        public bool Created => _created;
+        public PawnConfig Config => _config;
         public PawnAnimator Animator => _animator;
         public PawnEquipment Equipment => _equipment;
         public PawnInventory Inventory => _inventory;
         public PawnLocomotion Locomotion => _locomotion;
         public PawnStatus Status => _status;
 
-        private void Awake()
+        public void Initialize(PawnConfig config)
         {
-            if (_autoWork)
-            {
-                Initialize();
-            }
-        }
-
-        private void Update()
-        {
-            if (_autoWork)
-            {
-                OnUpdate();
-            }
-        }
-
-        public void Initialize()
-        {
+            DeletePawn();
+            _config = config;
             CreatePawn();
             GetComponents();
             InitializeComponents();
@@ -43,11 +32,21 @@ namespace WinterUniverse
 
         private void CreatePawn()
         {
-            if (_animator != null)
+            LeanPool.Spawn(_config.Model, transform);
+        }
+
+        private void DeletePawn()
+        {
+            if (_created)
             {
-                Destroy(_animator.gameObject);// despawn model
+                _animator.ResetComponent();
+                _equipment.ResetComponent();
+                _inventory.ResetComponent();
+                _locomotion.ResetComponent();
+                _status.ResetComponent();
+                LeanPool.Despawn(_animator.gameObject);
+                _created = false;
             }
-            // spawn model
         }
 
         private void GetComponents()
@@ -66,13 +65,17 @@ namespace WinterUniverse
             _inventory.Initialize();
             _locomotion.Initialize();
             _status.Initialize();
+            _created = true;
         }
 
         public void OnUpdate()
         {
-            _animator.OnUpdate();
-            _locomotion.OnUpdate();
-            _status.OnUpdate();
+            if (_created)
+            {
+                _animator.OnUpdate();
+                _locomotion.OnUpdate();
+                _status.OnUpdate();
+            }
         }
     }
 }

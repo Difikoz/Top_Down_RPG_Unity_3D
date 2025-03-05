@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace WinterUniverse
 {
     public class PawnInventory : MonoBehaviour
     {
+        public Action<List<ItemConfig>> OnInventoryChanged;
+
         private PawnController _pawn;
         private List<ItemConfig> _items = new();
 
@@ -13,6 +16,10 @@ namespace WinterUniverse
         public void Initialize()
         {
             _pawn = GetComponent<PawnController>();
+        }
+
+        public void ResetComponent()
+        {
             _items.Clear();
         }
 
@@ -23,7 +30,7 @@ namespace WinterUniverse
                 _items.Add(config);
                 amount--;
             }
-            //OnInventoryChanged?.Invoke();
+            OnInventoryChanged?.Invoke(_items);
         }
 
         public void RemoveItem(ItemConfig config, int amount = 1)
@@ -38,7 +45,7 @@ namespace WinterUniverse
                 _items.Remove(config);
                 amount--;
             }
-            //OnInventoryChanged?.Invoke();
+            OnInventoryChanged?.Invoke(_items);
         }
 
         public int AmountOfItem(ItemConfig config)

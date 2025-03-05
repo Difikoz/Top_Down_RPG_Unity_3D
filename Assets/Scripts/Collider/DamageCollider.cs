@@ -31,16 +31,26 @@ namespace WinterUniverse
 
         private void HitTarget(PawnController target)
         {
-            foreach (DamageType dt in _damageTypes)
+            if (_owner != null)
             {
-                target.Status.ReduceHealthCurrent(dt.Damage, dt.Type, _owner);
+                foreach (DamageType dt in _damageTypes)
+                {
+                    target.Status.ReduceHealthCurrent(dt.Damage + (dt.Damage * _owner.Status.GetStat(dt.Type.DamageStat.DisplayName).CurrentValue / 100f), dt.Type, _owner);
+                }
+            }
+            else
+            {
+                foreach (DamageType dt in _damageTypes)
+                {
+                    target.Status.ReduceHealthCurrent(dt.Damage, dt.Type);
+                }
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
             PawnController target = other.GetComponentInParent<PawnController>();
-            if (target != null && target != _owner)
+            if (target != null && target != _owner && !_damagedTargets.Contains(target))
             {
                 _damagedTargets.Add(target);
                 HitTarget(target);

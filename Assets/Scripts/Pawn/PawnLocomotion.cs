@@ -4,10 +4,12 @@ using UnityEngine.AI;
 namespace WinterUniverse
 {
     [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class PawnLocomotion : MonoBehaviour
     {
         private PawnController _pawn;
         private NavMeshAgent _agent;
+        private CapsuleCollider _collider;
         private Transform _target;
         private Vector3 _destination;
         private float _remainingDistance;
@@ -27,10 +29,20 @@ namespace WinterUniverse
         {
             _pawn = GetComponent<PawnController>();
             _agent = GetComponent<NavMeshAgent>();
+            _collider = GetComponent<CapsuleCollider>();
             _agent.agentTypeID = _pawn.Animator.AgentTypeID;
             _agent.height = _pawn.Animator.Height;
             _agent.radius = _pawn.Animator.Radius;
+            _collider.height = _agent.height;
+            _collider.radius = _agent.radius;
+            _collider.center = new(0f, _agent.height / 2f, 0f);
+            _collider.isTrigger = true;
             _pawn.Status.OnStatsChanged += OnStatsChanged;
+        }
+
+        public void ResetComponent()
+        {
+            _pawn.Status.OnStatsChanged -= OnStatsChanged;
         }
 
         public void OnUpdate()

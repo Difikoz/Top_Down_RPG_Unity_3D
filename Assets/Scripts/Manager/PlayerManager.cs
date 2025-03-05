@@ -5,6 +5,8 @@ namespace WinterUniverse
 {
     public class PlayerManager : MonoBehaviour
     {
+        [SerializeField] private PawnConfig _config;
+
         private PawnController _pawn;
         private Vector2 _cursorLocalPosition;
         private Vector3 _cursorWorldPosition;
@@ -43,9 +45,8 @@ namespace WinterUniverse
 
         public void Initialize()
         {
-            _pawn = GetComponentInChildren<PawnController>();// change to spawn from default
-            _pawn.transform.SetParent(null);
-            _pawn.Initialize();
+            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);
+            _pawn.Initialize(_config);
         }
 
         public void OnUpdate()

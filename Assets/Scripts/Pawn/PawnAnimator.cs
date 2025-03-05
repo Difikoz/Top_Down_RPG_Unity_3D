@@ -30,6 +30,11 @@ namespace WinterUniverse
             _pawn.Status.OnStatsChanged += OnStatsChanged;
         }
 
+        public void ResetComponent()
+        {
+            _pawn.Status.OnStatsChanged -= OnStatsChanged;
+        }
+
         public void OnUpdate()
         {
             _animator.SetFloat("Velocity", _pawn.Locomotion.Velocity);

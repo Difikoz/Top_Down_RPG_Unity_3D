@@ -6,13 +6,14 @@ namespace WinterUniverse
     {
         private PawnController _pawn;
 
+        [SerializeField] private PawnConfig _config;
+
         public PawnController Pawn => _pawn;
 
         public void Initialize()
         {
-            _pawn = GetComponentInChildren<PawnController>();// change to spawn from default
-            _pawn.transform.SetParent(null);
-            _pawn.Initialize();
+            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);
+            _pawn.Initialize(_config);
         }
 
         public void OnUpdate()

@@ -19,12 +19,16 @@ namespace WinterUniverse
         {
             _pawn = GetComponentInParent<PawnController>();
             _weaponSlot = GetComponentInChildren<WeaponSlot>();
-            _armorSlots.Clear();
             ArmorSlot[] armorSlots = GetComponentsInChildren<ArmorSlot>();
             foreach (ArmorSlot slot in armorSlots)
             {
                 _armorSlots.Add(slot);
             }
+        }
+
+        public void ResetComponent()
+        {
+            _armorSlots.Clear();
         }
 
         public void EquipWeapon(WeaponItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)

@@ -10,6 +10,7 @@ namespace WinterUniverse
         private CameraManager _cameraManager;
         private ConfigsManager _configsManager;
         private LayerManager _layerManager;
+        private PrefabsManager _prefabsManager;
 
         public PlayerManager PlayerManager => _playerManager;
         public AIManager AIManager => _aiManager;
@@ -17,6 +18,7 @@ namespace WinterUniverse
         public CameraManager CameraManager => _cameraManager;
         public ConfigsManager ConfigsManager => _configsManager;
         public LayerManager LayerManager => _layerManager;
+        public PrefabsManager PrefabsManager => _prefabsManager;
 
         protected override void Awake()
         {
@@ -33,6 +35,7 @@ namespace WinterUniverse
             _cameraManager = GetComponentInChildren<CameraManager>();
             _configsManager = GetComponentInChildren<ConfigsManager>();
             _layerManager = GetComponentInChildren<LayerManager>();
+            _prefabsManager = GetComponentInChildren<PrefabsManager>();
         }
 
         private void InitializeComponents()

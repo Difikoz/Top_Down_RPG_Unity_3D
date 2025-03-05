@@ -16,10 +16,10 @@ namespace WinterUniverse
         public List<float> FlatModifiers => _flatModifiers;
         public List<float> MultiplierModifiers => _multiplierModifiers;
 
-        public Stat(StatConfig data)
+        public Stat(StatConfig config)
         {
-            _config = data;
-            _currentValue = 0f;
+            _config = config;
+            _currentValue = _config.BaseValue;
         }
 
         public void AddModifier(StatModifier modifier)
@@ -50,7 +50,7 @@ namespace WinterUniverse
 
         public void CalculateCurrentValue()
         {
-            float value = 0f;
+            float value = _config.BaseValue;
             foreach (float f in _flatModifiers)
             {
                 value += f;

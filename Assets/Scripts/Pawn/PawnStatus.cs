@@ -61,6 +61,11 @@ namespace WinterUniverse
             RecalculateStats();
         }
 
+        public void ResetComponent()
+        {
+
+        }
+
         private void CreateStats()
         {
             foreach (StatConfig stat in GameManager.StaticInstance.ConfigsManager.Stats)
