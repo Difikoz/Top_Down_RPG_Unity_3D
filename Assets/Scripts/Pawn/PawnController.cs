@@ -10,11 +10,13 @@ namespace WinterUniverse
         private PawnEquipment _equipment;
         private PawnInventory _inventory;
         private PawnLocomotion _locomotion;
+        private PawnStatus _status;
 
         public PawnAnimator Animator => _animator;
         public PawnEquipment Equipment => _equipment;
         public PawnInventory Inventory => _inventory;
         public PawnLocomotion Locomotion => _locomotion;
+        public PawnStatus Status => _status;
 
         private void Awake()
         {
@@ -54,6 +56,7 @@ namespace WinterUniverse
             _equipment = GetComponentInChildren<PawnEquipment>();
             _inventory = GetComponent<PawnInventory>();
             _locomotion = GetComponent<PawnLocomotion>();
+            _status = GetComponent<PawnStatus>();
         }
 
         private void InitializeComponents()
@@ -62,12 +65,14 @@ namespace WinterUniverse
             _equipment.Initialize();
             _inventory.Initialize();
             _locomotion.Initialize();
+            _status.Initialize();
         }
 
         public void OnUpdate()
         {
             _animator.OnUpdate();
             _locomotion.OnUpdate();
+            _status.OnUpdate();
         }
     }
 }
