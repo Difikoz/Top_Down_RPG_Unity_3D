@@ -4,6 +4,8 @@ namespace WinterUniverse
 {
     public class PawnController : MonoBehaviour
     {
+        [SerializeField] private bool _autoWork;
+
         private PawnAnimator _animator;
         private PawnEquipment _equipment;
         private PawnInventory _inventory;
@@ -13,6 +15,22 @@ namespace WinterUniverse
         public PawnEquipment Equipment => _equipment;
         public PawnInventory Inventory => _inventory;
         public PawnLocomotion Locomotion => _locomotion;
+
+        private void Awake()
+        {
+            if (_autoWork)
+            {
+                Initialize();
+            }
+        }
+
+        private void Update()
+        {
+            if (_autoWork)
+            {
+                OnUpdate();
+            }
+        }
 
         public void Initialize()
         {

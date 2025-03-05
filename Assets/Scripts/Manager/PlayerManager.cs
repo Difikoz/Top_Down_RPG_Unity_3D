@@ -8,6 +8,8 @@ namespace WinterUniverse
         private PawnController _pawn;
         private Vector2 _cursorLocalPosition;
         private Vector3 _cursorWorldPosition;
+        private Ray _cameraRay;
+        private RaycastHit _cameraHit;
 
         public PawnController Pawn => _pawn;
 
@@ -18,7 +20,26 @@ namespace WinterUniverse
 
         public void OnLeftClick()
         {
-            //_pawn.Locomotion.SetDestination(_cursorWorldPosition);
+            if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
+            {
+                _cursorWorldPosition = _cameraHit.point;
+                Debug.Log($"Clicked on {_cameraHit.transform.name}");
+                if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
+                {
+                    _pawn.Locomotion.SetTarget(pawn.transform);
+                }
+                else if (_cameraHit.transform.TryGetComponent(out InteractableBase interactable) && Vector3.Distance(_pawn.transform.position, interactable.PointToInteract.position) <= interactable.DistanceToInteract)
+                {
+                    if (interactable.CanInteract(_pawn))
+                    {
+                        interactable.Interact(_pawn);
+                    }
+                }
+                else
+                {
+                    _pawn.Locomotion.SetDestination(_cursorWorldPosition);
+                }
+            }
         }
 
         public void Initialize()
@@ -30,7 +51,7 @@ namespace WinterUniverse
 
         public void OnUpdate()
         {
-            // raycast to get cursor world point
+            _cameraRay = Camera.main.ScreenPointToRay(_cursorLocalPosition);
             _pawn.OnUpdate();
         }
     }

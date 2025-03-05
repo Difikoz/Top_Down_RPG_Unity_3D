@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace WinterUniverse
 {
@@ -8,8 +9,16 @@ namespace WinterUniverse
     {
         private PawnController _pawn;
         private NavMeshAgent _agent;
+        private Transform _target;
+        private Vector3 _destination;
+        private float _remainingDistance;
         private float _velocity;
+        private float _updateDestinationTime;
         private bool _reachedDestination;
+
+        [SerializeField] private float _updateDestinationCooldown = 1f;
+        [SerializeField] private bool _pickRandomPointAround;
+        [SerializeField] private float _randomPointDistance = 10f;
 
         public NavMeshAgent Agent => _agent;
         public float Velocity => _velocity;
@@ -29,21 +38,99 @@ namespace WinterUniverse
 
         public void OnUpdate()
         {
-            if (!_reachedDestination && _agent.remainingDistance < 1f)
+            if (_updateDestinationTime >= _updateDestinationCooldown)
+            {
+                if (_target != null)
+                {
+                    SetDestination(_target.position, false);
+                }
+                _updateDestinationTime = 0f;
+                if (_pickRandomPointAround)
+                {
+                    SetDestinationAroundSelf(0f, _randomPointDistance);
+                }
+            }
+            else
+            {
+                _updateDestinationTime += Time.deltaTime;
+            }
+            if (_reachedDestination && _remainingDistance > 1f)
+            {
+                StartMovement();
+            }
+            else if (!_reachedDestination && _remainingDistance < 1f)
             {
                 StopMovement();
             }
+            _remainingDistance = Vector3.Distance(transform.position, _destination);
             _velocity = _agent.velocity.magnitude / _agent.speed;
         }
 
-        public void SetDestination(Vector3 position)
+        public void SetTarget(Transform target)
         {
-            StopMovement();
+            _target = target;
+        }
+
+        public void SetDestination(Vector3 position, bool resetTarget = true)
+        {
+            if (resetTarget)
+            {
+                SetTarget(null);
+            }
             if (NavMesh.SamplePosition(position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
             {
-                _agent.SetDestination(hit.position);
-                _reachedDestination = false;
+                _destination = hit.position;
+                StartMovement();
             }
+        }
+
+        public void SetDestinationAroundPoint(Vector3 position, float minRange, float maxRange)
+        {
+            if (Random.value > 0.5f)
+            {
+                position.x += Random.Range(minRange, maxRange);
+            }
+            else
+            {
+                position.x -= Random.Range(minRange, maxRange);
+            }
+            if (Random.value > 0.5f)
+            {
+                position.z += Random.Range(minRange, maxRange);
+            }
+            else
+            {
+                position.z -= Random.Range(minRange, maxRange);
+            }
+            SetDestination(position);
+        }
+
+        public void SetDestinationAroundSelf(float minRange, float maxRange)
+        {
+            Vector3 position = transform.position;
+            if (Random.value > 0.5f)
+            {
+                position.x += Random.Range(minRange, maxRange);
+            }
+            else
+            {
+                position.x -= Random.Range(minRange, maxRange);
+            }
+            if (Random.value > 0.5f)
+            {
+                position.z += Random.Range(minRange, maxRange);
+            }
+            else
+            {
+                position.z -= Random.Range(minRange, maxRange);
+            }
+            SetDestination(position);
+        }
+
+        public void StartMovement()
+        {
+            _agent.SetDestination(_destination);
+            _reachedDestination = false;
         }
 
         public void StopMovement()

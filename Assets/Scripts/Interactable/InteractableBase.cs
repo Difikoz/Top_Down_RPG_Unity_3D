@@ -6,6 +6,11 @@ namespace WinterUniverse
     {
         [SerializeField] private bool _testInteract;
         [SerializeField] private PawnController _pawnToInteract;
+        [SerializeField] private Transform _pointToInteract;
+        [SerializeField] private float _distanceToInteract = 1f;
+
+        public Transform PointToInteract => _pointToInteract != null ? _pointToInteract : transform;
+        public float DistanceToInteract => _distanceToInteract;
 
         protected virtual void Update()
         {
