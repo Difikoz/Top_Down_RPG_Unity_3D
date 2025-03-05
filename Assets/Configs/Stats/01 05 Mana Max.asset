@@ -15,7 +15,7 @@ MonoBehaviour:
   _displayName: Mana Max
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: a31babd1205b97345ac60f2f2a90342a, type: 3}
   _baseValue: 25
   _clampMinValue: 1
   _minValue: 0

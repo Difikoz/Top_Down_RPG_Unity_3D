@@ -7,6 +7,9 @@ namespace WinterUniverse
         private HUDUI _hud;
         private StatusBarUI _statusBar;
 
+        public HUDUI HUD => _hud;
+        public StatusBarUI StatusBar => _statusBar;
+
         public void Initialize()
         {
             GetComponents();
