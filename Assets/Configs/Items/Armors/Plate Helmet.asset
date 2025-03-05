@@ -15,9 +15,13 @@ MonoBehaviour:
   _displayName: Plate Helmet
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 0}
-  _model: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 417484b4bb64b0a4c8670bd8fb9c6ab3, type: 3}
+  _model: {fileID: 2815775488515788809, guid: 15b35b9e2979491489980a0b1ed0587d, type: 3}
   _weight: 1
   _price: 100
   _armorType: {fileID: 11400000, guid: b345e3c416947674fb0f3f61aa701d89, type: 2}
-  _resistance: 5
+  _modifiers:
+  - _stat: {fileID: 11400000, guid: 4eddb38c44390b3458ceb07e64cfbd86, type: 2}
+    _modifier:
+      _type: 0
+      _value: 10

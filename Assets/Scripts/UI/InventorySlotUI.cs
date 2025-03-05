@@ -14,9 +14,9 @@ namespace WinterUniverse
         private ItemConfig _item;
         private int _amount;
 
-        public void Initialize(ItemConfig s)
+        public void Initialize(ItemConfig item)
         {
-            _item = s;
+            _item = item;
             _iconImage.sprite = _item.Icon;
             _amountText.text = $"{(_amount > 1 ? _amount : "")}";
         }

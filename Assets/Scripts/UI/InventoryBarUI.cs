@@ -11,18 +11,21 @@ namespace WinterUniverse
         [SerializeField] private GameObject _slotPrefab;
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _descriptionText;
-        [SerializeField] private WeaponSlot _weaponSlot;
+        [SerializeField] private WeaponSlotUI _weaponSlot;
         [SerializeField] private List<ArmorSlotUI> _armorSlots = new();
 
         public void Initialize()
         {
             GameManager.StaticInstance.PlayerManager.Pawn.Inventory.OnInventoryChanged += OnInventoryChanged;
+            GameManager.StaticInstance.PlayerManager.Pawn.Equipment.OnEquipmentChanged += OnEquipmentChanged;
             OnInventoryChanged();
+            OnEquipmentChanged();
         }
 
         public void ResetComponent()
         {
             GameManager.StaticInstance.PlayerManager.Pawn.Inventory.OnInventoryChanged -= OnInventoryChanged;
+            GameManager.StaticInstance.PlayerManager.Pawn.Equipment.OnEquipmentChanged -= OnEquipmentChanged;
         }
 
         private void OnInventoryChanged()
@@ -40,7 +43,11 @@ namespace WinterUniverse
 
         public void OnEquipmentChanged()
         {
-
+            _weaponSlot.Initialize(GameManager.StaticInstance.PlayerManager.Pawn.Equipment.GetWeaponInSlot());
+            foreach (ArmorSlotUI slot in _armorSlots)
+            {
+                slot.Initialize(GameManager.StaticInstance.PlayerManager.Pawn.Equipment.GetArmorInSlot(slot.Type));
+            }
         }
 
         public void ShowFullInformation(ItemConfig config)

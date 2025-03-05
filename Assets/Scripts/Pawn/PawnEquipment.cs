@@ -23,7 +23,9 @@ namespace WinterUniverse
             foreach (ArmorSlot slot in armorSlots)
             {
                 _armorSlots.Add(slot);
+                slot.Initialize();
             }
+            _weaponSlot.Initialize();
         }
 
         public void ResetComponent()
@@ -76,6 +78,11 @@ namespace WinterUniverse
             OnEquipmentChanged?.Invoke();
         }
 
+        public void UnequipArmor(ArmorTypeConfig type, bool addOldToInventory = true)
+        {
+            UnequipArmor(type.DisplayName, addOldToInventory);
+        }
+
         public void UnequipArmor(int index, bool addOldToInventory = true)
         {
             if (index >= _armorSlots.Count)
@@ -105,6 +112,23 @@ namespace WinterUniverse
             }
             slot.ChangeConfig(null);
             OnEquipmentChanged?.Invoke();
+        }
+
+        public WeaponItemConfig GetWeaponInSlot()
+        {
+            return _weaponSlot.Config;
+        }
+
+        public ArmorItemConfig GetArmorInSlot(ArmorTypeConfig type)
+        {
+            foreach (ArmorSlot slot in _armorSlots)
+            {
+                if (slot.Type == type)
+                {
+                    return slot.Config;
+                }
+            }
+            return null;
         }
     }
 }

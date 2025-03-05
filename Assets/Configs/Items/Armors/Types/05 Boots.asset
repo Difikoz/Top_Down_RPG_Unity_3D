@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd19bbd44737a314ebe8444ec03de220, type: 3}
-  m_Name: Chest
+  m_Name: 05 Boots
   m_EditorClassIdentifier: 
-  _displayName: Chest
+  _displayName: Boots
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: a31babd1205b97345ac60f2f2a90342a, type: 3}

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pointToInteract: {fileID: 0}
-  _distanceToInteract: 1
+  _distanceToInteract: 2
   _testItem: {fileID: 11400000, guid: 144d1bfdb78f64345bca2a8e713ed3e5, type: 2}
 --- !u!54 &9156789621692256382
 Rigidbody:

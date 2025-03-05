@@ -15,9 +15,13 @@ MonoBehaviour:
   _displayName: Plate Boots
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 0}
-  _model: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 417484b4bb64b0a4c8670bd8fb9c6ab3, type: 3}
+  _model: {fileID: 15397832394851633, guid: 8ff129967e9344c4a86475080fb20328, type: 3}
   _weight: 1
   _price: 100
   _armorType: {fileID: 11400000, guid: 9c2f9e0fa6f0ff34cbc7b80da5cea2ab, type: 2}
-  _resistance: 5
+  _modifiers:
+  - _stat: {fileID: 11400000, guid: 4eddb38c44390b3458ceb07e64cfbd86, type: 2}
+    _modifier:
+      _type: 0
+      _value: 10
