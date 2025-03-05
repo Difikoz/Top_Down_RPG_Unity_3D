@@ -8,6 +8,8 @@ namespace WinterUniverse
         private PawnController _pawn;
         private List<ItemConfig> _items = new();
 
+        public List<ItemConfig> Items => _items;
+
         public void Initialize()
         {
             _pawn = GetComponent<PawnController>();
