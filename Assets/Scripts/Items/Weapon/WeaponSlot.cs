@@ -6,6 +6,7 @@ namespace WinterUniverse
     {
         private PawnController _pawn;
         private WeaponItemConfig _config;
+        private GameObject _model;
 
         public WeaponItemConfig Config => _config;
 
@@ -18,14 +19,16 @@ namespace WinterUniverse
         {
             if (_config != null)
             {
-                // remove stat modifiers
+                _pawn.Status.RemoveStatModifiers(_config.Modifiers);
+                Destroy(_model);
             }
             _config = config;
             if (_config != null)
             {
-                // add stat modifiers
+                _pawn.Status.AddStatModifiers(_config.Modifiers);
+                // spawn model
+                // initialize Damage Collider
             }
-            // initialize Damage Collider
         }
     }
 }

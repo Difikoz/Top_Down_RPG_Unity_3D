@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 namespace WinterUniverse
 {
@@ -31,9 +30,7 @@ namespace WinterUniverse
             _agent.agentTypeID = _pawn.Animator.AgentTypeID;
             _agent.height = _pawn.Animator.Height;
             _agent.radius = _pawn.Animator.Radius;
-            _agent.acceleration = _pawn.Animator.Acceleration;
-            _agent.speed = _pawn.Animator.MovementSpeed;
-            _agent.angularSpeed = _pawn.Animator.RotationSpeed;
+            _pawn.Status.OnStatsChanged += OnStatsChanged;
         }
 
         public void OnUpdate()
@@ -64,6 +61,13 @@ namespace WinterUniverse
             }
             _remainingDistance = Vector3.Distance(transform.position, _destination);
             _velocity = _agent.velocity.magnitude / _agent.speed;
+        }
+
+        private void OnStatsChanged()
+        {
+            _agent.acceleration = _pawn.Animator.Acceleration * _pawn.Status.Acceleration.CurrentValue / 100f;
+            _agent.speed = _pawn.Animator.MoveSpeed * _pawn.Status.MoveSpeed.CurrentValue / 100f;
+            _agent.angularSpeed = _pawn.Animator.RotateSpeed * _pawn.Status.RotateSpeed.CurrentValue / 100f;
         }
 
         public void SetTarget(Transform target)

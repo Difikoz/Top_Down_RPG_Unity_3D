@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WinterUniverse
@@ -6,9 +7,9 @@ namespace WinterUniverse
     public class ArmorItemConfig : ItemConfig
     {
         [SerializeField] private ArmorTypeConfig _armorType;
-        [SerializeField] private float _resistance = 5f;
+        [SerializeField] private List<StatModifierCreator> _modifiers = new();
 
         public ArmorTypeConfig ArmorType => _armorType;
-        public float Resistance => _resistance;
+        public List<StatModifierCreator> Modifiers => _modifiers;
     }
 }

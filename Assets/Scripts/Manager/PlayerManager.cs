@@ -23,7 +23,6 @@ namespace WinterUniverse
             if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
             {
                 _cursorWorldPosition = _cameraHit.point;
-                Debug.Log($"Clicked on {_cameraHit.transform.name}");
                 if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
                 {
                     _pawn.Locomotion.SetTarget(pawn.transform);
