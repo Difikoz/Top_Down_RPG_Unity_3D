@@ -25,16 +25,18 @@ namespace WinterUniverse
             if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
             {
                 _cursorWorldPosition = _cameraHit.point;
-                if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
+                InteractableBase interactable = _cameraHit.transform.GetComponentInParent<InteractableBase>();
+                if (interactable != null && Vector3.Distance(_pawn.transform.position, interactable.PointToInteract.position) <= interactable.DistanceToInteract && interactable.CanInteract(_pawn))
+                {
+                    interactable.Interact(_pawn);
+                }
+                else if (_cameraHit.transform.TryGetComponent(out interactable) && Vector3.Distance(_pawn.transform.position, interactable.PointToInteract.position) <= interactable.DistanceToInteract && interactable.CanInteract(_pawn))
+                {
+                    interactable.Interact(_pawn);
+                }
+                else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
                 {
                     _pawn.Locomotion.SetTarget(pawn.transform);
-                }
-                else if (_cameraHit.transform.TryGetComponent(out InteractableBase interactable) && Vector3.Distance(_pawn.transform.position, interactable.PointToInteract.position) <= interactable.DistanceToInteract)
-                {
-                    if (interactable.CanInteract(_pawn))
-                    {
-                        interactable.Interact(_pawn);
-                    }
                 }
                 else
                 {

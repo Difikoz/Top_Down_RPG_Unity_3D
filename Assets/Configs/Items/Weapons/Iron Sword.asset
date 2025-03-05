@@ -15,9 +15,16 @@ MonoBehaviour:
   _displayName: Iron Sword
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 0}
-  _model: {fileID: 0}
+  _icon: {fileID: 21300000, guid: a31babd1205b97345ac60f2f2a90342a, type: 3}
+  _model: {fileID: 5604002562803282885, guid: 5e30f61678134864096a3d6f588e5946, type: 3}
   _weight: 1
   _price: 100
   _weaponType: {fileID: 11400000, guid: 22302b4508a45d64594292629da4e475, type: 2}
-  _modifiers: []
+  _modifiers:
+  - _stat: {fileID: 11400000, guid: 88a619463f3caca4db9815b0e7f06a93, type: 2}
+    _modifier:
+      _type: 0
+      _value: 10
+  _damageTypes:
+  - _damage: 10
+    _type: {fileID: 11400000, guid: 7d603ddacbf7d064dbcfed96d4307ff4, type: 2}

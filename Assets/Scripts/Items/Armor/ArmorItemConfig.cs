@@ -11,5 +11,10 @@ namespace WinterUniverse
 
         public ArmorTypeConfig ArmorType => _armorType;
         public List<StatModifierCreator> Modifiers => _modifiers;
+
+        public override void Use(PawnController pawn)
+        {
+            pawn.Equipment.EquipArmor(this);
+        }
     }
 }

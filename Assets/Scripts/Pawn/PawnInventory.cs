@@ -6,7 +6,7 @@ namespace WinterUniverse
 {
     public class PawnInventory : MonoBehaviour
     {
-        public Action<List<ItemConfig>> OnInventoryChanged;
+        public Action OnInventoryChanged;
 
         private PawnController _pawn;
         private List<ItemConfig> _items = new();
@@ -30,7 +30,7 @@ namespace WinterUniverse
                 _items.Add(config);
                 amount--;
             }
-            OnInventoryChanged?.Invoke(_items);
+            OnInventoryChanged?.Invoke();
         }
 
         public void RemoveItem(ItemConfig config, int amount = 1)
@@ -45,7 +45,7 @@ namespace WinterUniverse
                 _items.Remove(config);
                 amount--;
             }
-            OnInventoryChanged?.Invoke(_items);
+            OnInventoryChanged?.Invoke();
         }
 
         public int AmountOfItem(ItemConfig config)

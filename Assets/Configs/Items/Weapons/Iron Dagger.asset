@@ -15,9 +15,16 @@ MonoBehaviour:
   _displayName: Iron Dagger
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 0}
-  _model: {fileID: 0}
+  _icon: {fileID: 21300000, guid: a31babd1205b97345ac60f2f2a90342a, type: 3}
+  _model: {fileID: 5604002562803282885, guid: 6f9e0452b32385f44aff7c776e3ba847, type: 3}
   _weight: 1
   _price: 100
   _weaponType: {fileID: 11400000, guid: bb6e6f14e4296854885c63b201c62b0c, type: 2}
-  _modifiers: []
+  _modifiers:
+  - _stat: {fileID: 11400000, guid: 88a619463f3caca4db9815b0e7f06a93, type: 2}
+    _modifier:
+      _type: 0
+      _value: 10
+  _damageTypes:
+  - _damage: 10
+    _type: {fileID: 11400000, guid: 7d603ddacbf7d064dbcfed96d4307ff4, type: 2}

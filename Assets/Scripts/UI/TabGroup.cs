@@ -41,7 +41,7 @@ namespace WinterUniverse
         {
             if (_selectedTab != null)
             {
-                _selectedTab.Deselect();
+                _selectedTab.OnDeselect();
             }
             _selectedTab = button;
             _selectedTab.OnPressed();

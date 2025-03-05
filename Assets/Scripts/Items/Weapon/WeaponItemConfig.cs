@@ -13,5 +13,10 @@ namespace WinterUniverse
         public WeaponTypeConfig WeaponType => _weaponType;
         public List<StatModifierCreator> Modifiers => _modifiers;
         public List<DamageType> DamageTypes => _damageTypes;
+
+        public override void Use(PawnController pawn)
+        {
+            pawn.Equipment.EquipWeapon(this);
+        }
     }
 }

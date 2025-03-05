@@ -7,19 +7,8 @@ namespace WinterUniverse
         [SerializeField] protected bool _canInteract;
         [SerializeField] protected bool _singleUse;
         [SerializeField] protected bool _switched;
-        [SerializeField] private bool _testSwitch;
 
         protected bool _used;
-
-        protected override void Update()
-        {
-            base.Update();
-            if (_testSwitch)
-            {
-                _testSwitch = false;
-                Switch();
-            }
-        }
 
         private void Awake()
         {

@@ -29,7 +29,7 @@ namespace WinterUniverse
             if (_config != null)
             {
                 _pawn.Status.AddStatModifiers(_config.Modifiers);
-                // spawn model
+                _model = LeanPool.Spawn(_config.Model, transform);
                 _damageCollider = GetComponentInChildren<DamageCollider>();
                 _damageCollider.Initialize(_pawn, _config.DamageTypes);
             }

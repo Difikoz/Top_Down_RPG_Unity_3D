@@ -43,7 +43,7 @@ namespace WinterUniverse
 
         }
 
-        public void Deselect()
+        public void OnDeselect()
         {
 
         }

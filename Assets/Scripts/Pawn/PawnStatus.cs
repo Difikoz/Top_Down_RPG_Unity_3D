@@ -75,10 +75,6 @@ namespace WinterUniverse
             CreateStats();
             AssignStats();
             RecalculateStats();
-            // for test
-            RestoreHealthCurrent(_healthMax.CurrentValue / 2f);
-            RestoreEnergyCurrent(_energyMax.CurrentValue / 4f);
-            RestoreManaCurrent(_manaMax.CurrentValue / 3f);
         }
 
         public void ResetComponent()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    public class BasicInfoConfig : ScriptableObject
+    public abstract class BasicInfoConfig : ScriptableObject
     {
         [SerializeField] private string _displayName = "Name";
         [SerializeField] private string _description = "Description";

@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 21300000, guid: 417484b4bb64b0a4c8670bd8fb9c6ab3, type: 3}
-  _baseValue: 0.1
+  _baseValue: 1
   _clampMinValue: 1
   _minValue: 0
   _clampMaxValue: 0
