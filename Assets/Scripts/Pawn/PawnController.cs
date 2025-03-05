@@ -23,19 +23,14 @@ namespace WinterUniverse
 
         public void Initialize(PawnConfig config)
         {
-            DeletePawn();
+            ResetComponent();
             _config = config;
             CreatePawn();
             GetComponents();
             InitializeComponents();
         }
 
-        private void CreatePawn()
-        {
-            LeanPool.Spawn(_config.Model, transform);
-        }
-
-        private void DeletePawn()
+        public void ResetComponent()
         {
             if (_created)
             {
@@ -47,6 +42,11 @@ namespace WinterUniverse
                 LeanPool.Despawn(_animator.gameObject);
                 _created = false;
             }
+        }
+
+        private void CreatePawn()
+        {
+            LeanPool.Spawn(_config.Model, transform);
         }
 
         private void GetComponents()

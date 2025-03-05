@@ -20,6 +20,7 @@ namespace WinterUniverse
         [SerializeField] private float _collisionRadius = 0.25f;
         [SerializeField] private float _collisionAvoidanceSpeed = 8f;
 
+        private PawnController _player;
         private Vector2 _lookInput;
         private bool _clicked;
         private float _xRot;
@@ -51,11 +52,20 @@ namespace WinterUniverse
             _currentZoomDistance = _zoomRoot.localPosition.z;
             _requiredZoomDistance = _zoomRoot.localPosition.z;
             _collisionDefaultOffset = _collisionRoot.localPosition.z;
+            _player = GameManager.StaticInstance.PlayerManager.Pawn;
+        }
+
+        public void ResetComponent()
+        {
+            _player = null;
         }
 
         public void OnUpdate()
         {
-            transform.position = Vector3.Lerp(transform.position, GameManager.StaticInstance.PlayerManager.Pawn.transform.position, _followSpeed * Time.deltaTime);
+            if (_player != null)
+            {
+                transform.position = Vector3.Lerp(transform.position, _player.transform.position, _followSpeed * Time.deltaTime);
+            }
             if (_clicked)
             {
                 LookAround();

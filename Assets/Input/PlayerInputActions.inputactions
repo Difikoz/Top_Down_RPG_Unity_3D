@@ -232,6 +232,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleHUD",
+                    "type": "Button",
+                    "id": "ee54b940-66b2-4fae-960c-e506f63ad5a8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "PreviousTab",
                     "type": "Button",
                     "id": "34412976-e2ae-49a4-ab9a-e512071734e9",
@@ -369,6 +378,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "StatusBar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ee5183c-eae9-4a9b-bc89-ca86241a40ea",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "ToggleHUD",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

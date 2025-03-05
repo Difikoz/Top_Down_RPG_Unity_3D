@@ -6,19 +6,19 @@ namespace WinterUniverse
     {
         private PlayerManager _playerManager;
         private AIManager _aiManager;
-        private UIManager _uiManager;
         private CameraManager _cameraManager;
         private ConfigsManager _configsManager;
         private LayerManager _layerManager;
         private PrefabsManager _prefabsManager;
+        private UIManager _uiManager;
 
         public PlayerManager PlayerManager => _playerManager;
         public AIManager AIManager => _aiManager;
-        public UIManager UIManager => _uiManager;
         public CameraManager CameraManager => _cameraManager;
         public ConfigsManager ConfigsManager => _configsManager;
         public LayerManager LayerManager => _layerManager;
         public PrefabsManager PrefabsManager => _prefabsManager;
+        public UIManager UIManager => _uiManager;
 
         protected override void Awake()
         {
@@ -27,15 +27,23 @@ namespace WinterUniverse
             InitializeComponents();
         }
 
+        private void OnDestroy()
+        {
+            _uiManager.ResetComponent();
+            _cameraManager.ResetComponent();
+            _playerManager.ResetComponent();
+            _aiManager.ResetComponent();
+        }
+
         private void GetComponents()
         {
             _playerManager = GetComponentInChildren<PlayerManager>();
             _aiManager = GetComponentInChildren<AIManager>();
-            _uiManager = GetComponentInChildren<UIManager>();
             _cameraManager = GetComponentInChildren<CameraManager>();
             _configsManager = GetComponentInChildren<ConfigsManager>();
             _layerManager = GetComponentInChildren<LayerManager>();
             _prefabsManager = GetComponentInChildren<PrefabsManager>();
+            _uiManager = GetComponentInChildren<UIManager>();
         }
 
         private void InitializeComponents()
@@ -44,6 +52,7 @@ namespace WinterUniverse
             _playerManager.Initialize();
             _aiManager.Initialize();
             _cameraManager.Initialize();
+            _uiManager.Initialize();
         }
 
         private void Update()

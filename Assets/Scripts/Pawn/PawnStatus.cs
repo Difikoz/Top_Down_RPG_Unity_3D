@@ -7,6 +7,8 @@ namespace WinterUniverse
     public class PawnStatus : MonoBehaviour
     {
         public Action<float, float> OnHealthChanged;
+        public Action<float, float> OnEnergyChanged;
+        public Action<float, float> OnManaChanged;
         public Action OnStatsChanged;
 
         private PawnController _pawn;
@@ -15,8 +17,14 @@ namespace WinterUniverse
         private List<Stat> _stats = new();
 
         private float _healthCurrent;
+        private float _energyCurrent;
+        private float _manaCurrent;
         private Stat _healthMax;
         private Stat _healthRegeneration;
+        private Stat _energyMax;
+        private Stat _energyRegeneration;
+        private Stat _manaMax;
+        private Stat _manaRegeneration;
         private Stat _acceleration;
         private Stat _moveSpeed;
         private Stat _rotateSpeed;
@@ -36,8 +44,14 @@ namespace WinterUniverse
 
         public List<Stat> Stats => _stats;
         public float HealthCurrent => _healthCurrent;
+        public float EnergyCurrent => _energyCurrent;
+        public float ManaCurrent => _manaCurrent;
         public Stat HealthMax => _healthMax;
         public Stat HealthRegeneration => _healthRegeneration;
+        public Stat EnergyMax => _energyMax;
+        public Stat EnergyRegeneration => _energyRegeneration;
+        public Stat ManaMax => _manaMax;
+        public Stat ManaRegeneration => _manaRegeneration;
         public Stat Acceleration => _acceleration;
         public Stat MoveSpeed => _moveSpeed;
         public Stat RotateSpeed => _rotateSpeed;
@@ -51,6 +65,8 @@ namespace WinterUniverse
         public Stat PiercingResistance => _piercingResistance;
         public Stat BluntResistance => _bluntResistance;
         public float HealthPercent => _healthCurrent / _healthMax.CurrentValue;
+        public float EnergyPercent => _energyCurrent / _energyMax.CurrentValue;
+        public float ManaPercent => _manaCurrent / _manaMax.CurrentValue;
         public bool IsDead => _isDead;
 
         public void Initialize()
@@ -59,6 +75,10 @@ namespace WinterUniverse
             CreateStats();
             AssignStats();
             RecalculateStats();
+            // for test
+            RestoreHealthCurrent(_healthMax.CurrentValue / 2f);
+            RestoreEnergyCurrent(_energyMax.CurrentValue / 4f);
+            RestoreManaCurrent(_manaMax.CurrentValue / 3f);
         }
 
         public void ResetComponent()
@@ -85,6 +105,18 @@ namespace WinterUniverse
                         break;
                     case "Health Regeneration":
                         _healthRegeneration = s;
+                        break;
+                    case "Energy Max":
+                        _energyMax = s;
+                        break;
+                    case "Energy Regeneration":
+                        _energyRegeneration = s;
+                        break;
+                    case "Mana Max":
+                        _manaMax = s;
+                        break;
+                    case "Mana Regeneration":
+                        _manaRegeneration = s;
                         break;
                     case "Acceleration":
                         _acceleration = s;
@@ -129,7 +161,11 @@ namespace WinterUniverse
         public void RecalculateStats()
         {
             _healthCurrent = Mathf.Clamp(_healthCurrent, 0f, _healthMax.CurrentValue);
+            _energyCurrent = Mathf.Clamp(_energyCurrent, 0f, _energyMax.CurrentValue);
+            _manaCurrent = Mathf.Clamp(_manaCurrent, 0f, _manaMax.CurrentValue);
             OnHealthChanged?.Invoke(_healthCurrent, _healthMax.CurrentValue);
+            OnEnergyChanged?.Invoke(_energyCurrent, _energyMax.CurrentValue);
+            OnManaChanged?.Invoke(_manaCurrent, _manaMax.CurrentValue);
             OnStatsChanged?.Invoke();
         }
 
@@ -137,7 +173,9 @@ namespace WinterUniverse
         {
             if (_regenerationTime >= _regenerationCooldown)
             {
-                RestoreHealthCurrent(_healthRegeneration.CurrentValue / _regenerationCooldown);
+                RestoreHealthCurrent(_healthRegeneration.CurrentValue * _regenerationCooldown);
+                RestoreEnergyCurrent(_energyRegeneration.CurrentValue * _regenerationCooldown);
+                RestoreManaCurrent(_manaRegeneration.CurrentValue * _regenerationCooldown);
                 _regenerationTime = 0f;
             }
             else
@@ -187,6 +225,46 @@ namespace WinterUniverse
             OnHealthChanged?.Invoke(_healthCurrent, _healthMax.CurrentValue);
         }
 
+        public void ReduceEnergyCurrent(float value)
+        {
+            if (_isDead || value <= 0f)
+            {
+                return;
+            }
+            _energyCurrent = Mathf.Clamp(_energyCurrent - value, 0f, _energyMax.CurrentValue);
+            OnEnergyChanged?.Invoke(_energyCurrent, _energyMax.CurrentValue);
+        }
+
+        public void RestoreEnergyCurrent(float value)
+        {
+            if (_isDead || value <= 0f)
+            {
+                return;
+            }
+            _energyCurrent = Mathf.Clamp(_energyCurrent + value, 0f, _energyMax.CurrentValue);
+            OnEnergyChanged?.Invoke(_energyCurrent, _energyMax.CurrentValue);
+        }
+
+        public void ReduceManaCurrent(float value)
+        {
+            if (_isDead || value <= 0f)
+            {
+                return;
+            }
+            _manaCurrent = Mathf.Clamp(_manaCurrent - value, 0f, _manaMax.CurrentValue);
+            OnManaChanged?.Invoke(_manaCurrent, _manaMax.CurrentValue);
+        }
+
+        public void RestoreManaCurrent(float value)
+        {
+            if (_isDead || value <= 0f)
+            {
+                return;
+            }
+            _manaCurrent = Mathf.Clamp(_manaCurrent + value, 0f, _manaMax.CurrentValue);
+            OnManaChanged?.Invoke(_manaCurrent, _manaMax.CurrentValue);
+        }
+
         private void Die(PawnController source = null)
         {
             if (_isDead)
@@ -200,6 +278,7 @@ namespace WinterUniverse
             _healthCurrent = 0f;
             OnHealthChanged?.Invoke(_healthCurrent, _healthMax.CurrentValue);
             _isDead = true;
+            _pawn.Animator.PlayAction("Death");
         }
 
         public void AddStatModifiers(List<StatModifierCreator> modifiers)

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
+    [System.Serializable]
     public class DamageType
     {
         [SerializeField] private float _damage = 10f;

@@ -6,6 +6,7 @@ namespace WinterUniverse
     {
         private PawnController _pawn;
         private Animator _animator;
+        private bool _isPerfomingAction;
 
         [SerializeField, Range(0, 1)] private int _agentTypeID = 0;
         [SerializeField] private float _height = 2f;
@@ -22,6 +23,7 @@ namespace WinterUniverse
         public float MoveSpeed => _moveSpeed;
         public float RotateSpeed => _rotateSpeed;
         public float AttackSpeed => _attackSpeed;
+        public bool IsPerfomingAction => _isPerfomingAction;
 
         public void Initialize()
         {
@@ -38,6 +40,17 @@ namespace WinterUniverse
         public void OnUpdate()
         {
             _animator.SetFloat("Velocity", _pawn.Locomotion.Velocity);
+        }
+
+        public void PlayAction(string name, float fadeTime = 0.1f, bool isPerfomingAction = true)
+        {
+            _isPerfomingAction = isPerfomingAction;
+            _animator.CrossFade(name, fadeTime);
+        }
+
+        public void ResetState()
+        {
+            _isPerfomingAction = false;
         }
 
         private void OnStatsChanged()

@@ -49,6 +49,11 @@ namespace WinterUniverse
             _pawn.Initialize(_config);
         }
 
+        public void ResetComponent()
+        {
+            _pawn.ResetComponent();
+        }
+
         public void OnUpdate()
         {
             _cameraRay = Camera.main.ScreenPointToRay(_cursorLocalPosition);

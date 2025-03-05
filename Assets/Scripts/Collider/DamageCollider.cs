@@ -11,11 +11,17 @@ namespace WinterUniverse
 
         [SerializeField] private List<DamageType> _damageTypes = new();
 
+        public void Initialize()
+        {
+            _collider = GetComponent<Collider>();
+            DisableCollider();
+        }
+
         public void Initialize(PawnController owner, List<DamageType> damageTypes)
         {
             _owner = owner;
             _damageTypes = new(damageTypes);
-            DisableCollider();
+            Initialize();
         }
 
         public void EnableCollider()
