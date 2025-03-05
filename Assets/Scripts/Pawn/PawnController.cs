@@ -14,18 +14,32 @@ namespace WinterUniverse
         public PawnInventory Inventory => _inventory;
         public PawnLocomotion Locomotion => _locomotion;
 
-        private void Awake()
-        {
-            Initialize();// for test
-        }
-
         public void Initialize()
         {
+            CreatePawn();
+            GetComponents();
+            InitializeComponents();
+        }
+
+        private void CreatePawn()
+        {
+            if (_animator != null)
+            {
+                Destroy(_animator.gameObject);// despawn model
+            }
             // spawn model
+        }
+
+        private void GetComponents()
+        {
             _animator = GetComponentInChildren<PawnAnimator>();
             _equipment = GetComponentInChildren<PawnEquipment>();
             _inventory = GetComponent<PawnInventory>();
             _locomotion = GetComponent<PawnLocomotion>();
+        }
+
+        private void InitializeComponents()
+        {
             _animator.Initialize();
             _equipment.Initialize();
             _inventory.Initialize();
