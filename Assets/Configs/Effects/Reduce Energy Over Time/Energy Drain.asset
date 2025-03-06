@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3802728a7e595142b56b5c199d38afa, type: 3}
-  m_Name: HOT Regeneration
+  m_Script: {fileID: 11500000, guid: d9f2ee667c4ff6344a746b08c0e27031, type: 3}
+  m_Name: Energy Drain
   m_EditorClassIdentifier: 
-  _displayName: Regeneration
-  _description: Your health will be regenerated
+  _displayName: Energy Drain
+  _description: Your energy will be drained
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: -5751289680115722612, guid: 22ae641dd4602e5419f550adfe6c5fc3, type: 3}
-  _effectType: 1
+  _icon: {fileID: 4273891547075843214, guid: 22ae641dd4602e5419f550adfe6c5fc3, type: 3}
+  _effectType: 2

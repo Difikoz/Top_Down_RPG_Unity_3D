@@ -2,8 +2,12 @@ namespace WinterUniverse
 {
     public enum EffectType
     {
-        DamageOverTime,
-        HealOverTime,
+        ReduceHealthOverTime,
+        RestoreHealthOverTime,
+        ReduceEnergyOverTime,
+        RestoreEnergyOverTime,
+        ReduceManaOverTime,
+        RestoreManaOverTime,
         StatModifier,
     }
 }

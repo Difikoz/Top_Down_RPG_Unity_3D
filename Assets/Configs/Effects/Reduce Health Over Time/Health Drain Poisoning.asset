@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0915a251d6dfe28428ddd233d5ed6926, type: 3}
-  m_Name: DOT Poisoning
+  m_Name: Health Drain Poisoning
   m_EditorClassIdentifier: 
   _displayName: Poisoning
   _description: You are Poisoning

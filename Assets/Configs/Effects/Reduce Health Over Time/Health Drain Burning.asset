@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0915a251d6dfe28428ddd233d5ed6926, type: 3}
-  m_Name: DOT Bleeding
+  m_Name: Health Drain Burning
   m_EditorClassIdentifier: 
-  _displayName: Bleeding
-  _description: You are Bleeding
+  _displayName: Burning
+  _description: You are Burning
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 4273891547075843214, guid: 22ae641dd4602e5419f550adfe6c5fc3, type: 3}
   _effectType: 0
-  _element: {fileID: 11400000, guid: 7d603ddacbf7d064dbcfed96d4307ff4, type: 2}
+  _element: {fileID: 11400000, guid: dccdbcb66ffda494d9387c97b4c98c43, type: 2}

@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    public class DamageOverTimeEffect : Effect
+    public class ReduceHealthOverTimeEffect : Effect
     {
         private ElementConfig _element;
 
-        public DamageOverTimeEffect(EffectConfig config, PawnController owner, PawnController source, float value, float duration, ElementConfig element) : base(config, owner, source, value, duration)
+        public ReduceHealthOverTimeEffect(EffectConfig config, PawnController owner, PawnController source, float value, float duration, ElementConfig element) : base(config, owner, source, value, duration)
         {
             _element = element;
         }
@@ -18,6 +18,7 @@ namespace WinterUniverse
                 _value += _value * _source.Status.GetStat(_element.DamageStat.DisplayName).CurrentValue;
                 _value *= _source.Status.DamageDealt.CurrentValue;
             }
+            _owner.Status.ReduceHealthCurrent(_value, _element, _source);
         }
 
         protected override void ApplyOnTick(float deltaTime)

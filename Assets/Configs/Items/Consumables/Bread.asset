@@ -26,8 +26,12 @@ MonoBehaviour:
   - _chance: 1
     _config: {fileID: 11400000, guid: ca00e6d69519ec742bdd5b61d71d8e91, type: 2}
     _value: 1
-    _duration: 10
+    _duration: 5
   - _chance: 1
-    _config: {fileID: 11400000, guid: 131bc72d9278a4e4a83c8fb43852f94c, type: 2}
+    _config: {fileID: 11400000, guid: 0cb8256ddfc3f7c498648af859c4db7f, type: 2}
+    _value: 1
+    _duration: 5
+  - _chance: 1
+    _config: {fileID: 11400000, guid: 46d8ec2b973a071499f611d48a484502, type: 2}
     _value: 1
     _duration: 5
