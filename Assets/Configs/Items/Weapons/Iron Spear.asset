@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Spear
   m_EditorClassIdentifier: 
   _displayName: Iron Spear
-  _description: Description
+  _description: This weapon maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 1391063767430337288, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
   _model: {fileID: 5604002562803282885, guid: 5e30f61678134864096a3d6f588e5946, type: 3}

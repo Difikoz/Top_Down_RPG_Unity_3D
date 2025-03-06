@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Plate Boots
   m_EditorClassIdentifier: 
   _displayName: Plate Boots
-  _description: Description
+  _description: This armor maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 4923384909127207956, guid: 1a7e0882c7e9b844fba69001fcbe1c24, type: 3}
   _model: {fileID: 15397832394851633, guid: 8ff129967e9344c4a86475080fb20328, type: 3}

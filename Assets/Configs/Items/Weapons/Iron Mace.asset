@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Mace
   m_EditorClassIdentifier: 
   _displayName: Iron Mace
-  _description: Description
+  _description: This weapon maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 8298262469622709926, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
   _model: {fileID: 5604002562803282885, guid: a286597c5728e7a43b41f0c1b27dbf6f, type: 3}

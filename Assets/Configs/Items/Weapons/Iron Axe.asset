@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Axe
   m_EditorClassIdentifier: 
   _displayName: Iron Axe
-  _description: Description
+  _description: This weapon maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 447091149110195888, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
   _model: {fileID: 5604002562803282885, guid: 1cd3eb243854952469b9deaa88a68701, type: 3}

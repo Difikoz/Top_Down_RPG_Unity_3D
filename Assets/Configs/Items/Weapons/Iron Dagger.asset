@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Dagger
   m_EditorClassIdentifier: 
   _displayName: Iron Dagger
-  _description: Description
+  _description: This weapon maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: -7199414839946236902, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
   _model: {fileID: 5604002562803282885, guid: 6f9e0452b32385f44aff7c776e3ba847, type: 3}

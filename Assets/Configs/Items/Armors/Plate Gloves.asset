@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Plate Gloves
   m_EditorClassIdentifier: 
   _displayName: Plate Gloves
-  _description: Description
+  _description: This armor maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 7542828179318791131, guid: 1a7e0882c7e9b844fba69001fcbe1c24, type: 3}
   _model: {fileID: 3646239412455520309, guid: 3a400b7a0700bad4b97810a8de028e40, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Plate Chest
   m_EditorClassIdentifier: 
   _displayName: Plate Chest
-  _description: Description
+  _description: This armor maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: -5624095231794713310, guid: 1a7e0882c7e9b844fba69001fcbe1c24, type: 3}
   _model: {fileID: 7243503819375885051, guid: bd179d18f95a5da4c948441e3f8ea509, type: 3}
