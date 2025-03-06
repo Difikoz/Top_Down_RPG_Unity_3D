@@ -4,10 +4,10 @@ namespace WinterUniverse
 {
     public abstract class BasicInfoConfig : ScriptableObject
     {
-        [SerializeField] private string _displayName = "Name";
-        [SerializeField] private string _description = "Description";
-        [SerializeField] private Color _color = Color.white;
-        [SerializeField] private Sprite _icon;
+        [SerializeField] protected string _displayName = "Name";
+        [SerializeField] protected string _description = "Description";
+        [SerializeField] protected Color _color = Color.white;
+        [SerializeField] protected Sprite _icon;
 
         public string DisplayName => _displayName;
         public string Description => _description;

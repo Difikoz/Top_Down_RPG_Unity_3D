@@ -10,9 +10,9 @@ namespace WinterUniverse
     {
         [SerializeField] private Transform _contentRoot;
         [SerializeField] private GameObject _slotPrefab;
-        [SerializeField] private Image _statIconImage;
-        [SerializeField] private TMP_Text _nameText;
-        [SerializeField] private TMP_Text _descriptionText;
+        [SerializeField] private Image _InfoBarIconImage;
+        [SerializeField] private TMP_Text _infoBarNameText;
+        [SerializeField] private TMP_Text _infoBarDescriptionText;
 
         private List<StatSlotUI> _slots = new();
 
@@ -44,9 +44,9 @@ namespace WinterUniverse
 
         public void ShowFullInformation(Stat s)
         {
-            _statIconImage.sprite = s.Config.Icon;
-            _nameText.text = s.Config.DisplayName;
-            _descriptionText.text = s.Config.Description;
+            _InfoBarIconImage.sprite = s.Config.Icon;
+            _infoBarNameText.text = s.Config.DisplayName;
+            _infoBarDescriptionText.text = s.Config.Description;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace WinterUniverse
         private PawnEquipment _equipment;
         private PawnInventory _inventory;
         private PawnLocomotion _locomotion;
+        private PawnFaction _faction;
         private PawnStatus _status;
 
         public bool Created => _created;
@@ -19,13 +20,14 @@ namespace WinterUniverse
         public PawnEquipment Equipment => _equipment;
         public PawnInventory Inventory => _inventory;
         public PawnLocomotion Locomotion => _locomotion;
+        public PawnFaction Faction => _faction;
         public PawnStatus Status => _status;
 
         public void Initialize(PawnConfig config)
         {
             ResetComponent();
             _config = config;
-            CreatePawn();
+            LeanPool.Spawn(_config.Model, transform);
             GetComponents();
             InitializeComponents();
         }
@@ -39,14 +41,9 @@ namespace WinterUniverse
                 _inventory.ResetComponent();
                 _locomotion.ResetComponent();
                 _status.ResetComponent();
-                LeanPool.Despawn(_animator.gameObject);
+                LeanPool.Despawn(transform.GetChild(0).gameObject);
                 _created = false;
             }
-        }
-
-        private void CreatePawn()
-        {
-            LeanPool.Spawn(_config.Model, transform);
         }
 
         private void GetComponents()
@@ -55,6 +52,7 @@ namespace WinterUniverse
             _equipment = GetComponentInChildren<PawnEquipment>();
             _inventory = GetComponent<PawnInventory>();
             _locomotion = GetComponent<PawnLocomotion>();
+            _faction = GetComponent<PawnFaction>();
             _status = GetComponent<PawnStatus>();
         }
 
@@ -64,6 +62,7 @@ namespace WinterUniverse
             _equipment.Initialize();
             _inventory.Initialize();
             _locomotion.Initialize();
+            _faction.Initialize();
             _status.Initialize();
             _created = true;
         }

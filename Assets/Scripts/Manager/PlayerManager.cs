@@ -22,6 +22,10 @@ namespace WinterUniverse
 
         public void OnLeftClick()
         {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
             if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
             {
                 _cursorWorldPosition = _cameraHit.point;

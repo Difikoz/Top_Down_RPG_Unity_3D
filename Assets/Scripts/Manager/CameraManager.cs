@@ -66,6 +66,10 @@ namespace WinterUniverse
             {
                 transform.position = Vector3.Lerp(transform.position, _player.transform.position, _followSpeed * Time.deltaTime);
             }
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
             if (_clicked)
             {
                 LookAround();

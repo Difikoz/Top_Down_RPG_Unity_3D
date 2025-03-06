@@ -61,9 +61,9 @@ namespace WinterUniverse
                 GUILayout.Label("===== Inventory =====");
                 if (pawn.Inventory != null)
                 {
-                    foreach (ItemConfig item in pawn.Inventory.Items)
+                    foreach (ItemStack stack in pawn.Inventory.Stacks)
                     {
-                        GUILayout.Label($"{item.DisplayName}");
+                        GUILayout.Label($"{stack.Item.DisplayName}: {stack.Amount}");
                     }
                 }
             }

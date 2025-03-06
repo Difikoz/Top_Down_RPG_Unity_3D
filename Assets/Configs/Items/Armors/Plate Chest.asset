@@ -15,8 +15,9 @@ MonoBehaviour:
   _displayName: Plate Chest
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 21300000, guid: 417484b4bb64b0a4c8670bd8fb9c6ab3, type: 3}
+  _icon: {fileID: -5624095231794713310, guid: 1a7e0882c7e9b844fba69001fcbe1c24, type: 3}
   _model: {fileID: 7243503819375885051, guid: bd179d18f95a5da4c948441e3f8ea509, type: 3}
+  _stackSize: 1
   _weight: 1
   _price: 100
   _armorType: {fileID: 11400000, guid: bac37cd7027cf42439ae4f20d9c03655, type: 2}

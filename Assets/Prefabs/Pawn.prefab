@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4970579045582321770}
   - component: {fileID: 8366631909337501325}
   - component: {fileID: 8377559767733991200}
+  - component: {fileID: 2829760357249383690}
   - component: {fileID: 1964148049163921946}
   - component: {fileID: 3453631477732080003}
   - component: {fileID: 8449722030268733175}
@@ -77,6 +78,18 @@ MonoBehaviour:
   _updateDestinationCooldown: 1
   _pickRandomPointAround: 0
   _randomPointDistance: 10
+--- !u!114 &2829760357249383690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766048043084035950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae127b627ff38941bb66c39f925a075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1964148049163921946
 MonoBehaviour:
   m_ObjectHideFlags: 0

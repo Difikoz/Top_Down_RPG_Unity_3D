@@ -39,10 +39,12 @@ namespace WinterUniverse
             if (_statusBar.isActiveAndEnabled)
             {
                 _statusBar.gameObject.SetActive(false);
+                GameManager.StaticInstance.SetInputMode(InputMode.Game);
             }
             else
             {
                 _statusBar.gameObject.SetActive(true);
+                GameManager.StaticInstance.SetInputMode(InputMode.UI);
             }
         }
 

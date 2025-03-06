@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1a7e0882c7e9b844fba69001fcbe1c24
+guid: 22ae641dd4602e5419f550adfe6c5fc3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,9 +72,9 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 0
+    fileImportMode: 1
     importHiddenLayers: 0
-    layerImportMode: 1
+    layerImportMode: 0
     defaultPivotSpace: 0
     defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
@@ -85,9 +85,9 @@ ScriptedImporter:
     addSortingGroup: 0
     addShadowCasters: 0
   asepriteImporterSettings:
-    fileImportMode: 0
+    fileImportMode: 1
     importHiddenLayers: 0
-    layerImportMode: 1
+    layerImportMode: 0
     defaultPivotSpace: 0
     defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
@@ -98,7 +98,7 @@ ScriptedImporter:
     addSortingGroup: 0
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638767902600343390
+  platformSettingsDirtyTick: 638768507525030610
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,7 +123,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Bar Background
+  - name: Energy Max Icon
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -131,11 +131,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 8
-      y: 8
+      x: 0
+      y: 0
       width: 100
       height: 100
-    spriteID: 765d438461f86304f9a479c401871e6e
+    spriteID: e3fa6a69839635e4ab0fccb4616aad92
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,8 +143,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 8, y: 8}
-  - name: Bar Fill
+    uvTransform: {x: 0, y: 0}
+  - name: Energy Regeneration Icon
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 9
@@ -152,32 +152,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 124
-      y: 8
-      width: 90
-      height: 90
-    spriteID: 856b93e75f91b0046ba315002bd593b3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 124, y: 8}
-  - name: Bar Frame
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 8
-      y: 124
+      x: 0
+      y: 100
       width: 100
       height: 100
-    spriteID: 296edd01fa37e444691987c0df28cde3
+    spriteID: c89a6b09b60892e4c9fcf87f767bbde9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -185,61 +164,121 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 8, y: 124}
+    uvTransform: {x: 0, y: 100}
+  - name: Health Max Icon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 0
+      width: 100
+      height: 100
+    spriteID: da1080cc67efd174a9ec704b64793858
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 0}
+  - name: Health Regeneration Icon
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 100
+      width: 100
+      height: 100
+    spriteID: 0c1406ee7eba001478c20a540cff9616
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 100}
   spriteSheetImportData: []
   asepriteLayers:
-  - layerIndex: 0
-    guid: -588100301
-    name: Bar Background
+  - layerIndex: 2
+    guid: 478049069
+    name: Energy Max Icon
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Icons
+    - name: Energy Max Icon
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 27
-        y: 24
-        width: 46
-        height: 60
-      spriteId: 52bc18aa2d40b0546bce57e6fa3300c1
+        x: 0
+        y: 0
+        width: 100
+        height: 100
+      spriteId: e3fa6a69839635e4ab0fccb4616aad92
+    linkedCells: []
+    parentIndex: -1
+  - layerIndex: 3
+    guid: -1653516318
+    name: Energy Regeneration Icon
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Energy Regeneration Icon
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 100
+        height: 100
+      spriteId: c89a6b09b60892e4c9fcf87f767bbde9
     linkedCells: []
     parentIndex: -1
   - layerIndex: 0
-    guid: 1839041476
-    name: Bar Fill
+    guid: -1441200377
+    name: Health Max Icon
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Icons
+    - name: Health Max Icon
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 27
-        y: 24
-        width: 46
-        height: 60
-      spriteId: 52bc18aa2d40b0546bce57e6fa3300c1
+        x: 0
+        y: 0
+        width: 100
+        height: 100
+      spriteId: da1080cc67efd174a9ec704b64793858
     linkedCells: []
     parentIndex: -1
-  - layerIndex: 0
-    guid: 640880254
-    name: Bar Frame
+  - layerIndex: 1
+    guid: -1232241244
+    name: Health Regeneration Icon
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Icons
+    - name: Health Regeneration Icon
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 27
-        y: 24
-        width: 46
-        height: 60
-      spriteId: 52bc18aa2d40b0546bce57e6fa3300c1
+        x: 0
+        y: 0
+        width: 100
+        height: 100
+      spriteId: 0c1406ee7eba001478c20a540cff9616
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -283,4 +322,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 100, y: 100}
-  previousTextureSize: {x: 64, y: 64}
+  previousTextureSize: {x: 256, y: 256}

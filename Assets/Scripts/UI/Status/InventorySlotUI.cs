@@ -11,14 +11,13 @@ namespace WinterUniverse
         [SerializeField] private Image _iconImage;
         [SerializeField] private TMP_Text _amountText;
 
-        private ItemConfig _item;
-        private int _amount;
+        private ItemStack _stack;
 
-        public void Initialize(ItemConfig item)
+        public void Initialize(ItemStack stack)
         {
-            _item = item;
-            _iconImage.sprite = _item.Icon;
-            _amountText.text = $"{(_amount > 1 ? _amount : "")}";
+            _stack = stack;
+            _iconImage.sprite = _stack.Item.Icon;
+            _amountText.text = $"{(_stack.Amount > 1 ? _stack.Amount : "")}";
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -28,17 +27,17 @@ namespace WinterUniverse
 
         public void OnSelect(BaseEventData eventData)
         {
-            GameManager.StaticInstance.UIManager.StatusBar.InventoryBar.ShowFullInformation(_item);
+            GameManager.StaticInstance.UIManager.StatusBar.InventoryBar.ShowFullInformation(_stack.Item);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _item.Use(GameManager.StaticInstance.PlayerManager.Pawn);
+            _stack.Item.Use(GameManager.StaticInstance.PlayerManager.Pawn);
         }
 
         public void OnSubmit(BaseEventData eventData)
         {
-            _item.Use(GameManager.StaticInstance.PlayerManager.Pawn);
+            _stack.Item.Use(GameManager.StaticInstance.PlayerManager.Pawn);
         }
     }
 }

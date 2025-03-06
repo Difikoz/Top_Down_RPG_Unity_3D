@@ -6,7 +6,9 @@ namespace WinterUniverse
     public class PawnConfig : BasicInfoConfig
     {
         [SerializeField] private GameObject _model;
+        [SerializeField] private FactionConfig _faction;
 
         public GameObject Model => _model;
+        public FactionConfig Faction => _faction;
     }
 }

@@ -9,12 +9,14 @@ namespace WinterUniverse
         [SerializeField] private List<ArmorItemConfig> _armors = new();
         [SerializeField] private List<ElementConfig> _elements = new();
         [SerializeField] private List<StatConfig> _stats = new();
+        [SerializeField] private List<FactionConfig> _factions = new();
 
         private List<ItemConfig> _items = new();
 
         public List<ItemConfig> Items => _items;
         public List<ElementConfig> Elements => _elements;
         public List<StatConfig> Stats => _stats;
+        public List<FactionConfig> Factions => _factions;
 
         public void Initialize()
         {
@@ -31,11 +33,11 @@ namespace WinterUniverse
 
         public ItemConfig GetItem(string name)
         {
-            foreach (ItemConfig item in _items)
+            foreach (ItemConfig config in _items)
             {
-                if (item.DisplayName == name)
+                if (config.DisplayName == name)
                 {
-                    return item;
+                    return config;
                 }
             }
             return null;
@@ -43,11 +45,11 @@ namespace WinterUniverse
 
         public WeaponItemConfig GetWeapon(string name)
         {
-            foreach (WeaponItemConfig item in _weapons)
+            foreach (WeaponItemConfig config in _weapons)
             {
-                if (item.DisplayName == name)
+                if (config.DisplayName == name)
                 {
-                    return item;
+                    return config;
                 }
             }
             return null;
@@ -55,11 +57,11 @@ namespace WinterUniverse
 
         public ArmorItemConfig GetArmor(string name)
         {
-            foreach (ArmorItemConfig item in _armors)
+            foreach (ArmorItemConfig config in _armors)
             {
-                if (item.DisplayName == name)
+                if (config.DisplayName == name)
                 {
-                    return item;
+                    return config;
                 }
             }
             return null;
@@ -67,11 +69,11 @@ namespace WinterUniverse
 
         public ElementConfig GetElement(string name)
         {
-            foreach (ElementConfig element in _elements)
+            foreach (ElementConfig config in _elements)
             {
-                if (element.DisplayName == name)
+                if (config.DisplayName == name)
                 {
-                    return element;
+                    return config;
                 }
             }
             return null;
@@ -79,11 +81,23 @@ namespace WinterUniverse
 
         public StatConfig GetStat(string name)
         {
-            foreach (StatConfig stat in _stats)
+            foreach (StatConfig config in _stats)
             {
-                if (stat.DisplayName == name)
+                if (config.DisplayName == name)
                 {
-                    return stat;
+                    return config;
+                }
+            }
+            return null;
+        }
+
+        public FactionConfig GetFaction(string name)
+        {
+            foreach (FactionConfig config in _factions)
+            {
+                if (config.DisplayName == name)
+                {
+                    return config;
                 }
             }
             return null;

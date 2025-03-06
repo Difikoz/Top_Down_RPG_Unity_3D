@@ -12,7 +12,7 @@ namespace WinterUniverse
 
         public void Initialize()
         {
-            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);
+            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.right, Quaternion.identity);
             _pawn.Initialize(_config);
         }
 

@@ -6,15 +6,13 @@ namespace WinterUniverse
     [RequireComponent(typeof(Rigidbody))]
     public class InteractableItem : InteractableBase
     {
-        [SerializeField] private ItemConfig _testItem;
-
         private ItemConfig _item;
         private int _amount = 1;
         private GameObject _model;
 
-        private void Awake()
+        public void Initialize(ItemStack stack)
         {
-            Initialize(_testItem);
+            Initialize(stack.Item, stack.Amount);
         }
 
         public void Initialize(ItemConfig item, int amount = 1)
@@ -35,7 +33,7 @@ namespace WinterUniverse
 
         public override void Interact(PawnController pawn)
         {
-            pawn.Inventory.AddItem(_item);
+            pawn.Inventory.AddItem(_item, _amount);
             LeanPool.Despawn(gameObject);
         }
     }

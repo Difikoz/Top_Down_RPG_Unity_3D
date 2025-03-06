@@ -77,3 +77,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e59aca670f52ff4e8d7e807314dbe22, type: 2}
   - {fileID: 11400000, guid: 456f4abda31ec3e4dbc6c415d94a5e40, type: 2}
   - {fileID: 11400000, guid: 01700608c37b4a242866f42e9aa1ae57, type: 2}
+  _factions:
+  - {fileID: 11400000, guid: d67d8a7277e8ae74eb8f951c6a7af28e, type: 2}
+  - {fileID: 11400000, guid: c66676c6aa3c69147b1ab9b00ce8be1d, type: 2}
+  - {fileID: 11400000, guid: 779f916fdfe0d0d488da33e11540a79f, type: 2}
+  - {fileID: 11400000, guid: bcb2f1b769dac6641b6263b7cee83033, type: 2}
+  - {fileID: 11400000, guid: 84519cb5d12a6a84fa7d94b72314240e, type: 2}
+  - {fileID: 11400000, guid: e429c333f33c11b4fa64157a8a54e7ec, type: 2}
+  - {fileID: 11400000, guid: 157798913334c1245976c7a9db8c584b, type: 2}
+  - {fileID: 11400000, guid: 27d76bb6cf0c3014590d6b9b8bff2bc5, type: 2}

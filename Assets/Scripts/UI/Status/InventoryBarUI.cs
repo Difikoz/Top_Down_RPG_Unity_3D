@@ -9,8 +9,8 @@ namespace WinterUniverse
     {
         [SerializeField] private Transform _contentRoot;
         [SerializeField] private GameObject _slotPrefab;
-        [SerializeField] private TMP_Text _nameText;
-        [SerializeField] private TMP_Text _descriptionText;
+        [SerializeField] private TMP_Text _infoBarNameText;
+        [SerializeField] private TMP_Text _infoBarDescriptionText;
         [SerializeField] private WeaponSlotUI _weaponSlot;
         [SerializeField] private List<ArmorSlotUI> _armorSlots = new();
 
@@ -34,10 +34,10 @@ namespace WinterUniverse
             {
                 LeanPool.Despawn(_contentRoot.GetChild(0).gameObject);
             }
-            foreach (ItemConfig item in GameManager.StaticInstance.PlayerManager.Pawn.Inventory.Items)
+            foreach (ItemStack stack in GameManager.StaticInstance.PlayerManager.Pawn.Inventory.Stacks)
             {
-                ShowFullInformation(item);
-                LeanPool.Spawn(_slotPrefab, _contentRoot).GetComponent<InventorySlotUI>().Initialize(item);
+                ShowFullInformation(stack.Item);
+                LeanPool.Spawn(_slotPrefab, _contentRoot).GetComponent<InventorySlotUI>().Initialize(stack);
             }
         }
 
@@ -52,8 +52,8 @@ namespace WinterUniverse
 
         public void ShowFullInformation(ItemConfig config)
         {
-            _nameText.text = config.DisplayName;
-            _descriptionText.text = config.Description;
+            _infoBarNameText.text = config.DisplayName;
+            _infoBarDescriptionText.text = config.Description;
         }
     }
 }

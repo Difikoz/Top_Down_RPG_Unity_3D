@@ -4,6 +4,7 @@ namespace WinterUniverse
 {
     public class GameManager : Singleton<GameManager>
     {
+        private InputMode _inputMode;
         private PlayerManager _playerManager;
         private AIManager _aiManager;
         private CameraManager _cameraManager;
@@ -13,6 +14,7 @@ namespace WinterUniverse
         private PrefabsManager _prefabsManager;
         private UIManager _uiManager;
 
+        public InputMode InputMode => _inputMode;
         public PlayerManager PlayerManager => _playerManager;
         public AIManager AIManager => _aiManager;
         public CameraManager CameraManager => _cameraManager;
@@ -29,13 +31,13 @@ namespace WinterUniverse
             InitializeComponents();
         }
 
-        private void OnDestroy()
-        {
-            _uiManager.ResetComponent();
-            _cameraManager.ResetComponent();
-            _playerManager.ResetComponent();
-            _aiManager.ResetComponent();
-        }
+        //private void OnDestroy()
+        //{
+        //    _uiManager.ResetComponent();
+        //    _cameraManager.ResetComponent();
+        //    _playerManager.ResetComponent();
+        //    _aiManager.ResetComponent();
+        //}
 
         private void GetComponents()
         {
@@ -64,6 +66,11 @@ namespace WinterUniverse
             _playerManager.OnUpdate();
             _aiManager.OnUpdate();
             _cameraManager.OnUpdate();
+        }
+
+        public void SetInputMode(InputMode mode)
+        {
+            _inputMode = mode;
         }
     }
 }

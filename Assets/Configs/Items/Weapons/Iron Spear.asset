@@ -15,8 +15,9 @@ MonoBehaviour:
   _displayName: Iron Spear
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
-  _icon: {fileID: 21300000, guid: a31babd1205b97345ac60f2f2a90342a, type: 3}
+  _icon: {fileID: 1391063767430337288, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
   _model: {fileID: 5604002562803282885, guid: 5e30f61678134864096a3d6f588e5946, type: 3}
+  _stackSize: 1
   _weight: 1
   _price: 100
   _weaponType: {fileID: 11400000, guid: ba82a5cfd0c9b17468a2d4a1ea5ba189, type: 2}
