@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   _displayName: Stick
-  _description: Description
+  _description: Just a stick
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 1391063767430337288, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
   _itemType: 3

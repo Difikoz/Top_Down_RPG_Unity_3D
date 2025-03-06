@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: STAT Energy Regeneration Flat
   m_EditorClassIdentifier: 
   _displayName: Fat
-  _description: Description
+  _description: Your Energy Regeneration has been modified
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 4273891547075843214, guid: 22ae641dd4602e5419f550adfe6c5fc3, type: 3}
   _effectType: 2

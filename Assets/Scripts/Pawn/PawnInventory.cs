@@ -16,6 +16,10 @@ namespace WinterUniverse
         public void Initialize()
         {
             _pawn = GetComponent<PawnController>();
+            foreach (ItemStack stack in _pawn.Config.Stacks)
+            {
+                AddItem(stack);
+            }
         }
 
         public void ResetComponent()
@@ -88,6 +92,7 @@ namespace WinterUniverse
                     while (_stacks[i].Amount > 0 && amount > 0)
                     {
                         _stacks[i].RemoveFromStack();
+                        amount--;
                     }
                     if (_stacks[i].Amount <= 0)
                     {

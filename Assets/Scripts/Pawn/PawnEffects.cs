@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace WinterUniverse
 {
     public class PawnEffects : MonoBehaviour
     {
+        public Action OnEffectsChanged;
+
         private PawnController _pawn;
         private List<Effect> _allEffects = new();
 
@@ -36,6 +39,7 @@ namespace WinterUniverse
         public void AddEffect(Effect effect)
         {
             _allEffects.Add(effect);
+            //OnEffectsChanged?.Invoke();
         }
 
         public void RemoveEffect(Effect effect)
@@ -44,14 +48,16 @@ namespace WinterUniverse
             {
                 _allEffects.Remove(effect);
             }
+            //OnEffectsChanged?.Invoke();
         }
 
         private void HandleEffects()
         {
-            foreach (Effect effect in _allEffects)
+            for (int i = _allEffects.Count - 1; i >= 0; i--)
             {
-                effect.OnTick(_tickCooldown);
+                _allEffects[i].OnTick(_tickCooldown);
             }
+            OnEffectsChanged?.Invoke();
         }
     }
 }

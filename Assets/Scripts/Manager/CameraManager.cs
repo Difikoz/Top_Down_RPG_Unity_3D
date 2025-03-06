@@ -38,6 +38,10 @@ namespace WinterUniverse
 
         public void OnZoom(InputValue value)
         {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
             _requiredZoomDistance = Mathf.Clamp(_requiredZoomDistance + value.Get<Vector2>().y * _zoomStep, -_maxZoomDistance, -_minZoomDistance);
         }
 
