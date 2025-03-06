@@ -7,16 +7,21 @@ namespace WinterUniverse
     public class WeaponItemConfig : ItemConfig
     {
         [SerializeField] private WeaponTypeConfig _weaponType;
-        [SerializeField] private List<StatModifierCreator> _modifiers = new();
         [SerializeField] private List<DamageType> _damageTypes = new();
+        [SerializeField] private EquipmentData _equipmentData;
 
         public WeaponTypeConfig WeaponType => _weaponType;
-        public List<StatModifierCreator> Modifiers => _modifiers;
         public List<DamageType> DamageTypes => _damageTypes;
+        public EquipmentData EquipmentData => _equipmentData;
 
-        public override void Use(PawnController pawn)
+        private void OnValidate()
         {
-            pawn.Equipment.EquipWeapon(this);
+            _itemType = ItemType.Weapon;
+        }
+
+        public override void Use(PawnController pawn, bool fromInventory = true)
+        {
+            pawn.Equipment.EquipWeapon(this, fromInventory);
         }
     }
 }

@@ -23,12 +23,12 @@ namespace WinterUniverse
         {
             if (_config != null)
             {
-                _pawn.Status.RemoveStatModifiers(_config.Modifiers);
+                _pawn.Status.RemoveStatModifiers(_config.EquipmentData.Modifiers);
             }
             _config = config;
             if (_config != null)
             {
-                _pawn.Status.AddStatModifiers(_config.Modifiers);
+                _pawn.Status.AddStatModifiers(_config.EquipmentData.Modifiers);
             }
             foreach (ArmorRenderer ar in _armorRenderes)
             {

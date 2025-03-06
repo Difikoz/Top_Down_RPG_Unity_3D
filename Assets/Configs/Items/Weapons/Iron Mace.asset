@@ -21,11 +21,22 @@ MonoBehaviour:
   _weight: 1
   _price: 100
   _weaponType: {fileID: 11400000, guid: 3235ec3f11d69cf45947b7726281c2ce, type: 2}
-  _modifiers:
-  - _stat: {fileID: 11400000, guid: 88a619463f3caca4db9815b0e7f06a93, type: 2}
-    _modifier:
-      _type: 0
-      _value: 10
   _damageTypes:
   - _damage: 10
     _type: {fileID: 11400000, guid: 7d603ddacbf7d064dbcfed96d4307ff4, type: 2}
+  _equipmentData:
+    _modifiers:
+    - _stat: {fileID: 11400000, guid: 88a619463f3caca4db9815b0e7f06a93, type: 2}
+      _modifier:
+        _type: 0
+        _value: 10
+    _ownerEffects:
+    - _config: {fileID: 11400000, guid: a0adf8e7f64baa04290a698c7b21c52a, type: 2}
+      _chance: 0.05
+      _value: 0
+      _duration: 5
+    _targetEffects:
+    - _config: {fileID: 11400000, guid: d277ad588fb927a468444b17ca0f009f, type: 2}
+      _chance: 0.25
+      _value: 5
+      _duration: 5

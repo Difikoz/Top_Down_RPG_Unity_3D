@@ -21,8 +21,19 @@ MonoBehaviour:
   _weight: 1
   _price: 100
   _armorType: {fileID: 11400000, guid: 2959c3952d0db6a4e8946cf3df18afda, type: 2}
-  _modifiers:
-  - _stat: {fileID: 11400000, guid: 4eddb38c44390b3458ceb07e64cfbd86, type: 2}
-    _modifier:
-      _type: 0
-      _value: 10
+  _equipmentData:
+    _modifiers:
+    - _stat: {fileID: 11400000, guid: 4eddb38c44390b3458ceb07e64cfbd86, type: 2}
+      _modifier:
+        _type: 0
+        _value: 5
+    - _stat: {fileID: 11400000, guid: a8fd935f8e9ef6541b029c664c7c2260, type: 2}
+      _modifier:
+        _type: 0
+        _value: 5
+    _ownerEffects:
+    - _config: {fileID: 11400000, guid: 76cc8ff8d93ba3043870839600b6c831, type: 2}
+      _chance: 0.1
+      _value: 0
+      _duration: 5
+    _targetEffects: []

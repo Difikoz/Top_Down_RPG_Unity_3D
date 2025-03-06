@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    [CreateAssetMenu(fileName = "Stat", menuName = "Winter Universe/Stat/New Stat")]
+    [CreateAssetMenu(fileName = "Stat", menuName = "Winter Universe/Pawn/New Stat")]
     public class StatConfig : BasicInfoConfig
     {
         [SerializeField] private float _baseValue;

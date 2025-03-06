@@ -4,16 +4,18 @@ namespace WinterUniverse
 {
     public abstract class ItemConfig : BasicInfoConfig
     {
-        [SerializeField] private GameObject _model;
-        [SerializeField] private int _stackSize = 1;
-        [SerializeField] private float _weight = 1f;
-        [SerializeField] private int _price = 100;
+        [SerializeField] protected ItemType _itemType;
+        [SerializeField] protected GameObject _model;
+        [SerializeField] protected int _stackSize = 1;
+        [SerializeField] protected float _weight = 1f;
+        [SerializeField] protected int _price = 100;
 
+        public ItemType ItemType => _itemType;
         public GameObject Model => _model;
         public int StackSize => _stackSize;
         public float Weight => _weight;
         public int Price => _price;
 
-        public abstract void Use(PawnController pawn);
+        public abstract void Use(PawnController pawn, bool fromInventory = true);
     }
 }

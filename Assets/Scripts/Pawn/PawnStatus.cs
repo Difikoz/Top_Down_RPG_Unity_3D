@@ -33,10 +33,22 @@ namespace WinterUniverse
         private Stat _slicingDamage;
         private Stat _piercingDamage;
         private Stat _bluntDamage;
+        private Stat _fireDamage;
+        private Stat _waterDamage;
+        private Stat _airDamage;
+        private Stat _holyDamage;
+        private Stat _darknessDamage;
+        private Stat _acidDamage;
         private Stat _damageTaken;
         private Stat _slicingResistance;
         private Stat _piercingResistance;
         private Stat _bluntResistance;
+        private Stat _fireResistance;
+        private Stat _waterResistance;
+        private Stat _airResistance;
+        private Stat _holyResistance;
+        private Stat _darknessResistance;
+        private Stat _acidResistance;
 
         [SerializeField] private float _regenerationCooldown = 0.2f;
 
@@ -60,10 +72,22 @@ namespace WinterUniverse
         public Stat SlicingDamage => _slicingDamage;
         public Stat PiercingDamage => _piercingDamage;
         public Stat BluntDamage => _bluntDamage;
+        public Stat FireDamage => _fireDamage;
+        public Stat WaterDamage => _waterDamage;
+        public Stat AirDamage => _airDamage;
+        public Stat HolyDamage => _holyDamage;
+        public Stat DarknessDamage => _darknessDamage;
+        public Stat AcidDamage => _acidDamage;
         public Stat DamageTaken => _damageTaken;
         public Stat SlicingResistance => _slicingResistance;
         public Stat PiercingResistance => _piercingResistance;
         public Stat BluntResistance => _bluntResistance;
+        public Stat FireResistance => _fireResistance;
+        public Stat WaterResistance => _waterResistance;
+        public Stat AirResistance => _airResistance;
+        public Stat HolyResistance => _holyResistance;
+        public Stat DarknessResistance => _darknessResistance;
+        public Stat AcidResistance => _acidResistance;
         public float HealthPercent => _healthCurrent / _healthMax.CurrentValue;
         public float EnergyPercent => _energyCurrent / _energyMax.CurrentValue;
         public float ManaPercent => _manaCurrent / _manaMax.CurrentValue;
@@ -138,6 +162,24 @@ namespace WinterUniverse
                     case "Blunt Damage":
                         _bluntDamage = s;
                         break;
+                    case "Fire Damage":
+                        _fireDamage = s;
+                        break;
+                    case "Water Damage":
+                        _waterDamage = s;
+                        break;
+                    case "Air Damage":
+                        _airDamage = s;
+                        break;
+                    case "Holy Damage":
+                        _holyDamage = s;
+                        break;
+                    case "Darkness Damage":
+                        _darknessDamage = s;
+                        break;
+                    case "Acid Damage":
+                        _acidDamage = s;
+                        break;
                     case "Damage Taken":
                         _damageTaken = s;
                         break;
@@ -149,6 +191,24 @@ namespace WinterUniverse
                         break;
                     case "Blunt Resistance":
                         _bluntResistance = s;
+                        break;
+                    case "Fire Resistance":
+                        _fireResistance = s;
+                        break;
+                    case "Water Resistance":
+                        _waterResistance = s;
+                        break;
+                    case "Air Resistance":
+                        _airResistance = s;
+                        break;
+                    case "Holy Resistance":
+                        _holyResistance = s;
+                        break;
+                    case "Darkness Resistance":
+                        _darknessResistance = s;
+                        break;
+                    case "Acid Resistance":
+                        _acidResistance = s;
                         break;
                 }
             }
@@ -193,7 +253,8 @@ namespace WinterUniverse
             float resistance = GetStat(type.ResistanceStat.DisplayName).CurrentValue;
             if (resistance < 100f)
             {
-                value -= (value * resistance / 100f);
+                value -= value * resistance / 100f;
+                value *= _damageTaken.CurrentValue / 100f;
                 _healthCurrent = Mathf.Clamp(_healthCurrent - value, 0f, _healthMax.CurrentValue);
                 if (_healthCurrent <= 0f)
                 {
@@ -206,7 +267,7 @@ namespace WinterUniverse
             }
             else if (resistance > 100f)
             {
-                value *= (resistance / 100f - 1f);
+                value *= resistance / 100f - 1f;
                 RestoreHealthCurrent(value);
             }
         }

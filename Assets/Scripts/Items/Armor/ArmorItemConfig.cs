@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace WinterUniverse
@@ -7,14 +6,19 @@ namespace WinterUniverse
     public class ArmorItemConfig : ItemConfig
     {
         [SerializeField] private ArmorTypeConfig _armorType;
-        [SerializeField] private List<StatModifierCreator> _modifiers = new();
+        [SerializeField] private EquipmentData _equipmentData;
 
         public ArmorTypeConfig ArmorType => _armorType;
-        public List<StatModifierCreator> Modifiers => _modifiers;
+        public EquipmentData EquipmentData => _equipmentData;
 
-        public override void Use(PawnController pawn)
+        private void OnValidate()
         {
-            pawn.Equipment.EquipArmor(this);
+            _itemType = ItemType.Armor;
+        }
+
+        public override void Use(PawnController pawn, bool fromInventory = true)
+        {
+            pawn.Equipment.EquipArmor(this, fromInventory);
         }
     }
 }

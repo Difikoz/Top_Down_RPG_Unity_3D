@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936ab2ec55a347549b3a1cbba683a554, type: 3}
+  m_Name: 08 Darkness
+  m_EditorClassIdentifier: 
+  _displayName: Darkness
+  _description: Description
+  _color: {r: 1, g: 1, b: 1, a: 1}
+  _icon: {fileID: -1384884530459385338, guid: 22ae641dd4602e5419f550adfe6c5fc3, type: 3}
+  _damageStat: {fileID: 11400000, guid: 1eb8cf514bf8de24a9a2445f41bcce62, type: 2}
+  _resistanceStat: {fileID: 11400000, guid: b232ac576b56fa9448b9a9d0d2fd4068, type: 2}
+  _hitVFX: []
+  _hitClips: []

@@ -22,16 +22,16 @@ namespace WinterUniverse
         {
             if (_config != null)
             {
-                _pawn.Status.RemoveStatModifiers(_config.Modifiers);
+                _pawn.Status.RemoveStatModifiers(_config.EquipmentData.Modifiers);
                 LeanPool.Despawn(_model);
             }
             _config = config;
             if (_config != null)
             {
-                _pawn.Status.AddStatModifiers(_config.Modifiers);
+                _pawn.Status.AddStatModifiers(_config.EquipmentData.Modifiers);
                 _model = LeanPool.Spawn(_config.Model, transform);
                 _damageCollider = GetComponentInChildren<DamageCollider>();
-                _damageCollider.Initialize(_pawn, _config.DamageTypes);
+                _damageCollider.Initialize(_pawn, _config.DamageTypes, _config.EquipmentData.OwnerEffects, _config.EquipmentData.TargetEffects);
             }
         }
     }

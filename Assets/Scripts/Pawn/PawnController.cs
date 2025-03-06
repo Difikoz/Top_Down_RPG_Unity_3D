@@ -13,6 +13,7 @@ namespace WinterUniverse
         private PawnLocomotion _locomotion;
         private PawnFaction _faction;
         private PawnStatus _status;
+        private PawnEffects _effects;
 
         public bool Created => _created;
         public PawnConfig Config => _config;
@@ -22,6 +23,7 @@ namespace WinterUniverse
         public PawnLocomotion Locomotion => _locomotion;
         public PawnFaction Faction => _faction;
         public PawnStatus Status => _status;
+        public PawnEffects Effects => _effects;
 
         public void Initialize(PawnConfig config)
         {
@@ -54,6 +56,7 @@ namespace WinterUniverse
             _locomotion = GetComponent<PawnLocomotion>();
             _faction = GetComponent<PawnFaction>();
             _status = GetComponent<PawnStatus>();
+            _effects = GetComponent<PawnEffects>();
         }
 
         private void InitializeComponents()
@@ -64,6 +67,7 @@ namespace WinterUniverse
             _locomotion.Initialize();
             _faction.Initialize();
             _status.Initialize();
+            _effects.Initialize();
             _created = true;
         }
 
@@ -74,6 +78,7 @@ namespace WinterUniverse
                 _animator.OnUpdate();
                 _locomotion.OnUpdate();
                 _status.OnUpdate();
+                _effects.OnUpdate();
             }
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    [CreateAssetMenu(fileName = "Element", menuName = "Winter Universe/Stat/New Element")]
+    [CreateAssetMenu(fileName = "Element", menuName = "Winter Universe/Misc/New Element")]
     public class ElementConfig : BasicInfoConfig
     {
         [SerializeField] private StatConfig _damageStat;
