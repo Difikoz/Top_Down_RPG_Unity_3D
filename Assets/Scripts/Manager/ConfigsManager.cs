@@ -7,6 +7,8 @@ namespace WinterUniverse
     {
         [SerializeField] private List<WeaponItemConfig> _weapons = new();
         [SerializeField] private List<ArmorItemConfig> _armors = new();
+        [SerializeField] private List<ConsumableItemConfig> _consumables = new();
+        [SerializeField] private List<ResourceItemConfig> _resources = new();
         [SerializeField] private List<ElementConfig> _elements = new();
         [SerializeField] private List<StatConfig> _stats = new();
         [SerializeField] private List<FactionConfig> _factions = new();
@@ -26,6 +28,14 @@ namespace WinterUniverse
                 _items.Add(config);
             }
             foreach (ArmorItemConfig config in _armors)
+            {
+                _items.Add(config);
+            }
+            foreach (ConsumableItemConfig config in _consumables)
+            {
+                _items.Add(config);
+            }
+            foreach (ResourceItemConfig config in _resources)
             {
                 _items.Add(config);
             }
@@ -58,6 +68,30 @@ namespace WinterUniverse
         public ArmorItemConfig GetArmor(string name)
         {
             foreach (ArmorItemConfig config in _armors)
+            {
+                if (config.DisplayName == name)
+                {
+                    return config;
+                }
+            }
+            return null;
+        }
+
+        public ConsumableItemConfig GetConsumable(string name)
+        {
+            foreach (ConsumableItemConfig config in _consumables)
+            {
+                if (config.DisplayName == name)
+                {
+                    return config;
+                }
+            }
+            return null;
+        }
+
+        public ResourceItemConfig GetResource(string name)
+        {
+            foreach (ResourceItemConfig config in _resources)
             {
                 if (config.DisplayName == name)
                 {

@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e6f311479eb8e4e84ea541a9c38a81, type: 3}
-  m_Name: STAT Move Speed
+  m_Script: {fileID: 11500000, guid: 0915a251d6dfe28428ddd233d5ed6926, type: 3}
+  m_Name: DOT Bleeding
   m_EditorClassIdentifier: 
-  _displayName: Acceleration
+  _displayName: Bleeding
   _description: Description
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 4273891547075843214, guid: 22ae641dd4602e5419f550adfe6c5fc3, type: 3}
-  _effectType: 2
-  _stat: {fileID: 11400000, guid: 88a619463f3caca4db9815b0e7f06a93, type: 2}
-  _modifierType: 0
+  _effectType: 0
+  _element: {fileID: 11400000, guid: 7d603ddacbf7d064dbcfed96d4307ff4, type: 2}
