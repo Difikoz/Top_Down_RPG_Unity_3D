@@ -16,7 +16,7 @@ namespace WinterUniverse
         {
             _effect = effect;
             _iconImage.sprite = _effect.Config.Icon;
-            _durationText.text = $"{_effect.Duration:0.##}";
+            _durationText.text = $"{_effect.Duration:0.0}";
         }
     }
 }

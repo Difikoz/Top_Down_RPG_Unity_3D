@@ -110,6 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4592153483032398801}
+  - component: {fileID: 3422933718066319144}
   - component: {fileID: 1663451102945351445}
   m_Layer: 0
   m_Name: Spikes
@@ -134,6 +135,18 @@ Transform:
   - {fileID: 6404797455153246191}
   m_Father: {fileID: 7803638558335815668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3422933718066319144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5736972547307043427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a0438b9f962ed4c9c06d6883e38ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1663451102945351445
 Animator:
   serializedVersion: 7
@@ -206,6 +219,7 @@ MonoBehaviour:
   _damageTypes:
   - _damage: 15
     _type: {fileID: 11400000, guid: 08da4e72110732e44ad06e26a0bdfd1c, type: 2}
+  _targetEffects: []
 --- !u!33 &1803927109177824392
 MeshFilter:
   m_ObjectHideFlags: 0

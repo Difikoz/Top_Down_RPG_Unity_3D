@@ -35,6 +35,10 @@ namespace WinterUniverse
 
         public void EquipWeapon(WeaponItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)
         {
+            if (_pawn.Status.IsDead || _pawn.Animator.IsPerfomingAction)
+            {
+                return;
+            }
             if (removeNewFromInventory)
             {
                 _pawn.Inventory.RemoveItem(config);
@@ -59,6 +63,10 @@ namespace WinterUniverse
 
         public void EquipArmor(ArmorItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)
         {
+            if (_pawn.Status.IsDead || _pawn.Animator.IsPerfomingAction)
+            {
+                return;
+            }
             foreach (ArmorSlot slot in _armorSlots)
             {
                 if (slot.Type == config.ArmorType)

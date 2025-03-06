@@ -16,11 +16,14 @@ MonoBehaviour:
   _description: This weapon maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 1391063767430337288, guid: 76d1b102e125dd14497aab63370b0903, type: 3}
+  _itemType: 0
   _model: {fileID: 5604002562803282885, guid: 5e30f61678134864096a3d6f588e5946, type: 3}
   _stackSize: 1
   _weight: 1
   _price: 100
   _weaponType: {fileID: 11400000, guid: ba82a5cfd0c9b17468a2d4a1ea5ba189, type: 2}
+  _attackRange: 2
+  _attackAngle: 10
   _damageTypes:
   - _damage: 10
     _type: {fileID: 11400000, guid: 7d603ddacbf7d064dbcfed96d4307ff4, type: 2}
@@ -31,12 +34,12 @@ MonoBehaviour:
         _type: 0
         _value: 10
     _ownerEffects:
-    - _config: {fileID: 11400000, guid: a0adf8e7f64baa04290a698c7b21c52a, type: 2}
-      _chance: 0.05
+    - _chance: 0.05
+      _config: {fileID: 11400000, guid: a0adf8e7f64baa04290a698c7b21c52a, type: 2}
       _value: 0
       _duration: 5
     _targetEffects:
-    - _config: {fileID: 11400000, guid: d277ad588fb927a468444b17ca0f009f, type: 2}
-      _chance: 0.25
+    - _chance: 0.25
+      _config: {fileID: 11400000, guid: d277ad588fb927a468444b17ca0f009f, type: 2}
       _value: 5
       _duration: 5

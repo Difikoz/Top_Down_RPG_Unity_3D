@@ -36,6 +36,10 @@ namespace WinterUniverse
         public void DisableCollider()
         {
             _collider.enabled = false;
+        }
+
+        public void ClearTargets()
+        {
             _damagedTargets.Clear();
         }
 

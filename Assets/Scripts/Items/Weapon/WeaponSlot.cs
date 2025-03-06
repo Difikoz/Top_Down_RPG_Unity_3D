@@ -24,6 +24,7 @@ namespace WinterUniverse
             {
                 _pawn.Status.RemoveStatModifiers(_config.EquipmentData.Modifiers);
                 LeanPool.Despawn(_model);
+                _damageCollider = null;
             }
             _config = config;
             if (_config != null)

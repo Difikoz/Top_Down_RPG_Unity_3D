@@ -9,7 +9,7 @@ namespace WinterUniverse
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            //serializedObject.Update();
+            serializedObject.Update();
             PawnController pawn = (PawnController)target;
             if (pawn.Created)
             {
@@ -25,18 +25,33 @@ namespace WinterUniverse
                     GUILayout.Label($"Energy => {pawn.Status.EnergyPercent * 100f}%");
                     GUILayout.Label($"Mana => {pawn.Status.ManaPercent * 100f}%");
                 }
+                GUILayout.Label("===== Combat =====");
+                if (pawn.Combat != null)
+                {
+                    GUILayout.Label($"Target => {(pawn.Combat.Target != null ? pawn.Combat.Target.gameObject.name : "Empty")}");
+                    GUILayout.Label($"Distance => {pawn.Combat.DistanceToTarget}");
+                    GUILayout.Label($"Angle => {pawn.Combat.AngleToTarget}");
+                }
                 GUILayout.Label("===== Stats =====");
                 if (pawn.Status != null)
                 {
-                    foreach (Stat s in pawn.Status.Stats)
+                    foreach (Stat stat in pawn.Status.Stats)
                     {
-                        GUILayout.Label($"{s.Config.DisplayName}: {s.CurrentValue:0.##}{(s.Config.IsPercent ? "%" : "")}");
+                        GUILayout.Label($"{stat.Config.DisplayName}: {stat.CurrentValue:0.##}{(stat.Config.IsPercent ? "%" : "")}");
+                    }
+                }
+                GUILayout.Label("===== Effects =====");
+                if (pawn.Effects != null)
+                {
+                    foreach (Effect effect in pawn.Effects.AllEffects)
+                    {
+                        GUILayout.Label($"{effect.Config.DisplayName}: {effect.Duration:0.0}");
                     }
                 }
                 GUILayout.Label("===== Locomotion =====");
                 if (pawn.Locomotion != null)
                 {
-                    if (pawn.Locomotion.Target != null)
+                    if (pawn.Locomotion.FollowTarget != null)
                     {
                         GUILayout.Label($"Is Following Target");
                     }
@@ -67,7 +82,7 @@ namespace WinterUniverse
                     }
                 }
             }
-            //serializedObject.ApplyModifiedProperties();
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

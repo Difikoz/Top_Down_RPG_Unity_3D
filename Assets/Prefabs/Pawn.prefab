@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8433014893091033256}
   - component: {fileID: 4970579045582321770}
+  - component: {fileID: 4320499880459420562}
   - component: {fileID: 8366631909337501325}
   - component: {fileID: 8377559767733991200}
   - component: {fileID: 2829760357249383690}
@@ -52,6 +53,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe3628c8122c1d4f87e5cc55ee6debd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4320499880459420562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766048043084035950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd158ce32cce1f84ea68bfc95b0bf5a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _followDistance: 4
 --- !u!114 &8366631909337501325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,8 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateDestinationCooldown: 1
-  _pickRandomPointAround: 0
-  _randomPointDistance: 10
+  _basicFollowDistance: 4
 --- !u!114 &2829760357249383690
 MonoBehaviour:
   m_ObjectHideFlags: 0

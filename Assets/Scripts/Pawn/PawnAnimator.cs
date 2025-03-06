@@ -48,15 +48,39 @@ namespace WinterUniverse
             _animator.CrossFade(name, fadeTime);
         }
 
+        private void OnStatsChanged()
+        {
+            _animator.SetFloat("MoveSpeed", _pawn.Status.MoveSpeed.CurrentValue / 100f);
+            _animator.SetFloat("AttackSpeed", _attackSpeed * _pawn.Status.AttackSpeed.CurrentValue / 100f);
+        }
+
         public void ResetState()
         {
             _isPerfomingAction = false;
         }
 
-        private void OnStatsChanged()
+        public void OpenDamageCollider()
         {
-            _animator.SetFloat("MoveSpeed", _pawn.Status.MoveSpeed.CurrentValue / 100f);
-            _animator.SetFloat("AttackSpeed", _attackSpeed * _pawn.Status.AttackSpeed.CurrentValue / 100f);
+            if (_pawn.Equipment.WeaponSlot.DamageCollider != null)
+            {
+                _pawn.Equipment.WeaponSlot.DamageCollider.EnableCollider();
+            }
+        }
+
+        public void CloseDamageCollider()
+        {
+            if (_pawn.Equipment.WeaponSlot.DamageCollider != null)
+            {
+                _pawn.Equipment.WeaponSlot.DamageCollider.DisableCollider();
+            }
+        }
+
+        public void ClearDamagedTargets()
+        {
+            if (_pawn.Equipment.WeaponSlot.DamageCollider != null)
+            {
+                _pawn.Equipment.WeaponSlot.DamageCollider.ClearTargets();
+            }
         }
     }
 }

@@ -12,19 +12,19 @@ namespace WinterUniverse
         private NavMeshAgent _agent;
         private Rigidbody _rb;
         private CapsuleCollider _collider;
-        private Transform _target;
+        private Transform _followTarget;
         private Vector3 _destination;
+        private float _followDistance;
         private float _velocity;
         private float _remainingDistance;
         private float _updateDestinationTime;
         private bool _reachedDestination;
 
         [SerializeField] private float _updateDestinationCooldown = 1f;
-        [SerializeField] private bool _pickRandomPointAround;
-        [SerializeField] private float _randomPointDistance = 10f;
+        [SerializeField] private float _basicFollowDistance = 4f;
 
         public NavMeshAgent Agent => _agent;
-        public Transform Target => _target;
+        public Transform FollowTarget => _followTarget;
         public float Velocity => _velocity;
         public float RemainingDistance => _remainingDistance;
         public bool ReachedDestination => _reachedDestination;
@@ -65,25 +65,28 @@ namespace WinterUniverse
             }
             if (_updateDestinationTime >= _updateDestinationCooldown)
             {
-                if (_target != null)
+                if (_followTarget != null)
                 {
-                    SetDestination(_target.position, false);
+                    SetDestination(_followTarget.position, false);
                 }
                 _updateDestinationTime = 0f;
-                if (_pickRandomPointAround)
-                {
-                    SetDestinationAroundSelf(0f, _randomPointDistance);
-                }
             }
             else
             {
                 _updateDestinationTime += Time.deltaTime;
             }
-            if (_reachedDestination && _remainingDistance > 1f)
+            if (_reachedDestination)
             {
-                StartMovement();
+                if (_remainingDistance > _followDistance)
+                {
+                    StartMovement();
+                }
+                else if (Mathf.Abs(_pawn.Combat.AngleToTarget) > 5f)
+                {
+                    transform.Rotate(Vector3.up * Mathf.Clamp(_pawn.Combat.AngleToTarget, -1f, 1f) * _agent.angularSpeed * Time.deltaTime);
+                }
             }
-            else if (!_reachedDestination && _remainingDistance < 1f)
+            else if (!_reachedDestination && _remainingDistance <= _followDistance)
             {
                 StopMovement();
             }
@@ -96,16 +99,32 @@ namespace WinterUniverse
             _agent.angularSpeed = _pawn.Animator.RotateSpeed * _pawn.Status.RotateSpeed.CurrentValue / 100f;
         }
 
-        public void SetTarget(Transform target)
+        public void SetTarget(Transform target, float distance = -1f)
         {
-            _target = target;
+            if (target != null)
+            {
+                _followTarget = target;
+                if (distance == -1f)
+                {
+                    _followDistance = _basicFollowDistance;
+                }
+                else
+                {
+                    _followDistance = distance;
+                }
+            }
+            else
+            {
+                _followTarget = null;
+                _followDistance = 0f;
+            }
         }
 
         public void SetDestination(Vector3 position, bool resetTarget = true)
         {
             if (resetTarget)
             {
-                SetTarget(null);
+                _pawn.Combat.SetTarget(null);
             }
             if (NavMesh.SamplePosition(position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
             {
@@ -114,30 +133,13 @@ namespace WinterUniverse
             }
         }
 
-        public void SetDestinationAroundPoint(Vector3 position, float minRange, float maxRange)
+        public void SetDestinationAroundSelf(float minRange, float maxRange, bool resetTarget = true)
         {
-            if (Random.value > 0.5f)
-            {
-                position.x += Random.Range(minRange, maxRange);
-            }
-            else
-            {
-                position.x -= Random.Range(minRange, maxRange);
-            }
-            if (Random.value > 0.5f)
-            {
-                position.z += Random.Range(minRange, maxRange);
-            }
-            else
-            {
-                position.z -= Random.Range(minRange, maxRange);
-            }
-            SetDestination(position);
+            SetDestinationAroundPoint(transform.position, minRange, maxRange, resetTarget);
         }
 
-        public void SetDestinationAroundSelf(float minRange, float maxRange)
+        public void SetDestinationAroundPoint(Vector3 position, float minRange, float maxRange, bool resetTarget = true)
         {
-            Vector3 position = transform.position;
             if (Random.value > 0.5f)
             {
                 position.x += Random.Range(minRange, maxRange);
@@ -154,7 +156,7 @@ namespace WinterUniverse
             {
                 position.z -= Random.Range(minRange, maxRange);
             }
-            SetDestination(position);
+            SetDestination(position, resetTarget);
         }
 
         public void StartMovement()

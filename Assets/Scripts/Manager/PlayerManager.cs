@@ -40,7 +40,7 @@ namespace WinterUniverse
                 }
                 else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
                 {
-                    _pawn.Locomotion.SetTarget(pawn.transform);
+                    _pawn.Combat.SetTarget(pawn);
                 }
                 else
                 {
