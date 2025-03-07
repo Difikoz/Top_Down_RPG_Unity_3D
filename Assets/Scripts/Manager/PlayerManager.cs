@@ -9,7 +9,6 @@ namespace WinterUniverse
 
         private PawnController _pawn;
         private Vector2 _cursorLocalPosition;
-        private Vector3 _cursorWorldPosition;
         private Ray _cameraRay;
         private RaycastHit _cameraHit;
 
@@ -20,7 +19,7 @@ namespace WinterUniverse
             _cursorLocalPosition = value.Get<Vector2>();
         }
 
-        public void OnLeftClick()// used to Interact and Move and Attack
+        public void OnMoveToPosition()
         {
             if (GameManager.StaticInstance.InputMode == InputMode.UI)
             {
@@ -28,28 +27,32 @@ namespace WinterUniverse
             }
             if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
             {
-                _cursorWorldPosition = _cameraHit.point;
+                _pawn.Locomotion.StopMovement();
+                _pawn.Locomotion.SetDestination(_cameraHit.point);
+            }
+        }
+
+        public void OnInteract()
+        {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
+            if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
+            {
                 InteractableBase interactable = _cameraHit.transform.GetComponentInParent<InteractableBase>();
-                if (interactable != null && Vector3.Distance(_pawn.transform.position, interactable.PointToInteract.position) <= interactable.DistanceToInteract && interactable.CanInteract(_pawn))
+                if (interactable != null)
                 {
-                    interactable.Interact(_pawn);
+                    _pawn.Locomotion.SetDestination(interactable);
                 }
-                else if (_cameraHit.transform.TryGetComponent(out interactable) && Vector3.Distance(_pawn.transform.position, interactable.PointToInteract.position) <= interactable.DistanceToInteract && interactable.CanInteract(_pawn))
+                else if (_cameraHit.transform.TryGetComponent(out interactable))
                 {
-                    interactable.Interact(_pawn);
-                }
-                else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn == _pawn.Combat.Target)
-                {
-                    _pawn.Combat.SetTarget(pawn, true, true);
-                }
-                else
-                {
-                    _pawn.Locomotion.SetDestination(_cursorWorldPosition);
+                    _pawn.Locomotion.SetDestination(interactable);
                 }
             }
         }
 
-        public void OnRightClick()// used to set target for Combat and UI
+        public void OnLockTarget()
         {
             if (GameManager.StaticInstance.InputMode == InputMode.UI)
             {
@@ -57,16 +60,38 @@ namespace WinterUniverse
             }
             if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
             {
-                _cursorWorldPosition = _cameraHit.point;
                 if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
                 {
-                    _pawn.Combat.SetTarget(pawn, false, false);
-                }
-                else
-                {
-                    _pawn.Combat.SetTarget(null);
+                    _pawn.Combat.SetTarget(pawn);
                 }
             }
+        }
+
+        public void OnFollowSelectedTarget()
+        {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
+            _pawn.Combat.FollowTarget();
+        }
+
+        public void OnAttackSelectedTarget()
+        {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
+            _pawn.Combat.AttackTarget();
+        }
+
+        public void OnResetSelectedTarget()
+        {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
+            _pawn.Combat.SetTarget(null);
         }
 
         public void Initialize()

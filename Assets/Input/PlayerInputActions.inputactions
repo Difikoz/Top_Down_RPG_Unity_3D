@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LeftClick",
+                    "name": "MoveToPosition",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
                     "expectedControlType": "",
@@ -24,9 +24,45 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightClick",
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "da4108f8-02c1-4fa1-999e-d2219c5f9693",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LockTarget",
                     "type": "Button",
                     "id": "0fa5d261-a3b9-48b7-827d-1193ff019988",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FollowSelectedTarget",
+                    "type": "Button",
+                    "id": "4eef8a24-4b59-4624-987f-b9e521f43bf9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttackSelectedTarget",
+                    "type": "Button",
+                    "id": "31596a42-9afc-4639-ae93-873dc937bc2f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ResetSelectedTarget",
+                    "type": "Button",
+                    "id": "206824b3-6309-455c-8d66-df2cf81f9c66",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press",
@@ -41,7 +77,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "LeftClick",
+                    "action": "MoveToPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f368c7d5-5028-4f8e-b073-ee81bc9a4d53",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +99,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "RightClick",
+                    "action": "LockTarget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce1b46b9-c8e0-45e7-a8ed-817752c2aaec",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "FollowSelectedTarget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2ac733d-1718-4016-b528-4eb79262c337",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "AttackSelectedTarget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17c9f4a0-48df-41bd-9481-b0478900598c",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ResetSelectedTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

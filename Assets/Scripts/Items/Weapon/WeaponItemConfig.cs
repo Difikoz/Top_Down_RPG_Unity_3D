@@ -7,13 +7,15 @@ namespace WinterUniverse
     public class WeaponItemConfig : ItemConfig
     {
         [SerializeField] private WeaponTypeConfig _weaponType;
-        [SerializeField] private float _attackRange = 2f;
+        [SerializeField] private float _attackMinRange = 1f;
+        [SerializeField] private float _attackMaxRange = 2f;
         [SerializeField] private float _attackAngle = 10f;
         [SerializeField] private List<DamageType> _damageTypes = new();
         [SerializeField] private EquipmentData _equipmentData;
 
         public WeaponTypeConfig WeaponType => _weaponType;
-        public float AttackRange => _attackRange;
+        public float AttackMinRange => _attackMinRange;
+        public float AttackMaxRange => _attackMaxRange;
         public float AttackAngle => _attackAngle;
         public List<DamageType> DamageTypes => _damageTypes;
         public EquipmentData EquipmentData => _equipmentData;

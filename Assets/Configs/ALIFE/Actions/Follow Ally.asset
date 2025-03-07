@@ -36,12 +36,6 @@ MonoBehaviour:
   _conditionsToComplete:
   - _config: {fileID: 11400000, guid: 49a4cb3de34fb24499ec622cdc0b991b, type: 2}
     _value: 0
-  _effectsOnStart:
-  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
-    _value: 1
-  _effectsOnAbort:
-  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
-    _value: 0
-  _effectsOnComplete:
-  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
-    _value: 0
+  _effectsOnStart: []
+  _effectsOnAbort: []
+  _effectsOnComplete: []

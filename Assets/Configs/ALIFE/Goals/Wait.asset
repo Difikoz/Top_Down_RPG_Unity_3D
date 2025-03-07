@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af975b40e8d9ea84c858b5387e0ee71a, type: 3}
-  m_Name: Pawn Is Attacking
+  m_Script: {fileID: 11500000, guid: ba425aecc1d752340b51b5d886c4f6c5, type: 3}
+  m_Name: Wait
   m_EditorClassIdentifier: 
-  _id: Is Attacking
+  _displayName: Wait
+  _repeatable: 1
+  _conditions:
+  - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
+    _value: 1

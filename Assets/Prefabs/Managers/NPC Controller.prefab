@@ -216,6 +216,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: ca45c8b3cf403ad428630ddcd543ca9f, type: 2}
   _goalCreatorHolder: {fileID: 11400000, guid: d7e7dab8813ffae48a81e081ffec86c2, type: 2}
+  _proccessALIFECooldown: 0.5
+--- !u!1 &3917773425321815933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4940305773956405841}
+  - component: {fileID: 4750569780081601985}
+  m_Layer: 0
+  m_Name: Wait
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4940305773956405841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917773425321815933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 901562662421207922}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4750569780081601985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917773425321815933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26bc1d83ed217e84089e3bc6cf1b3f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: fa4e40c01f282734b9d51dfbd8ab11a5, type: 2}
 --- !u!1 &3969101256558444549
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,13 +659,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3312032291813528243}
-  - {fileID: 2811443593818286013}
-  - {fileID: 8323858154955065636}
-  - {fileID: 3343696041399195635}
-  - {fileID: 1397183775065160063}
-  - {fileID: 6342559085175929506}
   - {fileID: 553665941754555335}
+  - {fileID: 3343696041399195635}
+  - {fileID: 6342559085175929506}
+  - {fileID: 8323858154955065636}
+  - {fileID: 1397183775065160063}
+  - {fileID: 2811443593818286013}
+  - {fileID: 3312032291813528243}
   - {fileID: 7230433978739055198}
   - {fileID: 14569455965987821}
   - {fileID: 1343684611195431216}
@@ -627,6 +673,7 @@ Transform:
   - {fileID: 878572536843267562}
   - {fileID: 4383114667041230753}
   - {fileID: 3014897498458200604}
+  - {fileID: 4940305773956405841}
   - {fileID: 2593396364296988235}
   m_Father: {fileID: 66975924205503158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -687,7 +734,7 @@ GameObject:
   - component: {fileID: 3312032291813528243}
   - component: {fileID: 3827523016334915210}
   m_Layer: 0
-  m_Name: Combat
+  m_Name: Fighting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

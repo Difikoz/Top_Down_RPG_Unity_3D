@@ -14,16 +14,15 @@ namespace WinterUniverse
         private CapsuleCollider _collider;
         private Transform _followTarget;
         private Vector3 _destination;
-        private float _minFollowDistance;
-        private float _maxFollowDistance;
+        private InteractableBase _interactable;
         private float _velocity;
         private float _remainingDistance;
         private float _updateDestinationTime;
         private bool _reachedDestination;
 
         [SerializeField] private float _updateDestinationCooldown = 1f;
-        [SerializeField] private float _basicMinFollowDistance = 2f;
-        [SerializeField] private float _basicMaxFollowDistance = 4f;
+        [SerializeField] private float _minStopDistance = 1f;
+        [SerializeField] private float _maxStopDistance = 2f;
 
         public NavMeshAgent Agent => _agent;
         public Transform FollowTarget => _followTarget;
@@ -61,19 +60,39 @@ namespace WinterUniverse
         public void OnUpdate()
         {
             _velocity = _agent.velocity.magnitude / _agent.speed;
-            if (_pawn.StateHolder.CompareStateValue("Is Perfoming Action", true) || _pawn.StateHolder.CompareStateValue("Is Dead", true))
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) && !_reachedDestination)
             {
-                if (!_reachedDestination)
-                {
-                    StopMovement(true);
-                }
+                StopMovement();
+                return;
+            }
+            else if (_pawn.StateHolder.CompareStateValue("Is Perfoming Action", true))
+            {
                 return;
             }
             if (_updateDestinationTime >= _updateDestinationCooldown)
             {
-                if (_followTarget != null)
+                if (_interactable != null)
                 {
-                    SetDestination(_followTarget.position, false);
+                    if (_remainingDistance <= _interactable.DistanceToInteract)
+                    {
+                        if (_interactable.CanInteract(_pawn))
+                        {
+                            _interactable.Interact(_pawn);
+                        }
+                        StopMovement();
+                    }
+                    else
+                    {
+                        SetDestination(_interactable.PointToInteract.position);
+                    }
+                }
+                else if (_followTarget != null)
+                {
+                    SetDestination(_followTarget.position);
+                }
+                else
+                {
+                    SetFollowDistance();
                 }
                 _updateDestinationTime = 0f;
             }
@@ -81,20 +100,13 @@ namespace WinterUniverse
             {
                 _updateDestinationTime += Time.deltaTime;
             }
-            if (_reachedDestination)
+            if (_reachedDestination && _remainingDistance > _maxStopDistance)
             {
-                if (_remainingDistance > _maxFollowDistance)
-                {
-                    StartMovement();
-                }
-                else if (Mathf.Abs(_pawn.Combat.AngleToTarget) > 5f)
-                {
-                    transform.Rotate(Vector3.up * Mathf.Clamp(_pawn.Combat.AngleToTarget, -1f, 1f) * _agent.angularSpeed * Time.deltaTime);
-                }
+                StartMovement();
             }
-            else if (!_reachedDestination && _remainingDistance < _minFollowDistance)
+            else if (!_reachedDestination && _remainingDistance < _minStopDistance)
             {
-                StopMovement();
+                StopMovement(false);
             }
             _remainingDistance = Vector3.Distance(transform.position, _destination);
         }
@@ -116,60 +128,59 @@ namespace WinterUniverse
 
         }
 
-        public void SetTarget(Transform target, float minDistance = -1f, float maxDistance = -1f)
+        public void SetFollowDistance(float minDistance = -1f, float maxDistance = -1f)
         {
-            if (target != null)
+            if (minDistance > 0f)
             {
-                _followTarget = target;
-                if (minDistance == -1f)
-                {
-                    _minFollowDistance = _basicMinFollowDistance;
-                }
-                else
-                {
-                    _minFollowDistance = minDistance;
-                }
-                if (maxDistance == -1f)
-                {
-                    _maxFollowDistance = _basicMaxFollowDistance;
-                }
-                else
-                {
-                    _maxFollowDistance = maxDistance;
-                }
+                _minStopDistance = minDistance;
             }
             else
             {
-                _followTarget = null;
-                _minFollowDistance = 0.1f;
-                _maxFollowDistance = 0.2f;
+                _minStopDistance = 0f;
+            }
+            if (maxDistance > 0f)
+            {
+                _maxStopDistance = maxDistance;
+            }
+            else
+            {
+                _maxStopDistance = _agent.radius;
             }
         }
 
-        public void SetDestination(Vector3 position, bool resetTarget = true)
+        public void SetDestination(Transform target)
         {
-            if (resetTarget)
-            {
-                _pawn.Combat.SetTarget(null);
-            }
+            _followTarget = target;
+            SetDestination(_followTarget.position);
+        }
+
+        public void SetDestination(InteractableBase interactable)
+        {
+            _interactable = interactable;
+            SetDestination(_interactable.PointToInteract.position);
+        }
+
+        public void SetDestination(Vector3 position)
+        {
             if (NavMesh.SamplePosition(position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
             {
                 _destination = hit.position;
+                _remainingDistance = Vector3.Distance(transform.position, _destination);
                 StartMovement();
             }
         }
 
-        public void SetDestinationAroundSelf(float minRange, float maxRange, bool resetTarget = true)
+        public void SetDestinationAroundSelf(float minRange, float maxRange)
         {
-            SetDestinationInRange(transform.position, minRange, maxRange, resetTarget);
+            SetDestinationInRange(transform.position, minRange, maxRange);
         }
 
-        public void SetDestinationAroundSelf(float radius, bool resetTarget = true)
+        public void SetDestinationAroundSelf(float radius)
         {
-            SetDestinationInRange(transform.position, radius, resetTarget);
+            SetDestinationInRange(transform.position, radius);
         }
 
-        public void SetDestinationInRange(Vector3 position, float minRange, float maxRange, bool resetTarget = true)
+        public void SetDestinationInRange(Vector3 position, float minRange, float maxRange)
         {
             if (Random.value > 0.5f)
             {
@@ -187,28 +198,34 @@ namespace WinterUniverse
             {
                 position.z -= Random.Range(minRange, maxRange);
             }
-            SetDestination(position, resetTarget);
+            SetDestination(position);
         }
 
-        public void SetDestinationInRange(Vector3 position, float radius, bool resetTarget = true)
+        public void SetDestinationInRange(Vector3 position, float radius)
         {
             radius /= 2f;
             position += Vector3.right * Random.Range(-radius, radius);
             position += Vector3.forward * Random.Range(-radius, radius);
-            SetDestination(position, resetTarget);
+            SetDestination(position);
         }
 
         public void StartMovement()
         {
+            if (_pawn.StateHolder.CompareStateValue("Is Perfoming Action", true))
+            {
+                return;
+            }
             _agent.SetDestination(_destination);
             _reachedDestination = false;
         }
 
-        public void StopMovement(bool resetTarget = false)
+        public void StopMovement(bool resetTarget = true)
         {
             if (resetTarget)
             {
-                SetTarget(null);
+                _followTarget = null;
+                _interactable = null;
+                SetFollowDistance();
             }
             _agent.ResetPath();
             _reachedDestination = true;

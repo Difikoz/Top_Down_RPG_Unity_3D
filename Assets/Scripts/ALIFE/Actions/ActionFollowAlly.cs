@@ -8,6 +8,7 @@ namespace WinterUniverse
         {
             base.OnStart();
             _npc.Pawn.Combat.SetTarget(_npc.Pawn.Detection.GetClosestAlly());
+            _npc.Pawn.Combat.FollowTarget();
         }
     }
 }

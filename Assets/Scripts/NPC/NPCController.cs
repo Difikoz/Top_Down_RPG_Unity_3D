@@ -15,6 +15,9 @@ namespace WinterUniverse
 
         [SerializeField] private PawnConfig _config;
         [SerializeField] private GoalHolderConfig _goalCreatorHolder;
+        [SerializeField] private float _proccessALIFECooldown = 0.5f;
+
+        private float _proccessALIFETime;
 
         public PawnController Pawn => _pawn;
 
@@ -52,10 +55,17 @@ namespace WinterUniverse
             //{
             //    _pawn.Combat.SetTarget(_pawn.Detection.GetClosestPawn());
             //}
-            ProccessGOAP();
+            if(_proccessALIFETime >= _proccessALIFECooldown)
+            {
+                ProccessALIFE();
+            }
+            else
+            {
+                _proccessALIFETime += Time.deltaTime;
+            }
         }
 
-        private void ProccessGOAP()
+        private void ProccessALIFE()
         {
             if (_currentAction != null)
             {
@@ -71,7 +81,7 @@ namespace WinterUniverse
                 }
                 else
                 {
-                    _currentAction.OnUpdate(Time.deltaTime);
+                    _currentAction.OnUpdate(_proccessALIFECooldown);
                 }
                 return;
             }
@@ -104,7 +114,7 @@ namespace WinterUniverse
                 var sortedGoals = from entry in _goals orderby entry.Value descending select entry;
                 foreach (KeyValuePair<GoalHolder, int> sg in sortedGoals)
                 {
-                    //Debug.LogWarning($"Try Get Plan for [{sg.Key.GoalName}]");
+                    //Debug.LogWarning($"Try Get Plan for [{sg.Key.Config.DisplayName}]");
                     _actionQueue = GameManager.StaticInstance.TaskManager.GetPlan(_actions, _pawn.StateHolder.States, _goals.ElementAt(0).Key.Conditions);
                     if (_actionQueue != null)
                     {

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af975b40e8d9ea84c858b5387e0ee71a, type: 3}
   m_Name: Pawn Is Fighting
   m_EditorClassIdentifier: 
-  _id: Is Following
+  _id: Is Fighting

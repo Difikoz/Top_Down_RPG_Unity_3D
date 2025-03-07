@@ -6,7 +6,6 @@ namespace WinterUniverse
     public class PawnDetection : MonoBehaviour
     {
         private PawnController _pawn;
-        private List<PawnController> _detectedPawns = new();
         private List<PawnController> _detectedEnemies = new();
         private List<PawnController> _detectedNeutrals = new();
         private List<PawnController> _detectedAllies = new();
@@ -29,15 +28,16 @@ namespace WinterUniverse
         {
             if (_detectionTime >= _detectionCooldown)
             {
-                _detectedPawns.Clear();
+                _detectedEnemies.Clear();
+                _detectedNeutrals.Clear();
+                _detectedAllies.Clear();
                 _detectedInteractables.Clear();
+                float distance;
+                RelationshipState relationship;
                 Collider[] colliders = Physics.OverlapSphere(_pawn.Animator.EyesPoint.position, _pawn.Status.ViewDistance.CurrentValue, GameManager.StaticInstance.LayerManager.DetectableMask);
                 foreach (Collider collider in colliders)
                 {
-                    if (!TargetInRange(collider.transform))
-                    {
-                        continue;
-                    }
+                    distance = Vector3.Distance(transform.position, collider.transform.position);
                     InteractableBase interactable = collider.GetComponentInParent<InteractableBase>();
                     if (interactable != null /*&& interactable.AllowInteractionForNPC*/ && interactable.CanInteract(_pawn))
                     {
@@ -47,13 +47,26 @@ namespace WinterUniverse
                     {
                         _detectedInteractables.Add(interactable);
                     }
-                    else if (collider.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CompareStateValue("Is Dead", false) && TargetIsVisible(pawn))
+                    else if (collider.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CompareStateValue("Is Dead", false))
                     {
-                        _detectedPawns.Add(pawn);
+                        if (distance <= _pawn.Status.HearRadius.CurrentValue || TargetIsVisible(pawn))
+                        {
+                            relationship = _pawn.Faction.Config.GetState(pawn.Faction.Config);
+                            switch (relationship)
+                            {
+                                case RelationshipState.Enemy:
+                                    _detectedEnemies.Add(pawn);
+                                    break;
+                                case RelationshipState.Neutral:
+                                    _detectedNeutrals.Add(pawn);
+                                    break;
+                                case RelationshipState.Ally:
+                                    _detectedAllies.Add(pawn);
+                                    break;
+                            }
+                        }
                     }
                 }
-                ClearSortedPawns();
-                SortDetectedPawns();
                 _pawn.StateHolder.SetState("Detected Enemy", _detectedEnemies.Count > 0);
                 _pawn.StateHolder.SetState("Detected Neutral", _detectedNeutrals.Count > 0);
                 _pawn.StateHolder.SetState("Detected Ally", _detectedAllies.Count > 0);
@@ -84,12 +97,12 @@ namespace WinterUniverse
 
         public bool TargetIsVisible(Transform t)
         {
-            Vector3 direction = (t.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, direction) > _pawn.Status.ViewAngle.CurrentValue / 2f)
+            Vector3 direction = (t.position - _pawn.Animator.EyesPoint.position).normalized;
+            if (Vector3.Angle(_pawn.Animator.EyesPoint.forward, direction) > _pawn.Status.ViewAngle.CurrentValue / 2f)
             {
                 return false;
             }
-            if (Physics.Linecast(transform.position, t.position, GameManager.StaticInstance.LayerManager.ObstacleMask))
+            if (Physics.Linecast(_pawn.Animator.EyesPoint.position, t.position, GameManager.StaticInstance.LayerManager.ObstacleMask))
             {
                 return false;
             }
@@ -110,66 +123,12 @@ namespace WinterUniverse
             return true;
         }
 
-        private void ClearSortedPawns()
-        {
-            for (int i = _detectedEnemies.Count - 1; i >= 0; i++)
-            {
-                if (!_detectedPawns.Contains(_detectedEnemies[i]))
-                {
-                    _detectedEnemies.RemoveAt(i);
-                }
-            }
-            for (int i = _detectedNeutrals.Count - 1; i >= 0; i++)
-            {
-                if (!_detectedPawns.Contains(_detectedNeutrals[i]))
-                {
-                    _detectedNeutrals.RemoveAt(i);
-                }
-            }
-            for (int i = _detectedAllies.Count - 1; i >= 0; i++)
-            {
-                if (!_detectedPawns.Contains(_detectedAllies[i]))
-                {
-                    _detectedAllies.RemoveAt(i);
-                }
-            }
-        }
-
-        private void SortDetectedPawns()
-        {
-            foreach (PawnController pawn in _detectedPawns)
-            {
-                RelationshipState relationship = _pawn.Faction.Config.GetState(pawn.Faction.Config);
-                switch (relationship)
-                {
-                    case RelationshipState.Enemy:
-                        if (!_detectedEnemies.Contains(pawn))
-                        {
-                            _detectedEnemies.Add(pawn);
-                        }
-                        break;
-                    case RelationshipState.Neutral:
-                        if (!_detectedNeutrals.Contains(pawn))
-                        {
-                            _detectedNeutrals.Add(pawn);
-                        }
-                        break;
-                    case RelationshipState.Ally:
-                        if (!_detectedAllies.Contains(pawn))
-                        {
-                            _detectedAllies.Add(pawn);
-                        }
-                        break;
-                }
-            }
-        }
-
         public PawnController GetClosestEnemy()
         {
             PawnController closestPawn = null;
             float maxDistance = float.MaxValue;
             float distance;
-            foreach (PawnController pawn in _detectedPawns)
+            foreach (PawnController pawn in _detectedEnemies)
             {
                 distance = Vector3.Distance(transform.position, pawn.transform.position);
                 if (distance < maxDistance)
@@ -186,7 +145,7 @@ namespace WinterUniverse
             PawnController closestPawn = null;
             float maxDistance = float.MaxValue;
             float distance;
-            foreach (PawnController pawn in _detectedPawns)
+            foreach (PawnController pawn in _detectedNeutrals)
             {
                 distance = Vector3.Distance(transform.position, pawn.transform.position);
                 if (distance < maxDistance)
@@ -203,7 +162,7 @@ namespace WinterUniverse
             PawnController closestPawn = null;
             float maxDistance = float.MaxValue;
             float distance;
-            foreach (PawnController pawn in _detectedPawns)
+            foreach (PawnController pawn in _detectedAllies)
             {
                 distance = Vector3.Distance(transform.position, pawn.transform.position);
                 if (distance < maxDistance)
@@ -213,6 +172,17 @@ namespace WinterUniverse
                 }
             }
             return closestPawn;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (_pawn != null & _pawn.Status != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, _pawn.Status.HearRadius.CurrentValue);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(transform.position, _pawn.Status.ViewDistance.CurrentValue);
+            }
         }
     }
 }

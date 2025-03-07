@@ -51,7 +51,6 @@ namespace WinterUniverse
                 _equipment.ResetComponent();
                 _inventory.ResetComponent();
                 _locomotion.ResetComponent();
-                _combat.ResetComponent();
                 _status.ResetComponent();
                 LeanPool.Despawn(transform.GetChild(0).gameObject);
                 _created = false;
