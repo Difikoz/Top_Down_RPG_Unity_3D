@@ -102,6 +102,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c4eff4f072f79af45a6afa6816e0fc2a, type: 2}
   - {fileID: 11400000, guid: b232ac576b56fa9448b9a9d0d2fd4068, type: 2}
   - {fileID: 11400000, guid: 2bcaea7d040034e4b963ab97c56c4011, type: 2}
+  - {fileID: 11400000, guid: 827d3f875bcfbba48acfca10e7524868, type: 2}
+  - {fileID: 11400000, guid: 3cf5c5c7d38655f41aa71bbb4c172a0a, type: 2}
+  - {fileID: 11400000, guid: 11fc4fbb695c98040b105c58d9671d20, type: 2}
   _factions:
   - {fileID: 11400000, guid: d67d8a7277e8ae74eb8f951c6a7af28e, type: 2}
   - {fileID: 11400000, guid: c66676c6aa3c69147b1ab9b00ce8be1d, type: 2}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    public class AIManager : MonoBehaviour
+    public class NPCController : MonoBehaviour
     {
         private PawnController _pawn;
 
@@ -12,7 +12,7 @@ namespace WinterUniverse
 
         public void Initialize()
         {
-            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.right, Quaternion.identity);
+            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(transform);
             _pawn.Initialize(_config);
         }
 
@@ -24,6 +24,11 @@ namespace WinterUniverse
         public void OnUpdate()
         {
             _pawn.OnUpdate();
+            //transform.SetPositionAndRotation(_pawn.transform.position, _pawn.transform.rotation);
+            if (_pawn.Combat.Target == null && _pawn.Detection.DetectedPawns.Count > 0)
+            {
+                _pawn.Combat.SetTarget(_pawn.Detection.GetClosestPawn());
+            }
         }
     }
 }

@@ -51,7 +51,7 @@ namespace WinterUniverse
 
         public void Initialize()
         {
-            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);
+            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);// get transform from save data
             _pawn.Initialize(_config);
         }
 
@@ -64,6 +64,7 @@ namespace WinterUniverse
         {
             _cameraRay = Camera.main.ScreenPointToRay(_cursorLocalPosition);
             _pawn.OnUpdate();
+            //transform.SetPositionAndRotation(_pawn.transform.position, _pawn.transform.rotation);
         }
     }
 }

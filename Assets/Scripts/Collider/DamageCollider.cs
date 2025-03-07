@@ -49,7 +49,7 @@ namespace WinterUniverse
             {
                 if (_ownerEffects.Count > 0)
                 {
-                    ApplyEffects(_owner, _ownerEffects);
+                    _owner.Effects.ApplyEffects(_ownerEffects, _owner);
                 }
                 foreach (DamageType dt in _damageTypes)
                 {
@@ -65,15 +65,7 @@ namespace WinterUniverse
             }
             if (_targetEffects.Count > 0)
             {
-                ApplyEffects(target, _targetEffects);
-            }
-        }
-
-        private void ApplyEffects(PawnController pawn, List<EffectCreator> effects)
-        {
-            foreach (EffectCreator effect in effects)
-            {
-                pawn.Effects.AddEffect(effect.Config.CreateEffect(pawn, _owner, effect.Value, effect.Duration));
+                target.Effects.ApplyEffects(_targetEffects, _owner);
             }
         }
 

@@ -36,6 +36,17 @@ namespace WinterUniverse
             }
         }
 
+        public void ApplyEffects(List<EffectCreator> effects, PawnController source)
+        {
+            foreach (EffectCreator effect in effects)
+            {
+                if (effect.Triggered)
+                {
+                    AddEffect(effect.Config.CreateEffect(_pawn, source, effect.Value, effect.Duration));
+                }
+            }
+        }
+
         public void AddEffect(Effect effect)
         {
             _allEffects.Add(effect);

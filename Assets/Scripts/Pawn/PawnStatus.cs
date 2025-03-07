@@ -9,6 +9,8 @@ namespace WinterUniverse
         public Action<float, float> OnHealthChanged;
         public Action<float, float> OnEnergyChanged;
         public Action<float, float> OnManaChanged;
+        public Action OnDied;
+        public Action OnRevived;
         public Action OnStatsChanged;
 
         private PawnController _pawn;
@@ -49,6 +51,9 @@ namespace WinterUniverse
         private Stat _holyResistance;
         private Stat _darknessResistance;
         private Stat _acidResistance;
+        private Stat _hearRadius;
+        private Stat _viewDistance;
+        private Stat _viewAngle;
 
         [SerializeField] private float _regenerationCooldown = 0.2f;
 
@@ -88,6 +93,9 @@ namespace WinterUniverse
         public Stat HolyResistance => _holyResistance;
         public Stat DarknessResistance => _darknessResistance;
         public Stat AcidResistance => _acidResistance;
+        public Stat HearRadius => _hearRadius;
+        public Stat ViewDistance => _viewDistance;
+        public Stat ViewAngle => _viewAngle;
         public float HealthPercent => _healthCurrent / _healthMax.CurrentValue;
         public float EnergyPercent => _energyCurrent / _energyMax.CurrentValue;
         public float ManaPercent => _manaCurrent / _manaMax.CurrentValue;
@@ -99,6 +107,7 @@ namespace WinterUniverse
             CreateStats();
             AssignStats();
             RecalculateStats();
+            Revive();
         }
 
         public void ResetComponent()
@@ -210,6 +219,15 @@ namespace WinterUniverse
                     case "Acid Resistance":
                         _acidResistance = s;
                         break;
+                    case "Hear Radius":
+                        _hearRadius = s;
+                        break;
+                    case "View Distance":
+                        _viewDistance = s;
+                        break;
+                    case "View Angle":
+                        _viewAngle = s;
+                        break;
                 }
             }
         }
@@ -246,9 +264,22 @@ namespace WinterUniverse
             {
                 return;
             }
+            foreach (ArmorSlot slot in _pawn.Equipment.ArmorSlots)
+            {
+                if (slot.Config != null && slot.Config.EquipmentData.OwnerEffects.Count > 0)
+                {
+                    _pawn.Effects.ApplyEffects(slot.Config.EquipmentData.OwnerEffects, _pawn);
+                }
+            }
             if (source != null)
             {
-                // check target
+                foreach (ArmorSlot slot in _pawn.Equipment.ArmorSlots)
+                {
+                    if (slot.Config != null && slot.Config.EquipmentData.TargetEffects.Count > 0)
+                    {
+                        source.Effects.ApplyEffects(slot.Config.EquipmentData.TargetEffects, _pawn);
+                    }
+                }
             }
             float resistance = GetStat(type.ResistanceStat.DisplayName).CurrentValue;
             if (resistance < 100f)
@@ -333,9 +364,24 @@ namespace WinterUniverse
                 // check target
             }
             _healthCurrent = 0f;
+            _energyCurrent = 0f;
+            _manaCurrent = 0f;
             OnHealthChanged?.Invoke(_healthCurrent, _healthMax.CurrentValue);
+            OnEnergyChanged?.Invoke(_energyCurrent, _energyMax.CurrentValue);
+            OnManaChanged?.Invoke(_manaCurrent, _manaMax.CurrentValue);
             _isDead = true;
             _pawn.Animator.PlayAction("Death");
+            OnDied?.Invoke();
+        }
+
+        public void Revive()
+        {
+            _pawn.Animator.PlayAction("Revive");
+            _isDead = false;
+            RestoreHealthCurrent(_healthMax.CurrentValue);
+            RestoreEnergyCurrent(_energyMax.CurrentValue);
+            RestoreManaCurrent(_manaMax.CurrentValue);
+            OnRevived?.Invoke();
         }
 
         public void AddStatModifiers(List<StatModifierCreator> modifiers)

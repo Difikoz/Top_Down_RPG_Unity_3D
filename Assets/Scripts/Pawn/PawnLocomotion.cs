@@ -14,14 +14,16 @@ namespace WinterUniverse
         private CapsuleCollider _collider;
         private Transform _followTarget;
         private Vector3 _destination;
-        private float _followDistance;
+        private float _minFollowDistance;
+        private float _maxFollowDistance;
         private float _velocity;
         private float _remainingDistance;
         private float _updateDestinationTime;
         private bool _reachedDestination;
 
         [SerializeField] private float _updateDestinationCooldown = 1f;
-        [SerializeField] private float _basicFollowDistance = 4f;
+        [SerializeField] private float _basicMinFollowDistance = 2f;
+        [SerializeField] private float _basicMaxFollowDistance = 4f;
 
         public NavMeshAgent Agent => _agent;
         public Transform FollowTarget => _followTarget;
@@ -44,16 +46,20 @@ namespace WinterUniverse
             _collider.center = new(0f, _agent.height / 2f, 0f);
             _collider.isTrigger = true;
             _pawn.Status.OnStatsChanged += OnStatsChanged;
+            _pawn.Status.OnDied += OnDied;
+            _pawn.Status.OnRevived += OnRevived;
+            _destination = transform.position;
         }
 
         public void ResetComponent()
         {
             _pawn.Status.OnStatsChanged -= OnStatsChanged;
+            _pawn.Status.OnDied -= OnDied;
+            _pawn.Status.OnRevived -= OnRevived;
         }
 
         public void OnUpdate()
         {
-            _remainingDistance = Vector3.Distance(transform.position, _destination);
             _velocity = _agent.velocity.magnitude / _agent.speed;
             if (_pawn.Animator.IsPerfomingAction || _pawn.Status.IsDead)
             {
@@ -77,7 +83,7 @@ namespace WinterUniverse
             }
             if (_reachedDestination)
             {
-                if (_remainingDistance > _followDistance)
+                if (_remainingDistance > _maxFollowDistance)
                 {
                     StartMovement();
                 }
@@ -86,10 +92,11 @@ namespace WinterUniverse
                     transform.Rotate(Vector3.up * Mathf.Clamp(_pawn.Combat.AngleToTarget, -1f, 1f) * _agent.angularSpeed * Time.deltaTime);
                 }
             }
-            else if (!_reachedDestination && _remainingDistance <= _followDistance)
+            else if (!_reachedDestination && _remainingDistance < _minFollowDistance)
             {
                 StopMovement();
             }
+            _remainingDistance = Vector3.Distance(transform.position, _destination);
         }
 
         private void OnStatsChanged()
@@ -99,24 +106,43 @@ namespace WinterUniverse
             _agent.angularSpeed = _pawn.Animator.RotateSpeed * _pawn.Status.RotateSpeed.CurrentValue / 100f;
         }
 
-        public void SetTarget(Transform target, float distance = -1f)
+        private void OnDied()
+        {
+
+        }
+
+        private void OnRevived()
+        {
+
+        }
+
+        public void SetTarget(Transform target, float minDistance = -1f, float maxDistance = -1f)
         {
             if (target != null)
             {
                 _followTarget = target;
-                if (distance == -1f)
+                if (minDistance == -1f)
                 {
-                    _followDistance = _basicFollowDistance;
+                    _minFollowDistance = _basicMinFollowDistance;
                 }
                 else
                 {
-                    _followDistance = distance;
+                    _minFollowDistance = minDistance;
+                }
+                if (maxDistance == -1f)
+                {
+                    _maxFollowDistance = _basicMaxFollowDistance;
+                }
+                else
+                {
+                    _maxFollowDistance = maxDistance;
                 }
             }
             else
             {
                 _followTarget = null;
-                _followDistance = 0f;
+                _minFollowDistance = 0.1f;
+                _maxFollowDistance = 0.2f;
             }
         }
 

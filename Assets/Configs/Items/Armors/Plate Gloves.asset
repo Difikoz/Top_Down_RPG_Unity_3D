@@ -16,6 +16,7 @@ MonoBehaviour:
   _description: This armor maid by master!
   _color: {r: 1, g: 1, b: 1, a: 1}
   _icon: {fileID: 7542828179318791131, guid: 1a7e0882c7e9b844fba69001fcbe1c24, type: 3}
+  _itemType: 1
   _model: {fileID: 3646239412455520309, guid: 3a400b7a0700bad4b97810a8de028e40, type: 3}
   _stackSize: 1
   _weight: 1
@@ -32,8 +33,12 @@ MonoBehaviour:
         _type: 0
         _value: 5
     _ownerEffects:
-    - _config: {fileID: 11400000, guid: 76cc8ff8d93ba3043870839600b6c831, type: 2}
-      _chance: 0.1
-      _value: 0
+    - _chance: 0.1
+      _config: {fileID: 11400000, guid: ca00e6d69519ec742bdd5b61d71d8e91, type: 2}
+      _value: 1
       _duration: 5
-    _targetEffects: []
+    _targetEffects:
+    - _chance: 0.2
+      _config: {fileID: 11400000, guid: ab57bf4c3bf29af4d8eee245189129fa, type: 2}
+      _value: 1
+      _duration: 5

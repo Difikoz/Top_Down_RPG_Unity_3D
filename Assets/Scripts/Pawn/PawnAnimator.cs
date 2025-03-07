@@ -8,6 +8,8 @@ namespace WinterUniverse
         private Animator _animator;
         private bool _isPerfomingAction;
 
+        [SerializeField] private Transform _eyesPoint;
+        [SerializeField] private Transform _bodyPoint;
         [SerializeField, Range(0, 1)] private int _agentTypeID = 0;
         [SerializeField] private float _height = 2f;
         [SerializeField] private float _radius = 0.5f;
@@ -16,6 +18,8 @@ namespace WinterUniverse
         [SerializeField] private float _rotateSpeed = 180f;
         [SerializeField] private float _attackSpeed = 1f;
 
+        public Transform EyesPoint => _eyesPoint;
+        public Transform BodyPoint => _bodyPoint;
         public int AgentTypeID => _agentTypeID;
         public float Height => _height;
         public float Radius => _radius;

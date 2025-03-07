@@ -4,32 +4,40 @@ namespace WinterUniverse
 {
     public class HUDUI : MonoBehaviour
     {
-        [SerializeField] private VitalityBarUI _healthBar;
-        [SerializeField] private VitalityBarUI _energyBar;
-        [SerializeField] private VitalityBarUI _manaBar;
+        [SerializeField] private TargetInfoUI _playerInfo;
+        [SerializeField] private TargetInfoUI _targetInfo;
 
-        private EffectsBarUI _effectsBar;
-
-        public EffectsBarUI EffectsBar => _effectsBar;
+        public TargetInfoUI EffectsBar => _playerInfo;
+        public TargetInfoUI TargetInfo => _targetInfo;
 
         public void Initialize()
         {
-            _effectsBar = GetComponentInChildren<EffectsBarUI>();
-            _healthBar.Initialize();
-            _energyBar.Initialize();
-            _manaBar.Initialize();
-            _effectsBar.Initialize();
-            GameManager.StaticInstance.PlayerManager.Pawn.Status.OnHealthChanged += _healthBar.SetValues;
-            GameManager.StaticInstance.PlayerManager.Pawn.Status.OnEnergyChanged += _energyBar.SetValues;
-            GameManager.StaticInstance.PlayerManager.Pawn.Status.OnManaChanged += _manaBar.SetValues;
+            _playerInfo.Initialize(GameManager.StaticInstance.PlayerManager.Pawn);
+            _targetInfo.gameObject.SetActive(false);
+            GameManager.StaticInstance.PlayerManager.Pawn.Combat.OnTargetChanged += OnTargetChanged;
         }
 
         public void ResetComponent()
         {
-            _effectsBar.ResetComponent();
-            GameManager.StaticInstance.PlayerManager.Pawn.Status.OnHealthChanged -= _healthBar.SetValues;
-            GameManager.StaticInstance.PlayerManager.Pawn.Status.OnEnergyChanged -= _energyBar.SetValues;
-            GameManager.StaticInstance.PlayerManager.Pawn.Status.OnManaChanged -= _manaBar.SetValues;
+            GameManager.StaticInstance.PlayerManager.Pawn.Combat.OnTargetChanged -= OnTargetChanged;
+            _playerInfo.ResetComponent();
+        }
+
+        private void OnTargetChanged()
+        {
+            if (_targetInfo.isActiveAndEnabled)
+            {
+                _targetInfo.ResetComponent();
+            }
+            if (GameManager.StaticInstance.PlayerManager.Pawn.Combat.Target != null)
+            {
+                _targetInfo.gameObject.SetActive(true);
+                _targetInfo.Initialize(GameManager.StaticInstance.PlayerManager.Pawn.Combat.Target);
+            }
+            else
+            {
+                _targetInfo.gameObject.SetActive(false);
+            }
         }
     }
 }

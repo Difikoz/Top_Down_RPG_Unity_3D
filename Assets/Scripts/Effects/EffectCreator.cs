@@ -14,5 +14,7 @@ namespace WinterUniverse
         public EffectConfig Config => _config;
         public float Value => _value;
         public float Duration => _duration;
+
+        public bool Triggered => _chance >= Random.value;
     }
 }

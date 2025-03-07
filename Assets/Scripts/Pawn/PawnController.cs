@@ -9,6 +9,7 @@ namespace WinterUniverse
         private PawnConfig _config;
         private PawnAnimator _animator;
         private PawnCombat _combat;
+        private PawnDetection _detection;
         private PawnEquipment _equipment;
         private PawnInventory _inventory;
         private PawnLocomotion _locomotion;
@@ -20,6 +21,7 @@ namespace WinterUniverse
         public PawnConfig Config => _config;
         public PawnAnimator Animator => _animator;
         public PawnCombat Combat => _combat;
+        public PawnDetection Detection => _detection;
         public PawnEquipment Equipment => _equipment;
         public PawnInventory Inventory => _inventory;
         public PawnLocomotion Locomotion => _locomotion;
@@ -55,6 +57,7 @@ namespace WinterUniverse
         {
             _animator = GetComponentInChildren<PawnAnimator>();
             _combat = GetComponent<PawnCombat>();
+            _detection = GetComponentInChildren<PawnDetection>();
             _equipment = GetComponentInChildren<PawnEquipment>();
             _inventory = GetComponent<PawnInventory>();
             _locomotion = GetComponent<PawnLocomotion>();
@@ -67,6 +70,7 @@ namespace WinterUniverse
         {
             _animator.Initialize();
             _combat.Initialize();
+            _detection.Initialize();
             _equipment.Initialize();
             _inventory.Initialize();
             _locomotion.Initialize();
@@ -81,6 +85,7 @@ namespace WinterUniverse
             if (_created)
             {
                 _animator.OnUpdate();
+                _detection.OnUpdate();
                 _combat.OnUpdate();
                 _locomotion.OnUpdate();
                 _status.OnUpdate();

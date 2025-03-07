@@ -6,7 +6,7 @@ namespace WinterUniverse
     {
         private InputMode _inputMode;
         private PlayerManager _playerManager;
-        private AIManager _aiManager;
+        private NPCManager _npcManager;
         private CameraManager _cameraManager;
         private AudioManager _audioManager;
         private ConfigsManager _configsManager;
@@ -17,7 +17,7 @@ namespace WinterUniverse
 
         public InputMode InputMode => _inputMode;
         public PlayerManager PlayerManager => _playerManager;
-        public AIManager AIManager => _aiManager;
+        public NPCManager NPCManager => _npcManager;
         public CameraManager CameraManager => _cameraManager;
         public AudioManager AudioManager => _audioManager;
         public ConfigsManager ConfigsManager => _configsManager;
@@ -44,7 +44,7 @@ namespace WinterUniverse
         private void GetComponents()
         {
             _playerManager = GetComponentInChildren<PlayerManager>();
-            _aiManager = GetComponentInChildren<AIManager>();
+            _npcManager = GetComponentInChildren<NPCManager>();
             _cameraManager = GetComponentInChildren<CameraManager>();
             _audioManager = GetComponentInChildren<AudioManager>();
             _configsManager = GetComponentInChildren<ConfigsManager>();
@@ -60,7 +60,7 @@ namespace WinterUniverse
             _spawnersManager.Initialize();
             _audioManager.Initialize();
             _playerManager.Initialize();
-            _aiManager.Initialize();
+            _npcManager.Initialize();
             _cameraManager.Initialize();
             _uiManager.Initialize();
         }
@@ -68,7 +68,7 @@ namespace WinterUniverse
         private void Update()
         {
             _playerManager.OnUpdate();
-            _aiManager.OnUpdate();
+            _npcManager.OnUpdate();
             _cameraManager.OnUpdate();
         }
 

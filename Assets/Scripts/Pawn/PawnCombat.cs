@@ -73,14 +73,7 @@ namespace WinterUniverse
                 _distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
                 _angleToTarget = Vector3.SignedAngle(transform.forward, (_target.transform.position - transform.position).normalized, Vector3.up);
                 _relationshipToTarget = _pawn.Faction.Config.GetState(target.Faction.Config);
-                if (_relationshipToTarget == RelationshipState.Enemy && _pawn.Equipment.WeaponSlot.Config != null)
-                {
-                    _pawn.Locomotion.SetTarget(_target.transform, _pawn.Equipment.WeaponSlot.Config.AttackRange / 2f);
-                }
-                else
-                {
-                    _pawn.Locomotion.SetTarget(_target.transform, _followDistance);
-                }
+                OnEquipmentChanged();
             }
             else
             {
@@ -98,11 +91,11 @@ namespace WinterUniverse
             {
                 if (_relationshipToTarget == RelationshipState.Enemy && _pawn.Equipment.WeaponSlot.Config != null)
                 {
-                    _pawn.Locomotion.SetTarget(_target.transform, _pawn.Equipment.WeaponSlot.Config.AttackRange / 2f);
+                    _pawn.Locomotion.SetTarget(_target.transform, _pawn.Equipment.WeaponSlot.Config.AttackRange / 2f, _pawn.Equipment.WeaponSlot.Config.AttackRange);
                 }
                 else
                 {
-                    _pawn.Locomotion.SetTarget(_target.transform, _followDistance);
+                    _pawn.Locomotion.SetTarget(_target.transform, _followDistance / 2f, _followDistance * 2f);
                 }
             }
         }
