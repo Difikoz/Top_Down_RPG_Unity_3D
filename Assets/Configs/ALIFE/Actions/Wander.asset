@@ -24,20 +24,14 @@ MonoBehaviour:
   - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
     _value: 1
   _conditionsToStart:
-  - _config: {fileID: 11400000, guid: c013e85d42c243d43bebbf99bd5c4648, type: 2}
+  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
     _value: 0
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
+  - _config: {fileID: 11400000, guid: c013e85d42c243d43bebbf99bd5c4648, type: 2}
     _value: 0
   _conditionsToAbort:
   - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
     _value: 1
   _conditionsToComplete: []
-  _effectsOnStart:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 1
-  _effectsOnAbort:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 0
-  _effectsOnComplete:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 0
+  _effectsOnStart: []
+  _effectsOnAbort: []
+  _effectsOnComplete: []

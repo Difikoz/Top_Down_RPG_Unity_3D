@@ -16,14 +16,16 @@ MonoBehaviour:
   _cost: 1
   _playAnimationOnStart: 1
   _animationOnStart: Eat
-  _completeOnAnimationEnd: 1
+  _completeOnAnimationEnd: 0
   _completeOnReachedDestination: 0
-  _completeOnTimerEnd: 0
-  _timerDuration: 0
+  _completeOnTimerEnd: 1
+  _timerDuration: 2
   _results:
   - _config: {fileID: 11400000, guid: 229e9876cd68c8745aae73da38d74514, type: 2}
     _value: 0
   _conditionsToStart:
+  - _config: {fileID: 11400000, guid: 150433e39f321b348a73350cf976a959, type: 2}
+    _value: 1
   - _config: {fileID: 11400000, guid: 229e9876cd68c8745aae73da38d74514, type: 2}
     _value: 1
   _conditionsToAbort: []

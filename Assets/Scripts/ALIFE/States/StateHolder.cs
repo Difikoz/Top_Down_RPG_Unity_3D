@@ -8,6 +8,11 @@ namespace WinterUniverse
 
         public Dictionary<string, bool> States => _states;
 
+        public bool HasState(string key)
+        {
+            return _states.ContainsKey(key);
+        }
+
         public bool CompareStateValue(string key, bool value)
         {
             if (_states.ContainsKey(key))

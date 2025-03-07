@@ -21,8 +21,8 @@ MonoBehaviour:
   _completeOnTimerEnd: 0
   _timerDuration: 0
   _results:
-  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
-    _value: 0
+  - _config: {fileID: 11400000, guid: fe8e5234fcaef3246a45a070eb8c2c85, type: 2}
+    _value: 1
   _conditionsToStart:
   - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
     _value: 1

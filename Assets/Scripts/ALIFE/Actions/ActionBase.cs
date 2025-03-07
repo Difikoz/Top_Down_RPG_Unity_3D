@@ -79,11 +79,11 @@ namespace WinterUniverse
         {
             foreach (KeyValuePair<string, bool> condition in _conditionsToStart)
             {
-                if (!_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
+                if (_npc.Pawn.StateHolder.HasState(condition.Key) && !_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }
-                if (!GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
+                if (GameManager.StaticInstance.WorldManager.StateHolder.HasState(condition.Key) && !GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }

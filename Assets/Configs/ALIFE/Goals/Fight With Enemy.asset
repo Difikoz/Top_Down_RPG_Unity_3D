@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Fight With Enemy
   _repeatable: 1
-  _conditions:
-  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
+  _requiredStates:
+  - _config: {fileID: 11400000, guid: 62055bb6bb8a96f4483180d60cc2d922, type: 2}
     _value: 0

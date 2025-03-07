@@ -248,6 +248,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4046930550617840742, guid: e1773ca4392b8fa4d85f90763336b94d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046930550617840742, guid: e1773ca4392b8fa4d85f90763336b94d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046930550617840742, guid: e1773ca4392b8fa4d85f90763336b94d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046930550617840742, guid: e1773ca4392b8fa4d85f90763336b94d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4289017983836852409, guid: e1773ca4392b8fa4d85f90763336b94d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

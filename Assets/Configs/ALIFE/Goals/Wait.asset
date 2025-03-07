@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Wait
   _repeatable: 1
-  _conditions:
+  _requiredStates:
   - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
     _value: 1

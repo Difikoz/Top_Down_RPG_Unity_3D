@@ -16,14 +16,16 @@ MonoBehaviour:
   _cost: 1
   _playAnimationOnStart: 1
   _animationOnStart: Use Item
-  _completeOnAnimationEnd: 1
+  _completeOnAnimationEnd: 0
   _completeOnReachedDestination: 0
-  _completeOnTimerEnd: 0
-  _timerDuration: 0
+  _completeOnTimerEnd: 1
+  _timerDuration: 2
   _results:
   - _config: {fileID: 11400000, guid: 5fc0f130834af4a4c847d66f4863e5aa, type: 2}
     _value: 0
   _conditionsToStart:
+  - _config: {fileID: 11400000, guid: 9a181a83805b7a04595ddc14c7e5488d, type: 2}
+    _value: 1
   - _config: {fileID: 11400000, guid: 5fc0f130834af4a4c847d66f4863e5aa, type: 2}
     _value: 1
   _conditionsToAbort: []

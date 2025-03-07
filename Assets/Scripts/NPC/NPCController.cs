@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,6 +27,12 @@ namespace WinterUniverse
         public List<ActionBase> Actions => _actions;
         public Dictionary<GoalHolder, int> Goals => _goals;
 
+        public void Initialize(PawnConfig config)
+        {
+            _config = config;
+            Initialize();
+        }
+
         public void Initialize()
         {
             _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(transform);
@@ -51,13 +58,10 @@ namespace WinterUniverse
         {
             _pawn.OnUpdate();
             //transform.SetPositionAndRotation(_pawn.transform.position, _pawn.transform.rotation);
-            //if (_pawn.Combat.Target == null && _pawn.Detection.DetectedPawns.Count > 0)
-            //{
-            //    _pawn.Combat.SetTarget(_pawn.Detection.GetClosestPawn());
-            //}
-            if(_proccessALIFETime >= _proccessALIFECooldown)
+            if (_proccessALIFETime >= _proccessALIFECooldown)
             {
                 ProccessALIFE();
+                _proccessALIFETime = 0f;
             }
             else
             {
@@ -82,8 +86,8 @@ namespace WinterUniverse
                 else
                 {
                     _currentAction.OnUpdate(_proccessALIFECooldown);
+                    return;
                 }
-                return;
             }
             if (_actionQueue != null)
             {
@@ -100,7 +104,7 @@ namespace WinterUniverse
                         _actionQueue = null;
                     }
                 }
-                if (_currentGoal != null)
+                else if (_currentGoal != null)
                 {
                     if (!_currentGoal.Config.Repeatable)
                     {
@@ -114,12 +118,27 @@ namespace WinterUniverse
                 var sortedGoals = from entry in _goals orderby entry.Value descending select entry;
                 foreach (KeyValuePair<GoalHolder, int> sg in sortedGoals)
                 {
-                    //Debug.LogWarning($"Try Get Plan for [{sg.Key.Config.DisplayName}]");
-                    _actionQueue = GameManager.StaticInstance.TaskManager.GetPlan(_actions, _pawn.StateHolder.States, _goals.ElementAt(0).Key.Conditions);
+                    _actionQueue = GameManager.StaticInstance.TaskManager.GetPlan(_actions, _pawn.StateHolder.States, sg.Key.RequiredStates);
                     if (_actionQueue != null)
                     {
                         _currentGoal = sg.Key;
-                        return;
+                        string planText = $"Plan for [{_currentGoal.Config.DisplayName}] is:";
+                        foreach (ActionBase a in _actionQueue)
+                        {
+                            planText += $" {a.Config.DisplayName}, ";
+                        }
+                        planText += "END";
+                        _currentAction = _actionQueue.Dequeue();
+                        if (_currentAction.CanStart())
+                        {
+                            Debug.Log(planText);
+                            _currentAction.OnStart();
+                            return;
+                        }
+                        else
+                        {
+                            _actionQueue = null;
+                        }
                     }
                 }
             }

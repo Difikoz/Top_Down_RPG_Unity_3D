@@ -49,13 +49,6 @@ namespace WinterUniverse
             {
                 queue.Enqueue(a);
             }
-            string planText = "The Plan is: ";
-            foreach (ActionBase a in queue)
-            {
-                planText += $" {a.Config.DisplayName}, ";
-            }
-            planText += "END";
-            Debug.Log(planText);
             return queue;
         }
 
@@ -99,7 +92,7 @@ namespace WinterUniverse
             List<ActionBase> subset = new();
             foreach (ActionBase a in actions)
             {
-                if (!a.Equals(removeMe))// rework equals?
+                if (!a.gameObject.Equals(removeMe.gameObject))// rework equals?
                 {
                     subset.Add(a);
                 }

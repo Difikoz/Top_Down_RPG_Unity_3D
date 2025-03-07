@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Follow Ally
   _repeatable: 1
-  _conditions:
-  - _config: {fileID: 11400000, guid: 49a4cb3de34fb24499ec622cdc0b991b, type: 2}
-    _value: 0
+  _requiredStates:
+  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
+    _value: 1

@@ -16,10 +16,10 @@ MonoBehaviour:
   _cost: 1
   _playAnimationOnStart: 1
   _animationOnStart: Swap Armor
-  _completeOnAnimationEnd: 1
+  _completeOnAnimationEnd: 0
   _completeOnReachedDestination: 0
-  _completeOnTimerEnd: 0
-  _timerDuration: 0
+  _completeOnTimerEnd: 1
+  _timerDuration: 2
   _results:
   - _config: {fileID: 11400000, guid: 1ce964af26725a64fac06814b9559fba, type: 2}
     _value: 0

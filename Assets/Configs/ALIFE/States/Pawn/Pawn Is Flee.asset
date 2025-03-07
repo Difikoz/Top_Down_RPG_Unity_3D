@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba425aecc1d752340b51b5d886c4f6c5, type: 3}
-  m_Name: Wander
+  m_Script: {fileID: 11500000, guid: af975b40e8d9ea84c858b5387e0ee71a, type: 3}
+  m_Name: Pawn Is Flee
   m_EditorClassIdentifier: 
-  _displayName: Wander
-  _repeatable: 1
-  _requiredStates:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 1
+  _id: Is Flee

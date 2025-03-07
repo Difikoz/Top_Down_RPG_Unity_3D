@@ -16,14 +16,16 @@ MonoBehaviour:
   _cost: 1
   _playAnimationOnStart: 1
   _animationOnStart: Drink
-  _completeOnAnimationEnd: 1
+  _completeOnAnimationEnd: 0
   _completeOnReachedDestination: 0
-  _completeOnTimerEnd: 0
-  _timerDuration: 0
+  _completeOnTimerEnd: 1
+  _timerDuration: 2
   _results:
   - _config: {fileID: 11400000, guid: fe2152b7a3503c145b55b248c708f6c8, type: 2}
     _value: 0
   _conditionsToStart:
+  - _config: {fileID: 11400000, guid: adc38f18a178c3e4983f62a56218df78, type: 2}
+    _value: 1
   - _config: {fileID: 11400000, guid: fe2152b7a3503c145b55b248c708f6c8, type: 2}
     _value: 1
   _conditionsToAbort: []

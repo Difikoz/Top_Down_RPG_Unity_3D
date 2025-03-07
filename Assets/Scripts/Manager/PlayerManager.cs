@@ -94,6 +94,12 @@ namespace WinterUniverse
             _pawn.Combat.SetTarget(null);
         }
 
+        public void Initialize(PawnConfig config)
+        {
+            _config = config;
+            Initialize();
+        }
+
         public void Initialize()
         {
             _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);// get transform from save data
