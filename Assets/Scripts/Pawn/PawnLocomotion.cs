@@ -61,7 +61,7 @@ namespace WinterUniverse
         public void OnUpdate()
         {
             _velocity = _agent.velocity.magnitude / _agent.speed;
-            if (_pawn.Animator.IsPerfomingAction || _pawn.Status.IsDead)
+            if (_pawn.StateHolder.CheckStateValue("Is Perfoming Action", true) || _pawn.StateHolder.CheckStateValue("Is Dead", true))
             {
                 if (!_reachedDestination)
                 {
@@ -161,10 +161,15 @@ namespace WinterUniverse
 
         public void SetDestinationAroundSelf(float minRange, float maxRange, bool resetTarget = true)
         {
-            SetDestinationAroundPoint(transform.position, minRange, maxRange, resetTarget);
+            SetDestinationInRange(transform.position, minRange, maxRange, resetTarget);
         }
 
-        public void SetDestinationAroundPoint(Vector3 position, float minRange, float maxRange, bool resetTarget = true)
+        public void SetDestinationAroundSelf(float radius, bool resetTarget = true)
+        {
+            SetDestinationInRange(transform.position, radius, resetTarget);
+        }
+
+        public void SetDestinationInRange(Vector3 position, float minRange, float maxRange, bool resetTarget = true)
         {
             if (Random.value > 0.5f)
             {
@@ -182,6 +187,14 @@ namespace WinterUniverse
             {
                 position.z -= Random.Range(minRange, maxRange);
             }
+            SetDestination(position, resetTarget);
+        }
+
+        public void SetDestinationInRange(Vector3 position, float radius, bool resetTarget = true)
+        {
+            radius /= 2f;
+            position += Vector3.right * Random.Range(-radius, radius);
+            position += Vector3.forward * Random.Range(-radius, radius);
             SetDestination(position, resetTarget);
         }
 

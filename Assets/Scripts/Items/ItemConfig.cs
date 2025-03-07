@@ -6,12 +6,16 @@ namespace WinterUniverse
     {
         [SerializeField] protected ItemType _itemType;
         [SerializeField] protected GameObject _model;
+        [SerializeField] protected bool _playAnimationOnUse = true;
+        [SerializeField] protected string _animationOnUse = "Swap Weapon";
         [SerializeField] protected int _stackSize = 1;
         [SerializeField] protected float _weight = 1f;
         [SerializeField] protected int _price = 100;
 
         public ItemType ItemType => _itemType;
         public GameObject Model => _model;
+        public bool PlayAnimationOnUse => _playAnimationOnUse;
+        public string AnimationOnUse => _animationOnUse;
         public int StackSize => _stackSize;
         public float Weight => _weight;
         public int Price => _price;

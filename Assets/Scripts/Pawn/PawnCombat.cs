@@ -23,26 +23,30 @@ namespace WinterUniverse
         public void Initialize()
         {
             _pawn = GetComponent<PawnController>();
-            _pawn.Equipment.OnEquipmentChanged += OnEquipmentChanged;
+            _pawn.Equipment.OnEquipmentChanged += FollorTarget;
         }
 
         public void ResetComponent()
         {
-            _pawn.Equipment.OnEquipmentChanged -= OnEquipmentChanged;
+            _pawn.Equipment.OnEquipmentChanged -= FollorTarget;
         }
 
         public void OnUpdate()
         {
             if (_target != null)
             {
-                if (_target.Status.IsDead)
+                if (_target.StateHolder.CheckStateValue("Is Dead", true))
                 {
                     _pawn.Locomotion.SetDestination(transform.position);
                 }
-                else if (!_pawn.Animator.IsPerfomingAction)
+                else if (_pawn.StateHolder.CheckStateValue("Is Perfoming Action", false))
                 {
                     _distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
                     _angleToTarget = Vector3.SignedAngle(transform.forward, (_target.transform.position - transform.position).normalized, Vector3.up);
+                    if (_target.transform != _pawn.Locomotion.FollowTarget)
+                    {
+                        return;
+                    }
                     switch (_relationshipToTarget)
                     {
                         case RelationshipState.Enemy:
@@ -65,15 +69,22 @@ namespace WinterUniverse
             }
         }
 
-        public void SetTarget(PawnController target)
+        public void SetTarget(PawnController target, bool follow = true)
         {
-            if (target != null && !target.Status.IsDead)
+            if (target != null && target.StateHolder.CheckStateValue("Is Dead", false))
             {
                 _target = target;
                 _distanceToTarget = Vector3.Distance(transform.position, _target.transform.position);
                 _angleToTarget = Vector3.SignedAngle(transform.forward, (_target.transform.position - transform.position).normalized, Vector3.up);
                 _relationshipToTarget = _pawn.Faction.Config.GetState(target.Faction.Config);
-                OnEquipmentChanged();
+                if (follow)
+                {
+                    FollorTarget();
+                }
+                else
+                {
+                    _pawn.Locomotion.SetTarget(null);
+                }
             }
             else
             {
@@ -85,7 +96,7 @@ namespace WinterUniverse
             OnTargetChanged?.Invoke();
         }
 
-        private void OnEquipmentChanged()
+        private void FollorTarget()
         {
             if (_target != null)
             {

@@ -28,7 +28,7 @@ namespace WinterUniverse
 
         public override bool CanInteract(PawnController pawn)
         {
-            return _item != null && _amount > 0 && !pawn.Status.IsDead && !pawn.Animator.IsPerfomingAction;
+            return _item != null && _amount > 0 && pawn.StateHolder.CheckStateValue("Is Dead", false) && pawn.StateHolder.CheckStateValue("Is Perfoming Action", false);
         }
 
         public override void Interact(PawnController pawn)

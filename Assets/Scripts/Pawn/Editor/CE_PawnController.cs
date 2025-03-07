@@ -1,3 +1,5 @@
+using log4net;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,6 +26,14 @@ namespace WinterUniverse
                     GUILayout.Label($"Health => {pawn.Status.HealthPercent * 100f}%");
                     GUILayout.Label($"Energy => {pawn.Status.EnergyPercent * 100f}%");
                     GUILayout.Label($"Mana => {pawn.Status.ManaPercent * 100f}%");
+                }
+                GUILayout.Label("===== States =====");
+                if (pawn.StateHolder != null)
+                {
+                    foreach (KeyValuePair<string, bool> state in pawn.StateHolder.States)
+                    {
+                        GUILayout.Label($"{state.Key} : {state.Value}");
+                    }
                 }
                 GUILayout.Label("===== Combat =====");
                 if (pawn.Combat != null)

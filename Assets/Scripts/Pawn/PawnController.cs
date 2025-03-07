@@ -16,6 +16,9 @@ namespace WinterUniverse
         private PawnFaction _faction;
         private PawnStatus _status;
         private PawnEffects _effects;
+        //
+        private StateHolder _stateHolder;
+        [SerializeField] private StateHolderConfig _stateCreatorHolder;
 
         public bool Created => _created;
         public PawnConfig Config => _config;
@@ -28,6 +31,8 @@ namespace WinterUniverse
         public PawnFaction Faction => _faction;
         public PawnStatus Status => _status;
         public PawnEffects Effects => _effects;
+        //
+        public StateHolder StateHolder => _stateHolder;
 
         public void Initialize(PawnConfig config)
         {
@@ -68,6 +73,15 @@ namespace WinterUniverse
 
         private void InitializeComponents()
         {
+            _stateHolder = new();
+            foreach (StateConfig config in GameManager.StaticInstance.ConfigsManager.PawnStates)
+            {
+                _stateHolder.SetState(config.ID, false);
+            }
+            foreach (StateCreator creator in _stateCreatorHolder.StatesToChange)
+            {
+                _stateHolder.SetState(creator.Config.ID, creator.Value);
+            }
             _animator.Initialize();
             _combat.Initialize();
             _detection.Initialize();

@@ -38,9 +38,16 @@ namespace WinterUniverse
                 {
                     interactable.Interact(_pawn);
                 }
-                else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
+                else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CheckStateValue("Is Dead", false))
                 {
-                    _pawn.Combat.SetTarget(pawn);
+                    if (pawn == _pawn.Combat.Target)
+                    {
+                        _pawn.Combat.SetTarget(pawn);
+                    }
+                    else
+                    {
+                        _pawn.Combat.SetTarget(pawn, false);
+                    }
                 }
                 else
                 {

@@ -70,6 +70,7 @@ namespace WinterUniverse
                     amount--;
                 }
             }
+            _pawn.StateHolder.SetState("Has New Items", true);
             UpdateInventory();
         }
 
@@ -157,6 +158,73 @@ namespace WinterUniverse
                 }
             }
             return amount;
+        }
+
+        public bool GetWeapon(out WeaponItemConfig weapon)
+        {
+            weapon = null;
+            int price = 0;
+            foreach (ItemStack stack in _stacks)
+            {
+                if (stack.Item.ItemType == ItemType.Weapon && stack.Item.Price > price)
+                {
+                    weapon = (WeaponItemConfig)stack.Item;
+                    price = weapon.Price;
+                }
+            }
+            return weapon != null;
+        }
+
+        public bool GetArmor(string armoType, out ArmorItemConfig armor)
+        {
+            armor = null;
+            int price = 0;
+            foreach (ItemStack stack in _stacks)
+            {
+                if (stack.Item.ItemType == ItemType.Armor && stack.Item.Price > price)
+                {
+                    ArmorItemConfig item = (ArmorItemConfig)stack.Item;
+                    if (item.ArmorType.DisplayName == armoType)
+                    {
+                        armor = item;
+                        price = armor.Price;
+                    }
+                }
+            }
+            return armor != null;
+        }
+
+        public bool GetConsumable(string consumableType, out ConsumableItemConfig consumable)
+        {
+            consumable = null;
+            int price = 0;
+            foreach (ItemStack stack in _stacks)
+            {
+                if (stack.Item.ItemType == ItemType.Consumable && stack.Item.Price > price)
+                {
+                    ConsumableItemConfig item = (ConsumableItemConfig)stack.Item;
+                    if (item.ConsumableType.DisplayName == consumableType)
+                    {
+                        consumable = item;
+                        price = consumable.Price;
+                    }
+                }
+            }
+            return consumable != null;
+        }
+
+        public bool GetResource(string name, out ResourceItemConfig resource)
+        {
+            resource = null;
+            foreach (ItemStack stack in _stacks)
+            {
+                if (stack.Item.ItemType == ItemType.Resource && stack.Item.DisplayName == name)
+                {
+                    resource = (ResourceItemConfig)stack.Item;
+                    break;
+                }
+            }
+            return resource != null;
         }
 
         private void UpdateInventory()

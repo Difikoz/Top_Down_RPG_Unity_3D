@@ -35,7 +35,7 @@ namespace WinterUniverse
 
         public void EquipWeapon(WeaponItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)
         {
-            if (_pawn.Status.IsDead || _pawn.Animator.IsPerfomingAction)
+            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || _pawn.StateHolder.CheckStateValue("Is Perfoming Action", true))
             {
                 return;
             }
@@ -48,6 +48,10 @@ namespace WinterUniverse
                 _pawn.Inventory.AddItem(_weaponSlot.Config);
             }
             _weaponSlot.ChangeConfig(config);
+            //if (config.PlayAnimationOnUse)
+            //{
+            //    _pawn.Animator.PlayAction(config.AnimationOnUse);
+            //}
             OnEquipmentChanged?.Invoke();
         }
 
@@ -63,7 +67,7 @@ namespace WinterUniverse
 
         public void EquipArmor(ArmorItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)
         {
-            if (_pawn.Status.IsDead || _pawn.Animator.IsPerfomingAction)
+            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || _pawn.StateHolder.CheckStateValue("Is Perfoming Action", true))
             {
                 return;
             }
@@ -83,6 +87,10 @@ namespace WinterUniverse
                     break;
                 }
             }
+            //if (config.PlayAnimationOnUse)
+            //{
+            //    _pawn.Animator.PlayAction(config.AnimationOnUse);
+            //}
             OnEquipmentChanged?.Invoke();
         }
 

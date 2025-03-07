@@ -13,6 +13,8 @@ namespace WinterUniverse
         private LayerManager _layerManager;
         private PrefabsManager _prefabsManager;
         private SpawnersManager _spawnersManager;
+        private TaskManager _taskManager;
+        private WorldManager _worldManager;
         private UIManager _uiManager;
 
         public InputMode InputMode => _inputMode;
@@ -24,6 +26,8 @@ namespace WinterUniverse
         public LayerManager LayerManager => _layerManager;
         public PrefabsManager PrefabsManager => _prefabsManager;
         public SpawnersManager SpawnersManager => _spawnersManager;
+        public TaskManager TaskManager => _taskManager;
+        public WorldManager WorldManager => _worldManager;
         public UIManager UIManager => _uiManager;
 
         protected override void Awake()
@@ -51,14 +55,17 @@ namespace WinterUniverse
             _layerManager = GetComponentInChildren<LayerManager>();
             _prefabsManager = GetComponentInChildren<PrefabsManager>();
             _spawnersManager = GetComponentInChildren<SpawnersManager>();
+            _taskManager = GetComponentInChildren<TaskManager>();
+            _worldManager = GetComponentInChildren<WorldManager>();
             _uiManager = GetComponentInChildren<UIManager>();
         }
 
         private void InitializeComponents()
         {
-            _configsManager.Initialize();
-            _spawnersManager.Initialize();
             _audioManager.Initialize();
+            _configsManager.Initialize();
+            _worldManager.Initialize();
+            _spawnersManager.Initialize();
             _playerManager.Initialize();
             _npcManager.Initialize();
             _cameraManager.Initialize();

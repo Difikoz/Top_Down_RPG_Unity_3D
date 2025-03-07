@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe3628c8122c1d4f87e5cc55ee6debd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateCreatorHolder: {fileID: 11400000, guid: 4c135bf8dcb85474fafcf05489f459f2, type: 2}
 --- !u!114 &4320499880459420562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateDestinationCooldown: 1
-  _basicFollowDistance: 4
+  _basicMinFollowDistance: 2
+  _basicMaxFollowDistance: 4
 --- !u!114 &2829760357249383690
 MonoBehaviour:
   m_ObjectHideFlags: 0

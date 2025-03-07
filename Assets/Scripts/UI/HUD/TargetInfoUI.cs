@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WinterUniverse
 {
     public class TargetInfoUI : MonoBehaviour
     {
+        [SerializeField] private Image _pawnIconImage;
         [SerializeField] private VitalityBarUI _healthBar;
         [SerializeField] private VitalityBarUI _energyBar;
         [SerializeField] private VitalityBarUI _manaBar;
@@ -17,6 +19,7 @@ namespace WinterUniverse
         {
             _pawn = pawn;
             _effectsBar = GetComponentInChildren<EffectsBarUI>();
+            _pawnIconImage.sprite = _pawn.Config.Icon;
             _healthBar.Initialize();
             _energyBar.Initialize();
             _manaBar.Initialize();

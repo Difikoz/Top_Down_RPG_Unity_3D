@@ -861,6 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f2b98f8cc31054690989f3d8dfcd4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pawnIconImage: {fileID: 13957498935922533}
   _healthBar: {fileID: 3469900377096362024}
   _energyBar: {fileID: 4682898196217130848}
   _manaBar: {fileID: 2868306324720391535}
@@ -1917,6 +1918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f2b98f8cc31054690989f3d8dfcd4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pawnIconImage: {fileID: 3948467895435296915}
   _healthBar: {fileID: 7677893251098750190}
   _energyBar: {fileID: 4055027639682071296}
   _manaBar: {fileID: 4188024827100448110}

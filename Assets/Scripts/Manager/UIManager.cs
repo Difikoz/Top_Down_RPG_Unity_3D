@@ -40,6 +40,7 @@ namespace WinterUniverse
             {
                 _statusBar.gameObject.SetActive(false);
                 GameManager.StaticInstance.SetInputMode(InputMode.Game);
+                GameManager.StaticInstance.PlayerManager.Pawn.StateHolder.SetState("Has New Items", false);
             }
             else
             {

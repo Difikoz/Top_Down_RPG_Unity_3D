@@ -6,7 +6,6 @@ namespace WinterUniverse
     {
         private PawnController _pawn;
         private Animator _animator;
-        private bool _isPerfomingAction;
 
         [SerializeField] private Transform _eyesPoint;
         [SerializeField] private Transform _bodyPoint;
@@ -27,7 +26,6 @@ namespace WinterUniverse
         public float MoveSpeed => _moveSpeed;
         public float RotateSpeed => _rotateSpeed;
         public float AttackSpeed => _attackSpeed;
-        public bool IsPerfomingAction => _isPerfomingAction;
 
         public void Initialize()
         {
@@ -48,7 +46,7 @@ namespace WinterUniverse
 
         public void PlayAction(string name, float fadeTime = 0.1f, bool isPerfomingAction = true)
         {
-            _isPerfomingAction = isPerfomingAction;
+            _pawn.StateHolder.CheckStateValue("Is Perfoming Action", isPerfomingAction);
             _animator.CrossFade(name, fadeTime);
         }
 
@@ -60,7 +58,7 @@ namespace WinterUniverse
 
         public void ResetState()
         {
-            _isPerfomingAction = false;
+            _pawn.StateHolder.SetState("Is Perfoming Action", false);
         }
 
         public void OpenDamageCollider()

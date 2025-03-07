@@ -19,8 +19,16 @@ namespace WinterUniverse
 
         public override void Use(PawnController pawn, bool fromInventory = true)
         {
+            if (pawn.StateHolder.CheckStateValue("Is Dead", true) || pawn.StateHolder.CheckStateValue("Is Perfoming Action", true))
+            {
+                return;
+            }
             if (!fromInventory || (fromInventory && pawn.Inventory.RemoveItem(this)))
             {
+                //if (_playAnimationOnUse)
+                //{
+                //    pawn.Animator.PlayAction(_animationOnUse);
+                //}
                 foreach (EffectCreator effect in _effects)
                 {
                     pawn.Effects.AddEffect(effect.Config.CreateEffect(pawn, pawn, effect.Value, effect.Duration));

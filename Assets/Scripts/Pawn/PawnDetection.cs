@@ -42,7 +42,7 @@ namespace WinterUniverse
                     {
                         _detectedInteractables.Add(interactable);
                     }
-                    else if (collider.TryGetComponent(out PawnController pawn) && pawn != _pawn && !pawn.Status.IsDead && TargetIsVisible(pawn))
+                    else if (collider.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CheckStateValue("Is Dead", false) && TargetIsVisible(pawn))
                     {
                         _detectedPawns.Add(pawn);
                     }

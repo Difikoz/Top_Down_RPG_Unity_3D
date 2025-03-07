@@ -12,6 +12,8 @@ namespace WinterUniverse
         [SerializeField] private List<ElementConfig> _elements = new();
         [SerializeField] private List<StatConfig> _stats = new();
         [SerializeField] private List<FactionConfig> _factions = new();
+        [SerializeField] private List<StateConfig> _pawnStates = new();
+        [SerializeField] private List<StateConfig> _worldStates = new();
 
         private List<ItemConfig> _items = new();
 
@@ -19,6 +21,8 @@ namespace WinterUniverse
         public List<ElementConfig> Elements => _elements;
         public List<StatConfig> Stats => _stats;
         public List<FactionConfig> Factions => _factions;
+        public List<StateConfig> PawnStates => _pawnStates;
+        public List<StateConfig> WorldStates => _worldStates;
 
         public void Initialize()
         {
