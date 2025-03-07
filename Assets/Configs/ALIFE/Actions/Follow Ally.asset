@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a0344fda712b84486c85b205bbf620, type: 3}
+  m_Name: Follow Ally
+  m_EditorClassIdentifier: 
+  _displayName: Follow Ally
+  _cost: 1
+  _playAnimationOnStart: 0
+  _animationOnStart: 
+  _completeOnAnimationEnd: 0
+  _completeOnReachedDestination: 0
+  _completeOnTimerEnd: 0
+  _timerDuration: 0
+  _results:
+  - _config: {fileID: 11400000, guid: 49a4cb3de34fb24499ec622cdc0b991b, type: 2}
+    _value: 0
+  _conditionsToStart:
+  - _config: {fileID: 11400000, guid: 49a4cb3de34fb24499ec622cdc0b991b, type: 2}
+    _value: 1
+  - _config: {fileID: 11400000, guid: c013e85d42c243d43bebbf99bd5c4648, type: 2}
+    _value: 0
+  _conditionsToAbort:
+  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
+    _value: 1
+  - _config: {fileID: 11400000, guid: 5fc0f130834af4a4c847d66f4863e5aa, type: 2}
+    _value: 1
+  _conditionsToComplete:
+  - _config: {fileID: 11400000, guid: 49a4cb3de34fb24499ec622cdc0b991b, type: 2}
+    _value: 0
+  _effectsOnStart:
+  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
+    _value: 1
+  _effectsOnAbort:
+  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
+    _value: 0
+  _effectsOnComplete:
+  - _config: {fileID: 11400000, guid: 7bf25123ed8e9564f9fbf866ac5a6eb8, type: 2}
+    _value: 0

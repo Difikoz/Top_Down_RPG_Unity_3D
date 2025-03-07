@@ -16,10 +16,10 @@ MonoBehaviour:
   _cost: 1
   _playAnimationOnStart: 0
   _animationOnStart: Inspect
-  _completeOnAnimationEnd: 0
+  _completeOnAnimationEnd: 1
   _completeOnReachedDestination: 0
-  _completeOnTimerEnd: 1
-  _timerDuration: 2
+  _completeOnTimerEnd: 0
+  _timerDuration: 0
   _results:
   - _config: {fileID: 11400000, guid: c013e85d42c243d43bebbf99bd5c4648, type: 2}
     _value: 0

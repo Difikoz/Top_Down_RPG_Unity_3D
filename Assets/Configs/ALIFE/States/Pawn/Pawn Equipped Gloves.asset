@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa5048bfed2954646a275f750b9befd6, type: 3}
-  m_Name: Loner
+  m_Script: {fileID: 11500000, guid: af975b40e8d9ea84c858b5387e0ee71a, type: 3}
+  m_Name: Pawn Equipped Gloves
   m_EditorClassIdentifier: 
-  _goalsToAdd:
-  - _config: {fileID: 11400000, guid: f75f5eb58215cb3489e9e2a0fac7565e, type: 2}
-    _priority: 0
+  _id: Equipped Gloves

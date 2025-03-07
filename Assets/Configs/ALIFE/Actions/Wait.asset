@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a0344fda712b84486c85b205bbf620, type: 3}
+  m_Name: Wait
+  m_EditorClassIdentifier: 
+  _displayName: Wait
+  _cost: 1
+  _playAnimationOnStart: 0
+  _animationOnStart: 
+  _completeOnAnimationEnd: 0
+  _completeOnReachedDestination: 0
+  _completeOnTimerEnd: 1
+  _timerDuration: 2
+  _results:
+  - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
+    _value: 1
+  _conditionsToStart:
+  - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
+    _value: 0
+  _conditionsToAbort:
+  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
+    _value: 1
+  _conditionsToComplete: []
+  _effectsOnStart:
+  - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
+    _value: 1
+  _effectsOnAbort:
+  - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
+    _value: 0
+  _effectsOnComplete:
+  - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
+    _value: 0

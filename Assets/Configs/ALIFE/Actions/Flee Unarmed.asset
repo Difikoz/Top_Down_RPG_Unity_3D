@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5a0344fda712b84486c85b205bbf620, type: 3}
-  m_Name: Wander
+  m_Name: Flee Unarmed
   m_EditorClassIdentifier: 
-  _displayName: Wander
+  _displayName: Flee Unarmed
   _cost: 1
   _playAnimationOnStart: 0
   _animationOnStart: 
@@ -21,17 +21,15 @@ MonoBehaviour:
   _completeOnTimerEnd: 0
   _timerDuration: 0
   _results:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 1
+  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
+    _value: 0
   _conditionsToStart:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
+  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
+    _value: 1
+  - _config: {fileID: 11400000, guid: 4f9ff29a73157804e91c0d1a95079aa3, type: 2}
     _value: 0
   _conditionsToAbort: []
   _conditionsToComplete: []
-  _effectsOnStart:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 1
+  _effectsOnStart: []
   _effectsOnAbort: []
-  _effectsOnComplete:
-  - _config: {fileID: 11400000, guid: f32e12f84600d4a4eb054eff8a105de3, type: 2}
-    _value: 0
+  _effectsOnComplete: []

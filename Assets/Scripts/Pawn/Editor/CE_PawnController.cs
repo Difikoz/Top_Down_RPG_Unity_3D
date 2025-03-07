@@ -91,6 +91,22 @@ namespace WinterUniverse
                         GUILayout.Label($"{stack.Item.DisplayName}: {stack.Amount}");
                     }
                 }
+                GUILayout.Label("===== Detection =====");
+                if (pawn.Detection != null)
+                {
+                    foreach (PawnController target in pawn.Detection.DetectedEnemies)
+                    {
+                        GUILayout.Label($"Enemy: {target.gameObject.name}");
+                    }
+                    foreach (PawnController target in pawn.Detection.DetectedNeutrals)
+                    {
+                        GUILayout.Label($"Neutral: {target.gameObject.name}");
+                    }
+                    foreach (PawnController target in pawn.Detection.DetectedAllies)
+                    {
+                        GUILayout.Label($"Ally: {target.gameObject.name}");
+                    }
+                }
             }
             serializedObject.ApplyModifiedProperties();
         }

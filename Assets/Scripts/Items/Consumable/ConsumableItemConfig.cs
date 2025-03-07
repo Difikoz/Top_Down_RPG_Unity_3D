@@ -19,7 +19,7 @@ namespace WinterUniverse
 
         public override void Use(PawnController pawn, bool fromInventory = true)
         {
-            if (pawn.StateHolder.CheckStateValue("Is Dead", true) || pawn.StateHolder.CheckStateValue("Is Perfoming Action", true))
+            if (pawn.StateHolder.CompareStateValue("Is Dead", true) || pawn.StateHolder.CompareStateValue("Is Perfoming Action", true))
             {
                 return;
             }

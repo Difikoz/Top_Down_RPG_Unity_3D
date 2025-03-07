@@ -35,7 +35,7 @@ namespace WinterUniverse
 
         public void EquipWeapon(WeaponItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || _pawn.StateHolder.CheckStateValue("Is Perfoming Action", true))
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || _pawn.StateHolder.CompareStateValue("Is Perfoming Action", true))
             {
                 return;
             }
@@ -67,7 +67,7 @@ namespace WinterUniverse
 
         public void EquipArmor(ArmorItemConfig config, bool removeNewFromInventory = true, bool addOldToInventory = true)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || _pawn.StateHolder.CheckStateValue("Is Perfoming Action", true))
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || _pawn.StateHolder.CompareStateValue("Is Perfoming Action", true))
             {
                 return;
             }

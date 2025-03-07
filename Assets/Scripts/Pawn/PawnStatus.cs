@@ -258,7 +258,7 @@ namespace WinterUniverse
 
         public void ReduceHealthCurrent(float value, ElementConfig type, PawnController source = null)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || value <= 0f)
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || value <= 0f)
             {
                 return;
             }
@@ -285,6 +285,7 @@ namespace WinterUniverse
                 value -= value * resistance / 100f;
                 value *= _damageTaken.CurrentValue / 100f;
                 _healthCurrent = Mathf.Clamp(_healthCurrent - value, 0f, _healthMax.CurrentValue);
+                _pawn.StateHolder.SetState("Is Injured", HealthPercent < 0.25f);
                 if (_healthCurrent <= 0f)
                 {
                     Die(source);
@@ -303,17 +304,18 @@ namespace WinterUniverse
 
         public void RestoreHealthCurrent(float value)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || value <= 0f)
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || value <= 0f)
             {
                 return;
             }
             _healthCurrent = Mathf.Clamp(_healthCurrent + value, 0f, _healthMax.CurrentValue);
+            _pawn.StateHolder.SetState("Is Injured", HealthPercent < 0.25f);
             OnHealthChanged?.Invoke(_healthCurrent, _healthMax.CurrentValue);
         }
 
         public void ReduceEnergyCurrent(float value)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || value <= 0f)
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || value <= 0f)
             {
                 return;
             }
@@ -323,7 +325,7 @@ namespace WinterUniverse
 
         public void RestoreEnergyCurrent(float value)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || value <= 0f)
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || value <= 0f)
             {
                 return;
             }
@@ -333,7 +335,7 @@ namespace WinterUniverse
 
         public void ReduceManaCurrent(float value)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || value <= 0f)
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || value <= 0f)
             {
                 return;
             }
@@ -343,7 +345,7 @@ namespace WinterUniverse
 
         public void RestoreManaCurrent(float value)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true) || value <= 0f)
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true) || value <= 0f)
             {
                 return;
             }
@@ -353,7 +355,7 @@ namespace WinterUniverse
 
         private void Die(PawnController source = null)
         {
-            if (_pawn.StateHolder.CheckStateValue("Is Dead", true))
+            if (_pawn.StateHolder.CompareStateValue("Is Dead", true))
             {
                 return;
             }

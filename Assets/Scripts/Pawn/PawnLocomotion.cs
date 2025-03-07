@@ -61,7 +61,7 @@ namespace WinterUniverse
         public void OnUpdate()
         {
             _velocity = _agent.velocity.magnitude / _agent.speed;
-            if (_pawn.StateHolder.CheckStateValue("Is Perfoming Action", true) || _pawn.StateHolder.CheckStateValue("Is Dead", true))
+            if (_pawn.StateHolder.CompareStateValue("Is Perfoming Action", true) || _pawn.StateHolder.CompareStateValue("Is Dead", true))
             {
                 if (!_reachedDestination)
                 {

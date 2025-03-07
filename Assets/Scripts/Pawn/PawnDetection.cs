@@ -7,12 +7,17 @@ namespace WinterUniverse
     {
         private PawnController _pawn;
         private List<PawnController> _detectedPawns = new();
+        private List<PawnController> _detectedEnemies = new();
+        private List<PawnController> _detectedNeutrals = new();
+        private List<PawnController> _detectedAllies = new();
         private List<InteractableBase> _detectedInteractables = new();
         private float _detectionTime;
 
         [SerializeField] private float _detectionCooldown = 2f;
 
-        public List<PawnController> DetectedPawns => _detectedPawns;
+        public List<PawnController> DetectedEnemies => _detectedEnemies;
+        public List<PawnController> DetectedNeutrals => _detectedNeutrals;
+        public List<PawnController> DetectedAllies => _detectedAllies;
         public List<InteractableBase> DetectedInteractables => _detectedInteractables;
 
         public void Initialize()
@@ -42,11 +47,16 @@ namespace WinterUniverse
                     {
                         _detectedInteractables.Add(interactable);
                     }
-                    else if (collider.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CheckStateValue("Is Dead", false) && TargetIsVisible(pawn))
+                    else if (collider.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CompareStateValue("Is Dead", false) && TargetIsVisible(pawn))
                     {
                         _detectedPawns.Add(pawn);
                     }
                 }
+                ClearSortedPawns();
+                SortDetectedPawns();
+                _pawn.StateHolder.SetState("Detected Enemy", _detectedEnemies.Count > 0);
+                _pawn.StateHolder.SetState("Detected Neutral", _detectedNeutrals.Count > 0);
+                _pawn.StateHolder.SetState("Detected Ally", _detectedAllies.Count > 0);
                 _detectionTime = 0f;
             }
             else
@@ -100,21 +110,58 @@ namespace WinterUniverse
             return true;
         }
 
-        public PawnController GetClosestPawn()
+        private void ClearSortedPawns()
         {
-            PawnController closestPawn = null;
-            float maxDistance = float.MaxValue;
-            float distance;
-            foreach (PawnController pawn in _detectedPawns)
+            for (int i = _detectedEnemies.Count - 1; i >= 0; i++)
             {
-                distance = Vector3.Distance(transform.position, pawn.transform.position);
-                if (distance < maxDistance)
+                if (!_detectedPawns.Contains(_detectedEnemies[i]))
                 {
-                    maxDistance = distance;
-                    closestPawn = pawn;
+                    _detectedEnemies.RemoveAt(i);
                 }
             }
-            return closestPawn;
+            for (int i = _detectedNeutrals.Count - 1; i >= 0; i++)
+            {
+                if (!_detectedPawns.Contains(_detectedNeutrals[i]))
+                {
+                    _detectedNeutrals.RemoveAt(i);
+                }
+            }
+            for (int i = _detectedAllies.Count - 1; i >= 0; i++)
+            {
+                if (!_detectedPawns.Contains(_detectedAllies[i]))
+                {
+                    _detectedAllies.RemoveAt(i);
+                }
+            }
+        }
+
+        private void SortDetectedPawns()
+        {
+            foreach (PawnController pawn in _detectedPawns)
+            {
+                RelationshipState relationship = _pawn.Faction.Config.GetState(pawn.Faction.Config);
+                switch (relationship)
+                {
+                    case RelationshipState.Enemy:
+                        if (!_detectedEnemies.Contains(pawn))
+                        {
+                            _detectedEnemies.Add(pawn);
+                        }
+                        break;
+                    case RelationshipState.Neutral:
+                        if (!_detectedNeutrals.Contains(pawn))
+                        {
+                            _detectedNeutrals.Add(pawn);
+                        }
+                        break;
+                    case RelationshipState.Ally:
+                        if (!_detectedAllies.Contains(pawn))
+                        {
+                            _detectedAllies.Add(pawn);
+                        }
+                        break;
+                }
+            }
         }
 
         public PawnController GetClosestEnemy()

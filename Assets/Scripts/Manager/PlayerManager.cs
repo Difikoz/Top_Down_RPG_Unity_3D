@@ -20,7 +20,7 @@ namespace WinterUniverse
             _cursorLocalPosition = value.Get<Vector2>();
         }
 
-        public void OnLeftClick()
+        public void OnLeftClick()// used to Interact and Move and Attack
         {
             if (GameManager.StaticInstance.InputMode == InputMode.UI)
             {
@@ -38,20 +38,33 @@ namespace WinterUniverse
                 {
                     interactable.Interact(_pawn);
                 }
-                else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn.StateHolder.CheckStateValue("Is Dead", false))
+                else if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn && pawn == _pawn.Combat.Target)
                 {
-                    if (pawn == _pawn.Combat.Target)
-                    {
-                        _pawn.Combat.SetTarget(pawn);
-                    }
-                    else
-                    {
-                        _pawn.Combat.SetTarget(pawn, false);
-                    }
+                    _pawn.Combat.SetTarget(pawn, true, true);
                 }
                 else
                 {
                     _pawn.Locomotion.SetDestination(_cursorWorldPosition);
+                }
+            }
+        }
+
+        public void OnRightClick()// used to set target for Combat and UI
+        {
+            if (GameManager.StaticInstance.InputMode == InputMode.UI)
+            {
+                return;
+            }
+            if (Physics.Raycast(_cameraRay, out _cameraHit, 1000f))
+            {
+                _cursorWorldPosition = _cameraHit.point;
+                if (_cameraHit.transform.TryGetComponent(out PawnController pawn) && pawn != _pawn)
+                {
+                    _pawn.Combat.SetTarget(pawn, false, false);
+                }
+                else
+                {
+                    _pawn.Combat.SetTarget(null);
                 }
             }
         }

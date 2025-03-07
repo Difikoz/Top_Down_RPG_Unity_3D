@@ -79,11 +79,11 @@ namespace WinterUniverse
         {
             foreach (KeyValuePair<string, bool> condition in _conditionsToStart)
             {
-                if (!_npc.Pawn.StateHolder.CheckStateValue(condition.Key, condition.Value))
+                if (!_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }
-                if (!GameManager.StaticInstance.WorldManager.StateHolder.CheckStateValue(condition.Key, condition.Value))
+                if (!GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }
@@ -95,11 +95,11 @@ namespace WinterUniverse
         {
             foreach (KeyValuePair<string, bool> condition in _conditionsToAbort)
             {
-                if (_npc.Pawn.StateHolder.CheckStateValue(condition.Key, condition.Value))
+                if (_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return true;
                 }
-                if (GameManager.StaticInstance.WorldManager.StateHolder.CheckStateValue(condition.Key, condition.Value))
+                if (GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return true;
                 }
@@ -113,7 +113,7 @@ namespace WinterUniverse
             {
                 return true;
             }
-            if (_config.CompleteOnAnimationEnd && _npc.Pawn.StateHolder.CheckStateValue("Is Perfoming Action", false))
+            if (_config.CompleteOnAnimationEnd && _npc.Pawn.StateHolder.CompareStateValue("Is Perfoming Action", false))
             {
                 return true;
             }
@@ -123,11 +123,11 @@ namespace WinterUniverse
             }
             foreach (KeyValuePair<string, bool> condition in _conditionsToComplete)
             {
-                if (!_npc.Pawn.StateHolder.CheckStateValue(condition.Key, condition.Value))
+                if (!_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }
-                if (!GameManager.StaticInstance.WorldManager.StateHolder.CheckStateValue(condition.Key, condition.Value))
+                if (!GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }
