@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26af58d9757a244598524b60145aa74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visuals: []
+  _visuals:
+  - {fileID: 11400000, guid: 2f45ee354bb78064aaecbaf3fb4cb6f5, type: 2}
+  - {fileID: 11400000, guid: de7deeaea9a0b274aa2283eaf60ee074, type: 2}
   _factions:
   - {fileID: 11400000, guid: d67d8a7277e8ae74eb8f951c6a7af28e, type: 2}
   - {fileID: 11400000, guid: c66676c6aa3c69147b1ab9b00ce8be1d, type: 2}
@@ -54,7 +56,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e429c333f33c11b4fa64157a8a54e7ec, type: 2}
   - {fileID: 11400000, guid: 157798913334c1245976c7a9db8c584b, type: 2}
   - {fileID: 11400000, guid: 27d76bb6cf0c3014590d6b9b8bff2bc5, type: 2}
-  _inventories: []
+  _inventories:
+  - {fileID: 11400000, guid: d1621ac51797e5e4893473340d8a2793, type: 2}
+  - {fileID: 11400000, guid: 23e54ec61c9c3c34ab47a609ea4fb9fa, type: 2}
   _weapons:
   - {fileID: 11400000, guid: 144d1bfdb78f64345bca2a8e713ed3e5, type: 2}
   - {fileID: 11400000, guid: 74332abf64224504eabbcc11cdf7ac38, type: 2}
@@ -158,5 +162,8 @@ MonoBehaviour:
   _worldStates:
   - {fileID: 11400000, guid: 1370b141b9508bc42a89a9eaac10ca60, type: 2}
   - {fileID: 11400000, guid: 123952ba76f5a80438ec9eafd2878216, type: 2}
-  _stateHolders: []
-  _goalHolders: []
+  _stateHolders:
+  - {fileID: 11400000, guid: 7875dbc4590279241aba99fec4d06eb2, type: 2}
+  - {fileID: 11400000, guid: 4c135bf8dcb85474fafcf05489f459f2, type: 2}
+  _goalHolders:
+  - {fileID: 11400000, guid: d7e7dab8813ffae48a81e081ffec86c2, type: 2}

@@ -14,8 +14,6 @@ namespace WinterUniverse
         private Dictionary<GoalHolder, int> _goals = new();
         private Queue<ActionBase> _actionQueue;
 
-        [SerializeField] private PawnData _testPawnData;
-        [SerializeField] private NPCData _testNpcData;
         [SerializeField] private float _proccessingPlanDelay = 0.5f;
 
         public PawnController Pawn => _pawn;
@@ -24,11 +22,6 @@ namespace WinterUniverse
         public GoalHolder CurrentGoal => _currentGoal;
         public List<ActionBase> Actions => _actions;
         public Dictionary<GoalHolder, int> Goals => _goals;
-
-        public void Initialize()
-        {
-            Initialize(_testPawnData, _testNpcData);
-        }
 
         public void Initialize(PawnData pawnData, NPCData npcData)
         {

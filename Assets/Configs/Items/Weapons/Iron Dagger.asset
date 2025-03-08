@@ -24,7 +24,8 @@ MonoBehaviour:
   _weight: 1
   _price: 100
   _weaponType: {fileID: 11400000, guid: bb6e6f14e4296854885c63b201c62b0c, type: 2}
-  _attackRange: 2
+  _attackMinRange: 0.5
+  _attackMaxRange: 1
   _attackAngle: 20
   _damageTypes:
   - _damage: 10

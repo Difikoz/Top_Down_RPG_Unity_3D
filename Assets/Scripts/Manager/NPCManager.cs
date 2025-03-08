@@ -9,11 +9,7 @@ namespace WinterUniverse
 
         public void Initialize()
         {
-            NPCController[] controllers = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
-            foreach (NPCController controller in controllers)
-            {
-                AddController(controller);
-            }
+            //
         }
 
         public void ResetComponent()
@@ -35,7 +31,6 @@ namespace WinterUniverse
         public void AddController(NPCController controller)
         {
             _controllers.Add(controller);
-            controller.Initialize();
         }
     }
 }

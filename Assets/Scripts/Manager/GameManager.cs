@@ -62,9 +62,9 @@ namespace WinterUniverse
             _audioManager.Initialize();
             _configsManager.Initialize();
             _worldManager.Initialize();
-            _spawnersManager.Initialize();
             _playerManager.Initialize();
             _npcManager.Initialize();
+            _spawnersManager.Initialize();
             _cameraManager.Initialize();
             _uiManager.Initialize();
         }

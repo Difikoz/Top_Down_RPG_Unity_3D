@@ -36,7 +36,14 @@ namespace WinterUniverse
         public void Initialize(PawnData data)
         {
             ResetComponent();
-            _data = data;
+            _data = new()
+            {
+                DisplayName = data.DisplayName,
+                Visual = data.Visual,
+                Faction = data.Faction,
+                Inventory = data.Inventory,
+                StateHolder = data.StateHolder
+            };
             LeanPool.Spawn(GameManager.StaticInstance.ConfigsManager.GetVisual(_data.Visual).Model, transform);
             GetComponents();
             InitializeComponents();

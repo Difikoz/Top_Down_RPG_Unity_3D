@@ -44,9 +44,13 @@ namespace WinterUniverse
             _animator.SetFloat("Velocity", _pawn.Locomotion.Velocity);
         }
 
-        public void PlayAction(string name, float fadeTime = 0.1f, bool isPerfomingAction = true)
+        public void PlayAction(string name, float fadeTime = 0.1f, bool isPerfomingAction = true, bool stopMovement = true, bool resetTarget = false)
         {
             _pawn.StateHolder.CompareStateValue("Is Perfoming Action", isPerfomingAction);
+            if(stopMovement)
+            {
+                _pawn.Locomotion.StopMovement(resetTarget);
+            }
             _animator.CrossFade(name, fadeTime);
         }
 
@@ -58,7 +62,10 @@ namespace WinterUniverse
 
         public void ResetState()
         {
-            _pawn.StateHolder.SetState("Is Perfoming Action", false);
+            if (_pawn != null && _pawn.StateHolder.HasState("Is Perfoming Action"))
+            {
+                _pawn.StateHolder.SetState("Is Perfoming Action", false);
+            }
         }
 
         public void OpenDamageCollider()

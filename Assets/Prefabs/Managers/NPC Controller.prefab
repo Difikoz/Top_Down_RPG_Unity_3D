@@ -218,8 +218,8 @@ MonoBehaviour:
     DisplayName: Bandit
     Visual: Human Female
     Faction: Bandits
-    Inventory: Loner Novice
-    StateHolder: Wanderer
+    Inventory: Loner Master
+    StateHolder: Guardian
   _testNpcData:
     GoalHolder: Loner
   _proccessingPlanDelay: 0.5

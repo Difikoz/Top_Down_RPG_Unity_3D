@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3783aeb0abd124ab529674a9b6f619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _npcPrefab: {fileID: 2077529882552173778, guid: 4ea4f215ba631a64b87d30330897b202, type: 3}
   _pawnPrefab: {fileID: 766048043084035950, guid: ebd602d0e05233f40bcd741386a4f03e, type: 3}
   _itemPrefab: {fileID: 3038049007061991138, guid: 3bdf1e710b3e19f4a8d799e574c615ea, type: 3}
