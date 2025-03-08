@@ -230,6 +230,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1621ac51797e5e4893473340d8a2793, type: 2}
   - {fileID: 11400000, guid: 23e54ec61c9c3c34ab47a609ea4fb9fa, type: 2}
   _stateHolders:
+  - {fileID: 11400000, guid: 86642d3052b59294b8e77ad71cd08b23, type: 2}
   - {fileID: 11400000, guid: 7875dbc4590279241aba99fec4d06eb2, type: 2}
   - {fileID: 11400000, guid: 4c135bf8dcb85474fafcf05489f459f2, type: 2}
   _goalHolders:

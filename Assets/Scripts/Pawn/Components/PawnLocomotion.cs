@@ -154,14 +154,30 @@ namespace WinterUniverse
 
         public void SetDestination(Transform target)
         {
-            _followTarget = target;
-            SetDestination(_followTarget.position);
+            if (target != null)
+            {
+                _interactable = null;
+                _followTarget = target;
+                SetDestination(_followTarget.position);
+            }
+            else
+            {
+                StopMovement();
+            }
         }
 
         public void SetDestination(InteractableBase interactable)
         {
-            _interactable = interactable;
-            SetDestination(_interactable.PointToInteract.position);
+            if (interactable != null)
+            {
+                _followTarget = null;
+                _interactable = interactable;
+                SetDestination(_interactable.PointToInteract.position);
+            }
+            else
+            {
+                StopMovement();
+            }
         }
 
         public void SetDestination(Vector3 position)

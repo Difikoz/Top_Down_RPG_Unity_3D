@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Equip Gloves
   _cost: 1
-  _playAnimationOnStart: 0
+  _playAnimationOnStart: 1
   _animationOnStart: Swap Armor
-  _completeOnAnimationEnd: 0
+  _completeOnAnimationEnd: 1
   _completeOnReachedDestination: 0
-  _completeOnTimerEnd: 1
-  _timerDuration: 2
+  _completeOnTimerEnd: 0
+  _timerDuration: 0
   _stopMovementOnAbort: 0
   _stopMovementOnComplete: 0
   _results:

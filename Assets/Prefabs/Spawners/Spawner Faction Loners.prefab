@@ -218,8 +218,8 @@ MonoBehaviour:
   - {fileID: 1815626968834778128}
   - {fileID: 3099485958669341658}
   - {fileID: 6657201776201149227}
-  _minAmount: 2
-  _maxAmount: 4
+  _minAmount: 5
+  _maxAmount: 10
   _repeatSpawn: 0
   _spawnCooldown: 60
   _faction: {fileID: 11400000, guid: d67d8a7277e8ae74eb8f951c6a7af28e, type: 2}

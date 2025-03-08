@@ -23,7 +23,7 @@ namespace WinterUniverse
             }
         }
 
-        public void Initialize(Dictionary<string, int> stacks)
+        public void Initialize(SerializableDictionary<string, int> stacks)
         {
             _pawn = GetComponent<PawnController>();
             _stacks.Clear();

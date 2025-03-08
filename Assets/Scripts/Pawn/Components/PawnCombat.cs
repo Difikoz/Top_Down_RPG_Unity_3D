@@ -78,6 +78,7 @@ namespace WinterUniverse
         {
             if (_target != null)
             {
+                _pawn.Locomotion.StopMovement();
                 _pawn.Locomotion.SetDestination(_target.transform);
                 if (minDistance <= 0f)
                 {
@@ -89,8 +90,12 @@ namespace WinterUniverse
                 }
                 _pawn.Locomotion.SetFollowDistance(minDistance, maxDistance);
                 _pawn.StateHolder.SetState("Is Following", true);
+                _pawn.StateHolder.SetState("Is Fighting", false);
             }
-            _pawn.StateHolder.SetState("Is Fighting", false);
+            else
+            {
+                ResetTarget();
+            }
         }
 
         public void AttackTarget()
@@ -99,14 +104,11 @@ namespace WinterUniverse
             {
                 if (_pawn.Equipment.WeaponSlot.Config != null)
                 {
+                    _pawn.Locomotion.StopMovement();
                     _pawn.Locomotion.SetDestination(_target.transform);
                     _pawn.Locomotion.SetFollowDistance(_pawn.Equipment.WeaponSlot.Config.AttackMinRange, _pawn.Equipment.WeaponSlot.Config.AttackMaxRange);
                     _pawn.StateHolder.SetState("Is Following", false);
                     _pawn.StateHolder.SetState("Is Fighting", true);
-                }
-                else
-                {
-                    FollowTarget();
                 }
             }
             else
@@ -117,6 +119,7 @@ namespace WinterUniverse
 
         public void ResetTarget()
         {
+            _pawn.Locomotion.StopMovement();
             _target = null;
             _distanceToTarget = 0f;
             _angleToTarget = 0f;
