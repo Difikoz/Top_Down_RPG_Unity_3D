@@ -20,10 +20,14 @@ MonoBehaviour:
   _completeOnReachedDestination: 0
   _completeOnTimerEnd: 0
   _timerDuration: 0
+  _stopMovementOnAbort: 0
+  _stopMovementOnComplete: 1
   _results:
   - _config: {fileID: 11400000, guid: 62055bb6bb8a96f4483180d60cc2d922, type: 2}
     _value: 1
   _conditionsToStart:
+  - _config: {fileID: 11400000, guid: cee503e436b36ee45b01a9c18d9883fd, type: 2}
+    _value: 1
   - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
     _value: 1
   - _config: {fileID: 11400000, guid: 4f9ff29a73157804e91c0d1a95079aa3, type: 2}

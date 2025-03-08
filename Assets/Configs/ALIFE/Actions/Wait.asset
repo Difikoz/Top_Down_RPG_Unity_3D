@@ -19,13 +19,15 @@ MonoBehaviour:
   _completeOnAnimationEnd: 0
   _completeOnReachedDestination: 0
   _completeOnTimerEnd: 1
-  _timerDuration: 2
+  _timerDuration: 5
+  _stopMovementOnAbort: 0
+  _stopMovementOnComplete: 0
   _results:
   - _config: {fileID: 11400000, guid: 9d9123965da0cd540acfe856c1b15a3d, type: 2}
     _value: 1
   _conditionsToStart:
-  - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
-    _value: 0
+  - _config: {fileID: 11400000, guid: 28b53449517aa8b4ca3ba131697e2922, type: 2}
+    _value: 1
   _conditionsToAbort:
   - _config: {fileID: 11400000, guid: b0f3eb72577ea074b937a8f73c284ea1, type: 2}
     _value: 1

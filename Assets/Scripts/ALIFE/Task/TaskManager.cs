@@ -3,23 +3,24 @@ using UnityEngine;
 
 namespace WinterUniverse
 {
-    public class TaskManager : MonoBehaviour
+    public static class TaskManager
     {
-        // other logic
-
-        public Queue<ActionBase> GetPlan(List<ActionBase> allActions, Dictionary<string, bool> pawnStates, Dictionary<string, bool> goal)
+        public static Queue<ActionBase> GetPlan(List<ActionBase> allActions, StateHolder pawnStateHolder, StateHolder goalConditions)
         {
+            if (GoalAchieved(goalConditions, GameManager.StaticInstance.WorldManager.StateHolder, pawnStateHolder))// already compared pawn and world states to goal conditions
+            {
+                return null;
+            }
             List<ActionBase> usableActions = new();
             foreach (ActionBase action in allActions)
             {
                 usableActions.Add(action);
             }
             List<TaskNode> leaves = new();
-            TaskNode startNode = new(GameManager.StaticInstance.WorldManager.StateHolder.States, pawnStates);
-            bool success = BuildGraph(startNode, leaves, usableActions, goal);
+            TaskNode startNode = new(GameManager.StaticInstance.WorldManager.StateHolder, pawnStateHolder);
+            bool success = BuildGraph(startNode, leaves, usableActions, goalConditions);
             if (!success)
             {
-                //Debug.Log($"NO PLAN!");
                 return null;
             }
             TaskNode cheapestNode = null;
@@ -52,23 +53,24 @@ namespace WinterUniverse
             return queue;
         }
 
-        private bool BuildGraph(TaskNode parent, List<TaskNode> leaves, List<ActionBase> usableActions, Dictionary<string, bool> goal)
+        private static bool BuildGraph(TaskNode parent, List<TaskNode> leaves, List<ActionBase> usableActions, StateHolder goalConditions)
         {
             bool foundPath = false;
             foreach (ActionBase action in usableActions)
             {
-                if (action.IsAchievable(parent.States))
+                if (action.IsAchievable(parent.StateHolder.States))
                 {
-                    Dictionary<string, bool> currentState = new(parent.States);
+                    StateHolder currentStateHolder = new();
+                    foreach (KeyValuePair<string, bool> state in parent.StateHolder.States)
+                    {
+                        currentStateHolder.SetState(state.Key, state.Value);
+                    }
                     foreach (KeyValuePair<string, bool> effect in action.Effects)
                     {
-                        if (!currentState.ContainsKey(effect.Key))
-                        {
-                            currentState.Add(effect.Key, effect.Value);
-                        }
+                        currentStateHolder.SetState(effect.Key, effect.Value);
                     }
-                    TaskNode node = new(parent, parent.Cost + action.Config.Cost, currentState, action);
-                    if (GoalAchieved(goal, currentState))
+                    TaskNode node = new(parent, parent.Cost + action.Config.Cost, currentStateHolder, action);
+                    if (GoalAchieved(goalConditions, currentStateHolder))
                     {
                         leaves.Add(node);
                         foundPath = true;
@@ -76,7 +78,7 @@ namespace WinterUniverse
                     else
                     {
                         List<ActionBase> subset = ActionSubset(usableActions, action);
-                        bool found = BuildGraph(node, leaves, subset, goal);
+                        bool found = BuildGraph(node, leaves, subset, goalConditions);
                         if (found)
                         {
                             foundPath = true;
@@ -87,28 +89,40 @@ namespace WinterUniverse
             return foundPath;
         }
 
-        private List<ActionBase> ActionSubset(List<ActionBase> actions, ActionBase removeMe)
+        private static List<ActionBase> ActionSubset(List<ActionBase> usableActions, ActionBase currentAction)
         {
             List<ActionBase> subset = new();
-            foreach (ActionBase a in actions)
+            foreach (ActionBase action in usableActions)
             {
-                if (!a.gameObject.Equals(removeMe.gameObject))// rework equals?
+                if (action.gameObject != currentAction.gameObject)// rework?
                 {
-                    subset.Add(a);
+                    subset.Add(action);
                 }
             }
             return subset;
         }
 
-        private bool GoalAchieved(Dictionary<string, bool> goal, Dictionary<string, bool> states)
+        private static bool GoalAchieved(StateHolder goalConditions, StateHolder currentStates)
         {
-            foreach (KeyValuePair<string, bool> condition in goal)
+            foreach (KeyValuePair<string, bool> condition in goalConditions.States)
             {
-                if (!states.ContainsKey(condition.Key))
+                if (!currentStates.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }
-                else if (states[condition.Key] != condition.Value)
+            }
+            return true;
+        }
+
+        private static bool GoalAchieved(StateHolder goalConditions, StateHolder worldStates, StateHolder pawnStates)
+        {
+            foreach (KeyValuePair<string, bool> condition in goalConditions.States)
+            {
+                if (pawnStates.HasState(condition.Key) && !pawnStates.CompareStateValue(condition.Key, condition.Value))
+                {
+                    return false;
+                }
+                if (worldStates.HasState(condition.Key) && !worldStates.CompareStateValue(condition.Key, condition.Value))
                 {
                     return false;
                 }

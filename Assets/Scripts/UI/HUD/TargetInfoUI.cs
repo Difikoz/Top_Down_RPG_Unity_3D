@@ -19,7 +19,7 @@ namespace WinterUniverse
         {
             _pawn = pawn;
             _effectsBar = GetComponentInChildren<EffectsBarUI>();
-            _pawnIconImage.sprite = _pawn.Config.Icon;
+            _pawnIconImage.sprite = GameManager.StaticInstance.ConfigsManager.GetVisual(_pawn.Data.Visual).Icon;
             _healthBar.Initialize();
             _energyBar.Initialize();
             _manaBar.Initialize();

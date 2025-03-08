@@ -4,29 +4,51 @@ namespace WinterUniverse
 {
     public class TaskNode
     {
-        public TaskNode Parent;
-        public float Cost;
-        public Dictionary<string, bool> States;
-        public ActionBase Action;
+        private TaskNode _parent;
+        private float _cost;
+        private StateHolder _stateHolder;
+        //private Dictionary<string, bool> _states;
+        private ActionBase _action;
 
-        public TaskNode(TaskNode newParent, float newCost, Dictionary<string, bool> allStates, ActionBase newAction)
+        public TaskNode Parent => _parent;
+        public float Cost => _cost;
+        public StateHolder StateHolder => _stateHolder;
+        //public Dictionary<string, bool> States => _states;
+        public ActionBase Action => _action;
+
+        public TaskNode(TaskNode newParent, float newCost, StateHolder summaryStateHolder, ActionBase newAction)
         {
-            Parent = newParent;
-            Cost = newCost;
-            States = new Dictionary<string, bool>(allStates);
-            Action = newAction;
+            _parent = newParent;
+            _cost = newCost;
+            _stateHolder = new();
+            foreach (KeyValuePair<string, bool> state in summaryStateHolder.States)
+            {
+                _stateHolder.SetState(state.Key, state.Value);
+            }
+            //_states = new Dictionary<string, bool>(allStates);
+            _action = newAction;
         }
 
-        public TaskNode(Dictionary<string, bool> worldStates, Dictionary<string, bool> pawnStates)
+        public TaskNode(StateHolder worldStateHolder, StateHolder pawnStateHolder)
         {
-            States = new Dictionary<string, bool>(worldStates);
-            foreach (KeyValuePair<string, bool> b in pawnStates)
+            _stateHolder = new();
+            foreach (KeyValuePair<string, bool> state in worldStateHolder.States)
             {
-                if (!States.ContainsKey(b.Key))
-                {
-                    States.Add(b.Key, b.Value);
-                }
+                _stateHolder.SetState(state.Key, state.Value);
             }
+            foreach (KeyValuePair<string, bool> state in pawnStateHolder.States)
+            {
+                _stateHolder.SetState(state.Key, state.Value);
+            }
+            //_states = new();
+            //foreach (KeyValuePair<string, bool> state in worldStates)
+            //{
+            //    _states.Add(state.Key, state.Value);
+            //}
+            //foreach (KeyValuePair<string, bool> state in pawnStates)
+            //{
+            //    _states.Add(state.Key, state.Value);
+            //}
         }
     }
 }

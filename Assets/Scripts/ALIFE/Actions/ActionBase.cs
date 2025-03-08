@@ -21,7 +21,7 @@ namespace WinterUniverse
         public Dictionary<string, bool> Conditions => _conditionsToStart;
         public Dictionary<string, bool> Effects => _effectsForCheck;
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             _npc = GetComponentInParent<NPCController>();
             foreach (StateCreator creator in _config.Results)
@@ -75,9 +75,9 @@ namespace WinterUniverse
             return true;
         }
 
-        public virtual bool CanStart()
+        public bool CompareGivenConditionsWithStates(Dictionary<string, bool> givenConditions)
         {
-            foreach (KeyValuePair<string, bool> condition in _conditionsToStart)
+            foreach (KeyValuePair<string, bool> condition in givenConditions)
             {
                 if (_npc.Pawn.StateHolder.HasState(condition.Key) && !_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
                 {
@@ -91,18 +91,20 @@ namespace WinterUniverse
             return true;
         }
 
+        public virtual bool CanStart()
+        {
+            if (_conditionsToStart.Count > 0 && !CompareGivenConditionsWithStates(_conditionsToStart))
+            {
+                return false;
+            }
+            return true;
+        }
+
         public virtual bool CanAbort()
         {
-            foreach (KeyValuePair<string, bool> condition in _conditionsToAbort)
+            if (_conditionsToAbort.Count > 0 && CompareGivenConditionsWithStates(_conditionsToAbort))
             {
-                if (_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
-                {
-                    return true;
-                }
-                if (GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
@@ -121,18 +123,11 @@ namespace WinterUniverse
             {
                 return true;
             }
-            foreach (KeyValuePair<string, bool> condition in _conditionsToComplete)
+            if (_conditionsToComplete.Count > 0 && CompareGivenConditionsWithStates(_conditionsToComplete))
             {
-                if (!_npc.Pawn.StateHolder.CompareStateValue(condition.Key, condition.Value))
-                {
-                    return false;
-                }
-                if (!GameManager.StaticInstance.WorldManager.StateHolder.CompareStateValue(condition.Key, condition.Value))
-                {
-                    return false;
-                }
+                return true;
             }
-            return true;
+            return false;
         }
 
         public virtual void OnStart()
@@ -154,6 +149,10 @@ namespace WinterUniverse
             {
                 _npc.Pawn.StateHolder.SetState(effect.Key, effect.Value);
             }
+            if (_config.StopMovementOnAbort)
+            {
+                _npc.Pawn.Locomotion.StopMovement();
+            }
         }
 
         public virtual void OnComplete()
@@ -161,6 +160,10 @@ namespace WinterUniverse
             foreach (KeyValuePair<string, bool> effect in _effectsOnComplete)
             {
                 _npc.Pawn.StateHolder.SetState(effect.Key, effect.Value);
+            }
+            if (_config.StopMovementOnComplete)
+            {
+                _npc.Pawn.Locomotion.StopMovement();
             }
         }
 

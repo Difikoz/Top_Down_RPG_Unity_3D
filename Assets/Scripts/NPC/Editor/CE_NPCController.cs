@@ -24,20 +24,117 @@ namespace WinterUniverse
                     GUILayout.Label($"{goal.Key.Config.DisplayName} : {goal.Value}");
                 }
             }
-            foreach (ActionBase action in npc.Actions)
+            //foreach (ActionBase action in npc.Actions)
+            //{
+            //    GUILayout.Label("===== Possible Action =====");
+            //    string condition = "";
+            //    string effect = "";
+            //    foreach (KeyValuePair<string, bool> cond in action.Conditions)
+            //    {
+            //        condition += $"{cond.Key} {cond.Value}, ";
+            //    }
+            //    foreach (KeyValuePair<string, bool> eff in action.Effects)
+            //    {
+            //        effect += $"{eff.Key} {eff.Value}, ";
+            //    }
+            //    GUILayout.Label($"== DO ==\n[{action.Config.DisplayName}]\n== WHEN ==\n[{condition}]\n== AND NEED ==\n[{effect}]");
+            //}
+            GUILayout.Label("===== Pawn =====");
+            PawnController pawn = npc.Pawn;
+            if (pawn != null && pawn.Created)
             {
-                GUILayout.Label("===== Possible Action =====");
-                string condition = "";
-                string effect = "";
-                foreach (KeyValuePair<string, bool> cond in action.Conditions)
+                GUILayout.Label("===== Basic Info =====");
+                if (pawn.Data != null)
                 {
-                    condition += $"{cond.Key} {cond.Value}, ";
+                    GUILayout.Label($"Name => {pawn.Data.DisplayName}");
                 }
-                foreach (KeyValuePair<string, bool> eff in action.Effects)
+                GUILayout.Label("===== Status =====");
+                if (pawn.Status != null)
                 {
-                    effect += $"{eff.Key} {eff.Value}, ";
+                    GUILayout.Label($"Health => {pawn.Status.HealthPercent * 100f}%");
+                    GUILayout.Label($"Energy => {pawn.Status.EnergyPercent * 100f}%");
+                    GUILayout.Label($"Mana => {pawn.Status.ManaPercent * 100f}%");
                 }
-                GUILayout.Label($"== DO ==\n[{action.Config.DisplayName}]\n== WHEN ==\n[{condition}]\n== AND NEED ==\n[{effect}]");
+                GUILayout.Label("===== States =====");
+                if (pawn.StateHolder != null)
+                {
+                    foreach (KeyValuePair<string, bool> state in pawn.StateHolder.States)
+                    {
+                        GUILayout.Label($"{state.Key} : {state.Value}");
+                    }
+                }
+                GUILayout.Label("===== Combat =====");
+                if (pawn.Combat != null)
+                {
+                    GUILayout.Label($"Target => {(pawn.Combat.Target != null ? pawn.Combat.Target.gameObject.name : "Empty")}");
+                    GUILayout.Label($"Distance => {pawn.Combat.DistanceToTarget}");
+                    GUILayout.Label($"Angle => {pawn.Combat.AngleToTarget}");
+                }
+                GUILayout.Label("===== Stats =====");
+                if (pawn.Status != null)
+                {
+                    foreach (Stat stat in pawn.Status.Stats)
+                    {
+                        GUILayout.Label($"{stat.Config.DisplayName}: {stat.CurrentValue:0.##}{(stat.Config.IsPercent ? "%" : "")}");
+                    }
+                }
+                GUILayout.Label("===== Effects =====");
+                if (pawn.Effects != null)
+                {
+                    foreach (Effect effect in pawn.Effects.AllEffects)
+                    {
+                        GUILayout.Label($"{effect.Config.DisplayName}: {effect.Duration:0.0}");
+                    }
+                }
+                GUILayout.Label("===== Locomotion =====");
+                if (pawn.Locomotion != null)
+                {
+                    if (pawn.Locomotion.FollowTarget != null)
+                    {
+                        GUILayout.Label($"Is Following Target");
+                    }
+                    if (pawn.Locomotion.ReachedDestination)
+                    {
+                        GUILayout.Label($"Reached Destination");
+                    }
+                    else
+                    {
+                        GUILayout.Label($"Remaining Distance => {pawn.Locomotion.RemainingDistance}");
+                    }
+                }
+                GUILayout.Label("===== Equipment =====");
+                if (pawn.Equipment != null)
+                {
+                    GUILayout.Label($"Weapon: {(pawn.Equipment.WeaponSlot.Config != null ? pawn.Equipment.WeaponSlot.Config.DisplayName : "Empty")}");
+                    foreach (ArmorSlot slot in pawn.Equipment.ArmorSlots)
+                    {
+                        GUILayout.Label($"{slot.Type.DisplayName}: {(slot.Config != null ? slot.Config.DisplayName : "Empty")}");
+                    }
+                }
+                GUILayout.Label("===== Inventory =====");
+                if (pawn.Inventory != null)
+                {
+                    foreach (ItemStack stack in pawn.Inventory.Stacks)
+                    {
+                        GUILayout.Label($"{stack.Item.DisplayName}: {stack.Amount}");
+                    }
+                }
+                GUILayout.Label("===== Detection =====");
+                if (pawn.Detection != null)
+                {
+                    foreach (PawnController target in pawn.Detection.DetectedEnemies)
+                    {
+                        GUILayout.Label($"Enemy: {target.gameObject.name}");
+                    }
+                    foreach (PawnController target in pawn.Detection.DetectedNeutrals)
+                    {
+                        GUILayout.Label($"Neutral: {target.gameObject.name}");
+                    }
+                    foreach (PawnController target in pawn.Detection.DetectedAllies)
+                    {
+                        GUILayout.Label($"Ally: {target.gameObject.name}");
+                    }
+                }
             }
             serializedObject.ApplyModifiedProperties();
         }

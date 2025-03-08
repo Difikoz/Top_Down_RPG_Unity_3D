@@ -14,11 +14,9 @@ namespace WinterUniverse
         private Dictionary<GoalHolder, int> _goals = new();
         private Queue<ActionBase> _actionQueue;
 
-        [SerializeField] private PawnConfig _config;
-        [SerializeField] private GoalHolderConfig _goalCreatorHolder;
-        [SerializeField] private float _proccessALIFECooldown = 0.5f;
-
-        private float _proccessALIFETime;
+        [SerializeField] private PawnData _testPawnData;
+        [SerializeField] private NPCData _testNpcData;
+        [SerializeField] private float _proccessingPlanDelay = 0.5f;
 
         public PawnController Pawn => _pawn;
 
@@ -27,26 +25,38 @@ namespace WinterUniverse
         public List<ActionBase> Actions => _actions;
         public Dictionary<GoalHolder, int> Goals => _goals;
 
-        public void Initialize(PawnConfig config)
-        {
-            _config = config;
-            Initialize();
-        }
-
         public void Initialize()
         {
+            Initialize(_testPawnData, _testNpcData);
+        }
+
+        public void Initialize(PawnData pawnData, NPCData npcData)
+        {
+            InitializePawn(pawnData);
+            LoadData(npcData);
+        }
+
+        public void InitializePawn(PawnData data)
+        {
             _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(transform);
-            _pawn.Initialize(_config);
+            _pawn.Initialize(data);
+        }
+
+        public void LoadData(NPCData data)
+        {
             ActionBase[] actions = GetComponentsInChildren<ActionBase>();
             foreach (ActionBase action in actions)
             {
                 _actions.Add(action);
                 action.Initialize();
             }
-            foreach (GoalCreator creator in _goalCreatorHolder.GoalsToAdd)
+            foreach (GoalCreator creator in GameManager.StaticInstance.ConfigsManager.GetGoalHolder(data.GoalHolder).GoalsToAdd)
             {
                 _goals.Add(new(creator.Config), creator.Priority);
             }
+            var sortedGoals = from entry in _goals orderby entry.Value descending select entry;
+            _goals = new(sortedGoals);
+            StartCoroutine(ProccessPlan());
         }
 
         public void ResetComponent()
@@ -57,91 +67,98 @@ namespace WinterUniverse
         public void OnUpdate()
         {
             _pawn.OnUpdate();
-            //transform.SetPositionAndRotation(_pawn.transform.position, _pawn.transform.rotation);
-            if (_proccessALIFETime >= _proccessALIFECooldown)
-            {
-                ProccessALIFE();
-                _proccessALIFETime = 0f;
-            }
-            else
-            {
-                _proccessALIFETime += Time.deltaTime;
-            }
         }
 
-        private void ProccessALIFE()
+        private IEnumerator ProccessPlan()
         {
-            if (_currentAction != null)
+            WaitForSeconds delay = new(_proccessingPlanDelay);
+            while (true)
             {
-                if (_currentAction.CanAbort())
+                while (_currentAction != null)
                 {
-                    _currentAction.OnAbort();
-                    _currentAction = null;
-                }
-                else if (_currentAction.CanComplete())
-                {
-                    _currentAction.OnComplete();
-                    _currentAction = null;
-                }
-                else
-                {
-                    _currentAction.OnUpdate(_proccessALIFECooldown);
-                    return;
-                }
-            }
-            if (_actionQueue != null)
-            {
-                if (_actionQueue.Count > 0)
-                {
-                    _currentAction = _actionQueue.Dequeue();
-                    if (_currentAction.CanStart())
+                    if (_currentAction.CanAbort())
                     {
-                        _currentAction.OnStart();
-                        return;
+                        _currentAction.OnAbort();
+                        ResetPlan();
+                    }
+                    else if (_currentAction.CanComplete())
+                    {
+                        _currentAction.OnComplete();
+                        _currentAction = null;
                     }
                     else
                     {
-                        _actionQueue = null;
+                        _currentAction.OnUpdate(_proccessingPlanDelay);
                     }
+                    yield return delay;
                 }
-                else if (_currentGoal != null)
+                if (_actionQueue != null)
                 {
-                    if (!_currentGoal.Config.Repeatable)
+                    if (_actionQueue.Count > 0)
                     {
-                        _goals.Remove(_currentGoal);
-                    }
-                    _actionQueue = null;
-                }
-            }
-            if (_actionQueue == null)
-            {
-                var sortedGoals = from entry in _goals orderby entry.Value descending select entry;
-                foreach (KeyValuePair<GoalHolder, int> sg in sortedGoals)
-                {
-                    _actionQueue = GameManager.StaticInstance.TaskManager.GetPlan(_actions, _pawn.StateHolder.States, sg.Key.RequiredStates);
-                    if (_actionQueue != null)
-                    {
-                        _currentGoal = sg.Key;
-                        string planText = $"Plan for [{_currentGoal.Config.DisplayName}] is:";
-                        foreach (ActionBase a in _actionQueue)
-                        {
-                            planText += $" {a.Config.DisplayName}, ";
-                        }
-                        planText += "END";
                         _currentAction = _actionQueue.Dequeue();
                         if (_currentAction.CanStart())
                         {
-                            Debug.Log(planText);
                             _currentAction.OnStart();
-                            return;
                         }
                         else
                         {
-                            _actionQueue = null;
+                            ResetPlan();
                         }
                     }
+                    else if (_currentGoal != null)
+                    {
+                        if (!_currentGoal.Config.Repeatable)
+                        {
+                            _goals.Remove(_currentGoal);
+                        }
+                        ResetPlan();
+                    }
+                    yield return delay;
                 }
+                while (_actionQueue == null)
+                {
+                    foreach (KeyValuePair<GoalHolder, int> goal in _goals)
+                    {
+                        _actionQueue = TaskManager.GetPlan(_actions, _pawn.StateHolder, goal.Key.RequiredStates);
+                        if (_actionQueue != null)
+                        {
+                            _currentGoal = goal.Key;
+                            string planText = $"Plan for [{_currentGoal.Config.DisplayName}] is:";
+                            foreach (ActionBase a in _actionQueue)
+                            {
+                                planText += $" {a.Config.DisplayName}, ";
+                            }
+                            planText += "END";
+                            _currentAction = _actionQueue.Dequeue();
+                            if (_currentAction.CanStart())
+                            {
+                                Debug.Log(planText);
+                                _currentAction.OnStart();
+                                break;
+                            }
+                            else
+                            {
+                                ResetPlan();
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log($"No plan for {goal.Key.Config.DisplayName}");
+                            ResetPlan();
+                        }
+                        yield return delay;
+                    }
+                }
+                yield return null;
             }
+        }
+
+        private void ResetPlan()
+        {
+            _currentAction = null;
+            _currentGoal = null;
+            _actionQueue = null;
         }
     }
 }

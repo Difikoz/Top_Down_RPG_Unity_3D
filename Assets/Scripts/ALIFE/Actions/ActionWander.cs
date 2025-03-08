@@ -10,6 +10,7 @@ namespace WinterUniverse
         public override void OnStart()
         {
             base.OnStart();
+            _npc.Pawn.Locomotion.SetFollowDistance();
             _npc.Pawn.Locomotion.SetDestinationAroundSelf(_minRadius, _maxRadius);
         }
     }

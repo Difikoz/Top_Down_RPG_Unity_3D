@@ -14,6 +14,8 @@ namespace WinterUniverse
         [SerializeField] private bool _completeOnReachedDestination;
         [SerializeField] private bool _completeOnTimerEnd;
         [SerializeField] private float _timerDuration = 2f;
+        [SerializeField] private bool _stopMovementOnAbort;
+        [SerializeField] private bool _stopMovementOnComplete;
         [SerializeField] private List<StateCreator> _results = new();
         [SerializeField] private List<StateCreator> _conditionsToStart = new();
         [SerializeField] private List<StateCreator> _conditionsToAbort = new();
@@ -30,6 +32,8 @@ namespace WinterUniverse
         public bool CompleteOnReachedDestination => _completeOnReachedDestination;
         public bool CompleteOnTimerEnd => _completeOnTimerEnd;
         public float TimerDuration => _timerDuration;
+        public bool StopMovementOnAbort => _stopMovementOnAbort;
+        public bool StopMovementOnComplete => _stopMovementOnComplete;
         public List<StateCreator> Results => _results;
         public List<StateCreator> ConditionsToStart => _conditionsToStart;
         public List<StateCreator> ConditionsToAbort => _conditionsToAbort;

@@ -16,4 +16,4 @@ MonoBehaviour:
   _repeatable: 1
   _requiredStates:
   - _config: {fileID: 11400000, guid: 62055bb6bb8a96f4483180d60cc2d922, type: 2}
-    _value: 0
+    _value: 1

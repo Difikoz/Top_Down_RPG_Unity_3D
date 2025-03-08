@@ -5,17 +5,18 @@ namespace WinterUniverse
     public class GoalHolder
     {
         private GoalConfig _config;
-        private Dictionary<string, bool> _requiredStates = new();
+        private StateHolder _requiredStates;
 
         public GoalConfig Config => _config;
-        public Dictionary<string, bool> RequiredStates => _requiredStates;
+        public StateHolder RequiredStates => _requiredStates;
 
         public GoalHolder(GoalConfig config)
         {
             _config = config;
+            _requiredStates = new();
             foreach (StateCreator creator in _config.RequiredStates)
             {
-                _requiredStates.Add(creator.Config.ID, creator.Value);
+                _requiredStates.SetState(creator.Config.ID, creator.Value);
             }
         }
     }

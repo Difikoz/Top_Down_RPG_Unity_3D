@@ -6,7 +6,7 @@ namespace WinterUniverse
     public class PawnController : MonoBehaviour
     {
         private bool _created;
-        private PawnConfig _config;
+        private PawnData _data;
         private PawnAnimator _animator;
         private PawnCombat _combat;
         private PawnDetection _detection;
@@ -18,10 +18,9 @@ namespace WinterUniverse
         private PawnEffects _effects;
         //
         private StateHolder _stateHolder;
-        [SerializeField] private StateHolderConfig _stateCreatorHolder;
 
         public bool Created => _created;
-        public PawnConfig Config => _config;
+        public PawnData Data => _data;
         public PawnAnimator Animator => _animator;
         public PawnCombat Combat => _combat;
         public PawnDetection Detection => _detection;
@@ -34,11 +33,11 @@ namespace WinterUniverse
         //
         public StateHolder StateHolder => _stateHolder;
 
-        public void Initialize(PawnConfig config)
+        public void Initialize(PawnData data)
         {
             ResetComponent();
-            _config = config;
-            LeanPool.Spawn(_config.Model, transform);
+            _data = data;
+            LeanPool.Spawn(GameManager.StaticInstance.ConfigsManager.GetVisual(_data.Visual).Model, transform);
             GetComponents();
             InitializeComponents();
         }
@@ -77,7 +76,7 @@ namespace WinterUniverse
             {
                 _stateHolder.SetState(config.ID, false);
             }
-            foreach (StateCreator creator in _stateCreatorHolder.StatesToChange)
+            foreach (StateCreator creator in GameManager.StaticInstance.ConfigsManager.GetStateHolder(_data.StateHolder).StatesToChange)
             {
                 _stateHolder.SetState(creator.Config.ID, creator.Value);
             }

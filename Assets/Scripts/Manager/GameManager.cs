@@ -13,7 +13,6 @@ namespace WinterUniverse
         private LayerManager _layerManager;
         private PrefabsManager _prefabsManager;
         private SpawnersManager _spawnersManager;
-        private TaskManager _taskManager;
         private WorldManager _worldManager;
         private UIManager _uiManager;
 
@@ -26,7 +25,6 @@ namespace WinterUniverse
         public LayerManager LayerManager => _layerManager;
         public PrefabsManager PrefabsManager => _prefabsManager;
         public SpawnersManager SpawnersManager => _spawnersManager;
-        public TaskManager TaskManager => _taskManager;
         public WorldManager WorldManager => _worldManager;
         public UIManager UIManager => _uiManager;
 
@@ -55,7 +53,6 @@ namespace WinterUniverse
             _layerManager = GetComponentInChildren<LayerManager>();
             _prefabsManager = GetComponentInChildren<PrefabsManager>();
             _spawnersManager = GetComponentInChildren<SpawnersManager>();
-            _taskManager = GetComponentInChildren<TaskManager>();
             _worldManager = GetComponentInChildren<WorldManager>();
             _uiManager = GetComponentInChildren<UIManager>();
         }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Inspect Inventory
   _cost: 1
-  _playAnimationOnStart: 1
+  _playAnimationOnStart: 0
   _animationOnStart: Inspect
   _completeOnAnimationEnd: 0
   _completeOnReachedDestination: 0

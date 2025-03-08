@@ -1,4 +1,3 @@
-using log4net;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -16,9 +15,9 @@ namespace WinterUniverse
             if (pawn.Created)
             {
                 GUILayout.Label("===== Basic Info =====");
-                if (pawn.Config != null)
+                if (pawn.Data != null)
                 {
-                    GUILayout.Label($"Name => {pawn.Config.DisplayName}");
+                    GUILayout.Label($"Name => {pawn.Data.DisplayName}");
                 }
                 GUILayout.Label("===== Status =====");
                 if (pawn.Status != null)

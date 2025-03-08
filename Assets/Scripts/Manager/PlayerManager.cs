@@ -5,7 +5,8 @@ namespace WinterUniverse
 {
     public class PlayerManager : MonoBehaviour
     {
-        [SerializeField] private PawnConfig _config;
+        [SerializeField] private PawnData _testPawnData;
+        [SerializeField] private PlayerData _testPlayerData;
 
         private PawnController _pawn;
         private Vector2 _cursorLocalPosition;
@@ -94,16 +95,21 @@ namespace WinterUniverse
             _pawn.Combat.SetTarget(null);
         }
 
-        public void Initialize(PawnConfig config)
-        {
-            _config = config;
-            Initialize();
-        }
-
         public void Initialize()
         {
-            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(Vector3.zero, Quaternion.identity);// get transform from save data
-            _pawn.Initialize(_config);
+            Initialize(_testPawnData, _testPlayerData);
+        }
+
+        public void Initialize(PawnData pawnData, PlayerData playerData)
+        {
+            InitializePawn(pawnData);
+            LoadData(playerData);
+        }
+
+        public void InitializePawn(PawnData data)
+        {
+            _pawn = GameManager.StaticInstance.PrefabsManager.GetPawn(transform);
+            _pawn.Initialize(data);
         }
 
         public void ResetComponent()
@@ -115,7 +121,44 @@ namespace WinterUniverse
         {
             _cameraRay = Camera.main.ScreenPointToRay(_cursorLocalPosition);
             _pawn.OnUpdate();
-            //transform.SetPositionAndRotation(_pawn.transform.position, _pawn.transform.rotation);
+        }
+
+        public void SaveData(ref PlayerData data)
+        {
+            data.Weapon = _pawn.Equipment.WeaponSlot.Config != null ? _pawn.Equipment.WeaponSlot.Config.DisplayName : "Empty";
+            data.Armors = new();
+            foreach (ArmorSlot slot in _pawn.Equipment.ArmorSlots)
+            {
+                if (slot.Config != null)
+                {
+                    data.Armors.Add(slot.Config.DisplayName);
+                }
+            }
+            data.Stacks = new();
+            foreach (ItemStack stack in _pawn.Inventory.Stacks)
+            {
+                if (data.Stacks.ContainsKey(stack.Item.DisplayName))
+                {
+                    data.Stacks[stack.Item.DisplayName] += stack.Amount;
+                }
+                else
+                {
+                    data.Stacks.Add(stack.Item.DisplayName, stack.Amount);
+                }
+            }
+            data.Transform.SetPositionAndRotation(_pawn.transform.position, _pawn.transform.eulerAngles);
+
+        }
+
+        public void LoadData(PlayerData data)
+        {
+            _pawn.transform.SetPositionAndRotation(data.Transform.GetPosition(), data.Transform.GetRotation());
+            _pawn.Inventory.Initialize(data.Stacks);
+            _pawn.Equipment.EquipWeapon(GameManager.StaticInstance.ConfigsManager.GetWeapon(data.Weapon), false, false);
+            foreach (string armor in data.Armors)
+            {
+                _pawn.Equipment.EquipArmor(GameManager.StaticInstance.ConfigsManager.GetArmor(armor), false, false);
+            }
         }
     }
 }

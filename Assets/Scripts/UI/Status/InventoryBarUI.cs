@@ -46,7 +46,7 @@ namespace WinterUniverse
             _weaponSlot.Initialize(GameManager.StaticInstance.PlayerManager.Pawn.Equipment.GetWeaponInSlot());
             foreach (ArmorSlotUI slot in _armorSlots)
             {
-                slot.Initialize(GameManager.StaticInstance.PlayerManager.Pawn.Equipment.GetArmorInSlot(slot.Type));
+                slot.Initialize(GameManager.StaticInstance.PlayerManager.Pawn.Equipment.GetArmorInSlot(slot.Type.DisplayName));
             }
         }
 
